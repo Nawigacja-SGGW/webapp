@@ -1,3 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
 :root {
-  --color-primary: #003228;
+  --green: rgb(110, 200, 80);
+  --light-green: rgb(200, 240, 180);
+  --yellow: rgb(240,220,140);
+  --light-blue: rgb(190, 220, 240);
+  --white: rgb(255, 255, 255);
+  --dark-green: rgb(0, 50, 40);
+  --red: rgb(240, 30, 50);
+  --purple: rgb(100, 0, 70);
+  --blue: rgb(80, 120, 150);
+  --black: rgb(0, 0, 0);
+
+  --input-border-radius: 8px;
+  --input-border-width: 2px;
+  --button-border-radius: 8px;
+  --section-border-radius: 15px;
+
+  --main-font: 'Inter', sans-serif;
+  --font-color: rgb(0,0,0);
+  --header-font-size: 40px;
+  --menu-font-size: 32px;
+  --main-font-size: 16px;
+  --forms-label-font-size: 15px;
+  --normal-font-weight: 400;
+  --bold-font-weight: 700;
 }
