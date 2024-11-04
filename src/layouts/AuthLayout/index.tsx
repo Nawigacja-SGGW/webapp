@@ -4,7 +4,7 @@ import '../index.scss';
 
 export const AuthLayout = () => {
   return (
-    <div className="container">
+    <div>
       <Sidebar />
       <Outlet />
     </div>
