@@ -26,7 +26,7 @@ function App() {
         // TODO: Add a route for specific object like /object/id
         {
           path: '/home/objects',
-          element: <div>Home page</div>,
+          element: <h1>Objects</h1>,
         },
       ],
     },
