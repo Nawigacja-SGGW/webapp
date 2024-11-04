@@ -1,23 +1,14 @@
 import L from 'leaflet';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import { MapContainer, TileLayer } from 'react-leaflet';
 import { useMapEvents } from 'react-leaflet';
+import CustomMarker from './CustomMarker';
 import './leaflet.css';
 import './Map.scss';
 
-const markerIcon = new L.Icon({
-  iconUrl: '../../../public/marker-icon.png',
-  iconRetinaUrl: '../../../public/marker-icon-2x.png',
-  shadowUrl: '../../../public/marker-shadow.png',
-  iconSize: [25, 41],
-  iconAnchor: [12, 41],
-  popupAnchor: [1, -24],
-  shadowSize: [41, 41],
-});
-
 function OnMapClick() {
   useMapEvents({
-    click: (coords) => {
-      console.log(coords.latlng);
+    click: (event) => {
+      console.log(event.latlng);
     },
   });
 
@@ -45,9 +36,7 @@ export const Map = () => {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         />
 
-        <Marker position={wzimCoords} icon={markerIcon}>
-          <Popup>WZIM</Popup>
-        </Marker>
+        <CustomMarker position={wzimCoords} text={'WZIM'} />
 
         <OnMapClick />
       </MapContainer>
