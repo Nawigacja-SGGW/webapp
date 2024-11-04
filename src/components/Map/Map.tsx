@@ -1,5 +1,6 @@
 import L from 'leaflet';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import { useMapEvents } from 'react-leaflet';
 import './leaflet.css';
 import './Map.scss';
 
@@ -12,6 +13,16 @@ const markerIcon = new L.Icon({
   popupAnchor: [1, -24],
   shadowSize: [41, 41],
 });
+
+function OnMapClick() {
+  useMapEvents({
+    click: (coords) => {
+      console.log(coords.latlng);
+    },
+  });
+
+  return null;
+}
 
 export const Map = () => {
   const sw = L.latLng(52.15656, 21.03624);
@@ -37,6 +48,8 @@ export const Map = () => {
         <Marker position={wzimCoords} icon={markerIcon}>
           <Popup>WZIM</Popup>
         </Marker>
+
+        <OnMapClick />
       </MapContainer>
     </div>
   );
