@@ -1,10 +1,13 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import {useTranslation} from "react-i18next";
 
 function App() {
+    const { t } = useTranslation();
+
     const router = createBrowserRouter([
         {
             path: '/',
-            element: <div>Home page/Map page</div>,
+            element: <div>{t("exampleTranslationForHomePage")}</div>,
         },
         {
             path: '/auth',
