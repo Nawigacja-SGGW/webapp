@@ -6,3 +6,7 @@
   box-sizing: border-box;
   font-family: var(--main-font);
 }
+
+.container {
+  display: flex;
+}
