@@ -1,9 +1,11 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { AuthLayout } from './layouts/AuthLayout';
+import { useTranslation } from 'react-i18next';
 import { ObjectsOverviewPage } from './pages/ObjectsOverview/ObjectsOverviewPage.tsx';
 import { ErrorPage } from './pages/ErrorPage/ErrorPage.tsx';
 
 function App() {
+  const { t } = useTranslation();
   const router = createBrowserRouter([
     {
       path: '/',
@@ -19,7 +21,7 @@ function App() {
       children: [
         {
           path: '/home/settings',
-          element: <div>Settings page</div>,
+          element: <div>{t('exampleTranslation')}</div>,
         },
         {
           path: '/home/profile',
