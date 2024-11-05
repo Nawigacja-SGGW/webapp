@@ -12,6 +12,7 @@
     "title": "Lista obiektów"
   },
   "settingsPage": {
-    "header": "Ustawienia"
+    "header": "Ustawienia",
+    "yourData": "Twoje dane"
   }
 }

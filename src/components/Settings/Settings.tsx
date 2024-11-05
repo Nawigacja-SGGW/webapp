@@ -7,7 +7,14 @@ export const Settings = () => {
   return (
     <div className="settings">
       <h1>{t('settingsPage.header')}</h1>
-      <div>{t('exampleTranslation')}</div>
+      <br />
+      <h3>{t('settingsPage.yourData')}</h3>
+      <br />
+      <p>E-mail</p>
+      <p>sXXXXXX@sggw.edu.pl</p>
+      <br />
+      <p>Username</p>
+      <p>XXXXXXXX</p>
     </div>
   );
 };
