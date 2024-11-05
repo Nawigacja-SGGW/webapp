@@ -1,6 +1,8 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { AuthLayout } from './layouts/AuthLayout';
 import { useTranslation } from 'react-i18next';
+import { ObjectsOverviewPage } from './pages/ObjectsOverview/ObjectsOverviewPage.tsx';
+import { ErrorPage } from './pages/ErrorPage/ErrorPage.tsx';
 
 function App() {
   const { t } = useTranslation();
@@ -28,13 +30,13 @@ function App() {
         // TODO: Add a route for specific object like /object/id
         {
           path: '/home/objects',
-          element: <h1>Objects</h1>,
+          element: <ObjectsOverviewPage />,
         },
       ],
     },
     {
       path: '*',
-      element: <div>Redirect do home page?</div>,
+      element: <ErrorPage />,
     },
   ]);
   return <RouterProvider router={router} />;
