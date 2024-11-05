@@ -3,6 +3,7 @@ import { AuthLayout } from './layouts/AuthLayout';
 import { useTranslation } from 'react-i18next';
 import { ObjectsOverviewPage } from './pages/ObjectsOverview/ObjectsOverviewPage.tsx';
 import { ErrorPage } from './pages/ErrorPage/ErrorPage.tsx';
+import Map from './components/Map/Map';
 
 function App() {
   const { t } = useTranslation();
@@ -21,7 +22,7 @@ function App() {
       children: [
         {
           path: '/home/map',
-          element: <div>Map component</div>,
+          element: <Map />,
         },
         {
           path: '/home/settings',
