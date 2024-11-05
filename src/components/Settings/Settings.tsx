@@ -6,7 +6,7 @@ export const Settings = () => {
 
   return (
     <div>
-      <h1>Settings</h1>
+      <h1>{t('settingsPage.header')}</h1>
       <div>{t('exampleTranslation')}</div>
     </div>
   );

@@ -10,5 +10,8 @@
   },
   "objectsOverviewPage": {
     "title": "Lista obiektów"
+  },
+  "settingsPage": {
+    "header": "Ustawienia"
   }
 }
