@@ -9,7 +9,7 @@ function App() {
   const router = createBrowserRouter([
     {
       path: '/',
-      element: <div>Home page/Map page</div>,
+      element: <div>Init page, check auth and redirect</div>,
     },
     {
       path: '/auth',
@@ -20,12 +20,16 @@ function App() {
       element: <AuthLayout />,
       children: [
         {
+          path: '/home/map',
+          element: <div>Map component</div>,
+        },
+        {
           path: '/home/settings',
           element: <div>{t('exampleTranslation')}</div>,
         },
         {
           path: '/home/profile',
-          element: <div>Profile page</div>,
+          element: <div>Profile component</div>,
         },
         // TODO: Add a route for specific object like /object/id
         {
