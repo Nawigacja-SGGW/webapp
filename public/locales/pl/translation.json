@@ -9,6 +9,8 @@
     "button.label": "Strona główna"
   },
   "objectsOverviewPage": {
-    "title": "Lista obiektów"
+    "title": "Lista obiektów",
+    "button.navigate": "Szczegóły",
+    "search.placeholder": "Wyszukaj obiekty"
   }
 }

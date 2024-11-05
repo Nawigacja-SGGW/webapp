@@ -9,6 +9,8 @@
     "button.label": "Home page"
   },
   "objectsOverviewPage": {
-    "title": "Objects list"
+    "title": "Objects list",
+    "button.navigate": "Details",
+    "search.placeholder": "Search objects"
   }
 }
