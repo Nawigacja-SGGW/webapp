@@ -27,6 +27,7 @@
   --normal-font-weight: 400;
   --bold-font-weight: 700;
 
+  //button
   --button-small-min-width: 110px;
   --button-medium-min-width: 130px;
   --button-large-min-width: 150px;
@@ -48,10 +49,22 @@
   --button-background__secondary: var(--white);
   --button-color-font__secondary: var(--dark-green);
 
+  //object item
+
+  --object-wrapper-height: 520px;
+  --object-wrapper-image-size: 200px;
+  --object-wrapper-footer-height: 60px;
+  --object-wrapper-name-height: 100px;
+  --object-wrapper-description-height: 70px;
+  --object-wrapper-max-width: 320px;
+
   //  spacing
   --spacing-xs: 5px;
   --spacing-s: 10px;
   --spacing-m: 20px;
   --spacing-l: 30px;
   --spacing-xl: 40px;
+
+  //  card
+  --card-border-radius: 8px;
 }

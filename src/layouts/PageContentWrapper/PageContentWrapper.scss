@@ -3,4 +3,9 @@
   padding: var(--spacing-l);
   overflow: hidden;
   height: 100vh;
+  flex-grow: 1;
+
+  &.no-horizontal-padding {
+    padding: var(--spacing-l) 0;
+  }
 }
