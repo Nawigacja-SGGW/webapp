@@ -1,0 +1,24 @@
+.object-wrapper {
+  display: flex;
+  flex-direction: column;
+  padding: var(--spacing-s);
+  gap: var(--spacing-m);
+  border-radius: 8px;
+  border: 1px solid var(--dark-green);
+  height: 480px;
+
+  .image {
+    height: 200px;
+    width: 200px;
+  }
+
+  .name {
+    font-size: var(--header-font-size);
+    font-weight: var(--bold-font-weight);
+  }
+
+  .description {
+    font-size: var(--main-font-size);
+    text-align: justify;
+  }
+}

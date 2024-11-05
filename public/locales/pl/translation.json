@@ -2,5 +2,13 @@
   "exampleTranslation": "Przykład translacji",
   "exampleTranslationStructure": {
     "example": "Przykład"
+  },
+  "errorPage": {
+    "header": "O nie!",
+    "subheader": "Nie odnaleziono strony (kod błędu: 404)",
+    "button.label": "Strona główna"
+  },
+  "objectsOverviewPage": {
+    "title": "Lista obiektów"
   }
 }

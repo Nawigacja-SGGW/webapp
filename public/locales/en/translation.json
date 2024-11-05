@@ -2,5 +2,13 @@
   "exampleTranslation": "Translation example",
   "exampleTranslationStructure": {
     "example": "Example"
+  },
+  "errorPage": {
+    "header": "Aww snap!",
+    "subheader": "Page not found (error 404)",
+    "button.label": "Home page"
+  },
+  "objectsOverviewPage": {
+    "title": "Objects list"
   }
 }
