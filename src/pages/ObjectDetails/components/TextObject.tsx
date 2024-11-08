@@ -1,6 +1,6 @@
 import './TextObject.scss';
 
-export type ObjectProps = {
+export type TextObjectProps = {
   title: string;
   link: string;
   address: string;
@@ -9,14 +9,14 @@ export type ObjectProps = {
   description: string;
 };
 
-export const TextObject: React.FC<ObjectProps> = ({
+export const TextObject = ({
   title,
   link,
   address,
   city,
   buildingInfo,
   description,
-}) => {
+}: TextObjectProps) => {
   return (
     <div className="content">
       <h3>

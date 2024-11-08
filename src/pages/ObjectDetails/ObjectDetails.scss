@@ -1,6 +1,6 @@
 .image {
   height: 40vh;
-  background-color: grey;
+  background-color: var(--light-blue);
 }
 .details {
   height: 60vh;
@@ -17,7 +17,7 @@
 }
 
 .map {
-  height: 70%;
-  width: 70%;
-  background-color: rgb(247, 129, 129);
+  height: 350px;
+  width: 550px;
+  background-color: var(--purple);
 }
