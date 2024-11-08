@@ -1,0 +1,33 @@
+.content {
+  padding: 20px 100px;
+}
+
+.content a {
+  color: var(--black);
+  text-decoration: none;
+}
+
+h2 {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.address {
+  font-size: 0.9em;
+  padding: 15px 0px;
+}
+
+.address span {
+  display: block;
+  padding: 2px 0px;
+}
+
+hr {
+  border-top: 1px solid var(--black);
+  margin: 10px 0 20px;
+}
+
+.description {
+  font-size: 0.9em;
+  line-height: 1.6;
+}
