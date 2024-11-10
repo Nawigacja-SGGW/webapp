@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { ObjectsOverviewPage } from './pages/ObjectsOverview/ObjectsOverviewPage.tsx';
 import { ErrorPage } from './pages/ErrorPage/ErrorPage.tsx';
 import Map from './components/Map/Map';
+import { ObjectDetails } from './pages/ObjectDetails/ObjectDetails.tsx';
 
 function App() {
   const { t } = useTranslation();
@@ -36,6 +37,10 @@ function App() {
         {
           path: '/home/objects',
           element: <ObjectsOverviewPage />,
+        },
+        {
+          path: '/home/objects/:id',
+          element: <ObjectDetails />,
         },
       ],
     },
