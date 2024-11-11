@@ -12,10 +12,10 @@ export const ObjectsOverviewPage = () => {
   const { t } = useTranslation();
 
   const [places, setPlaces] = useState<Place[]>(demo_places);
-  const inputRef = useRef(null);
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
   const handleFilterPlaces = (e: ChangeEvent<HTMLInputElement>) => {
-    if (inputRef.current.value === '') {
+    if (inputRef.current && (inputRef.current as HTMLInputElement).value === '') {
       setPlaces(demo_places);
     } else {
       const filteredPlaces = demo_places.filter((place) =>
@@ -42,8 +42,9 @@ export const ObjectsOverviewPage = () => {
         />
       </div>
       <section className="objects-list">
-        {places.map((place: Place) => (
+        {places.map((place: Place, idx) => (
           <Object
+            key={idx}
             imageUrl={place.imageUrl}
             name={place.name}
             description={place.description}

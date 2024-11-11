@@ -2,13 +2,14 @@ import './Object.scss';
 import { Button } from '../../../../components/ui/Button/Button.tsx';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { ReactNode, useCallback, Key } from 'react';
+import { ReactNode, useCallback } from 'react';
 
 export type ObjectProps = {
   imageUrl: string;
   name: string;
   description: string;
   addressId: number;
+  key: number;
 };
 
 export const Object = ({ imageUrl, name, description, addressId, key }: ObjectProps): ReactNode => {
