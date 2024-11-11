@@ -5,6 +5,11 @@ import { ObjectsOverviewPage } from './pages/ObjectsOverview/ObjectsOverviewPage
 import { ErrorPage } from './pages/ErrorPage/ErrorPage.tsx';
 import Map from './components/Map/Map';
 import { ObjectDetails } from './pages/ObjectDetails/ObjectDetails.tsx';
+import { AuthorizationLayout } from './layouts/AuthorizationLayout/AuthorizationLayout.tsx';
+import { LoginPage } from './layouts/LoginPage/LoginPage.tsx';
+import { RegisterPage } from './layouts/RegisterPage/RegisterPage.tsx';
+import { ForgotPasswordPage } from './layouts/ForgotPasswordPage/ForgotPasswordPage.tsx';
+import { ChangePasswordPage } from './layouts/ChangePasswordPage/ChangePasswordPage.tsx';
 
 function App() {
   const { t } = useTranslation();
@@ -15,7 +20,13 @@ function App() {
     },
     {
       path: '/auth',
-      element: <div>Auth page</div>,
+      element: <AuthorizationLayout />,
+      children: [
+        { path: 'login', element: <LoginPage /> },
+        { path: 'register', element: <RegisterPage /> },
+        { path: 'forgot-password', element: <ForgotPasswordPage /> },
+        { path: 'change-password', element: <ChangePasswordPage /> },
+      ],
     },
     {
       path: '/home',

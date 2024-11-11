@@ -1,0 +1,13 @@
+.form-layout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__title {
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+  }
+}
