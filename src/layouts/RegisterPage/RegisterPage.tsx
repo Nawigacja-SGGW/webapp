@@ -51,14 +51,18 @@ export const RegisterPage = () => {
 
   return (
     <FormLayout title="Create account">
-      <Input placeholder="E-mail" ref={emailInput} />
-      <Input placeholder="Username" ref={usernameInput} />
-      <Input placeholder="Password" type="password" ref={passwordInput} />
-      <Input placeholder="Confirm password" type="password" ref={confirmPasswordInput} />
+      <p className="input-label">E-mail</p>
+      <Input placeholder="sXXXXXX@sggw.edu.pl" ref={emailInput} />
+      <p className="input-label">Username</p>
+      <Input placeholder="xxxxx" ref={usernameInput} />
+      <p className="input-label">Password</p>
+      <Input placeholder="••••••••" type="password" ref={passwordInput} />
+      <p className="input-label">Confirm password</p>
+      <Input placeholder="••••••••" type="password" ref={confirmPasswordInput} />
 
       {error && <span>{error}</span>}
 
-      <Button label="Sign up" onClick={signUp} />
+      <Button className="green-button" label="Sign up" onClick={signUp} />
     </FormLayout>
   );
 };

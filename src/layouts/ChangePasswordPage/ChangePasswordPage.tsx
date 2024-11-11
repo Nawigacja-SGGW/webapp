@@ -23,10 +23,12 @@ export const ChangePasswordPage = () => {
 
   return (
     <FormLayout title="Change your password">
-      <Input placeholder="New password" type="password" ref={newPassword} />
-      <Input placeholder="Repeat new password" type="password" ref={repeatedPassword} />
+      <p className="input-label">New password</p>
+      <Input placeholder="••••••••" type="password" ref={newPassword} />
+      <p className="input-label">Repeat new password</p>
+      <Input placeholder="••••••••" type="password" ref={repeatedPassword} />
       {message && <span>{message}</span>}
-      <Button label="Change password" onClick={changePassword} />
+      <Button className="green-button" label="Change password" onClick={changePassword} />
     </FormLayout>
   );
 };

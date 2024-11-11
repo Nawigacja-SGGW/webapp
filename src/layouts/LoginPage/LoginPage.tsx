@@ -21,12 +21,17 @@ export const LoginPage = () => {
 
   return (
     <FormLayout title="Login">
-      <Input placeholder="Username or email" ref={usernameInput} />
-      <Input placeholder="Password" ref={passwordInput} type="password" />
-      <p onClick={handleNavigateToForgotPassword}>Forgot password?</p>
-      <Button label="Sign in" onClick={signIn} />
-      <p>Don't have account yet?</p>
-      <Button label="Sign up" onClick={handleNavigateToRegisterPage} />
+      <p className="input-label">Username or email</p>
+      <Input placeholder="sXXXXXX@sggw.edu.pl" ref={usernameInput} />
+      <p className="input-label">Password</p>
+      <Input placeholder="••••••••" ref={passwordInput} type="password" />
+      <p onClick={handleNavigateToForgotPassword} className="forgot-password">
+        Forgot password?
+      </p>
+      <Button className="green-button" label="Sign in" onClick={signIn} />
+      <p className="dont-have-account-yet">Don't have account yet?</p>
+      <Button className="black-button" label="Sign up" onClick={handleNavigateToRegisterPage} />
+      <hr className="login-line"></hr>
     </FormLayout>
   );
 };

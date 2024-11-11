@@ -15,6 +15,7 @@
   }
 
   &__logos {
+    margin-top: 20px;
     display: flex;
     justify-content: center;
     gap: var(--spacing-l);
@@ -22,5 +23,13 @@
 
   &__divider {
     border-right: 1px solid var(--black);
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .authorization-layout {
+    &__logo {
+      display: none;
+    }
   }
 }

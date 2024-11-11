@@ -16,9 +16,10 @@ export const ForgotPasswordPage = () => {
 
   return (
     <FormLayout title="Change your password">
-      <Input placeholder="E-mail" ref={emailInput} />
+      <p className="input-label">E-mail</p>
+      <Input placeholder="sXXXXXX@sggw.edu.pl" ref={emailInput} />
       {message && <span>{message}</span>}
-      <Button label="Send e-mail" onClick={sendEmail} />
+      <Button className="green-button" label="Send e-mail" onClick={sendEmail} />
     </FormLayout>
   );
 };
