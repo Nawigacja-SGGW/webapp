@@ -58,6 +58,7 @@ jobs:
           - name: Download artifact
             uses: actions/download-artifact@v3
             with:
+              path: node-app
               name: node-app
 
           - name: Deploy
