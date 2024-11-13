@@ -1,8 +1,9 @@
 import { useParams } from 'react-router-dom';
 import { demo_places, Place } from '../../mocks/places.ts';
 import { useEffect, useState } from 'react';
-import './ObjectDetails.scss';
 import { TextObject } from './components/TextObject.tsx';
+
+import './ObjectDetails.scss';
 
 export const ObjectDetails = () => {
   const { id } = useParams();

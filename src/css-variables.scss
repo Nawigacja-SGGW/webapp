@@ -15,7 +15,7 @@
 
   --input-border-radius: 8px;
   --input-border-width: 2px;
-  --button-border-radius: 8px;
+  --button-border-radius: var(--input-border-radius);
   --section-border-radius: 15px;
 
   --main-font: 'Inter', sans-serif;
@@ -57,6 +57,8 @@
   --object-wrapper-name-height: 100px;
   --object-wrapper-description-height: 70px;
   --object-wrapper-max-width: 320px;
+
+  --search-places-margin: 60px;
 
   //  spacing
   --spacing-xs: 5px;
