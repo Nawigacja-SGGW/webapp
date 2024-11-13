@@ -1,15 +1,14 @@
-import Select from 'react-select';
+import { Dispatch, SetStateAction, useEffect, useReducer } from 'react';
+import Select from '../ui/Select/Select.tsx';
 import { ObjectData, SearchPlacesSelectOption } from '../../models';
 import axios from 'axios';
-import { Dispatch, SetStateAction, useEffect, useReducer } from 'react';
 import { mapObjectsDataToSelectOption } from '../../utils';
 import { Button } from '../ui/Button/Button.tsx';
 import './SearchPlaces.scss';
-import { DomUtil } from 'leaflet';
-import setPosition = DomUtil.setPosition;
 
 export const getObjectsList = async (): Promise<ObjectData[]> => {
-  return await axios.get('/objects').then((res) => res.data);
+  const { data } = await axios.get<ObjectData[], ObjectData[]>('/objects');
+  return data;
 };
 
 type SearchPlacesComponentState = {
@@ -18,12 +17,12 @@ type SearchPlacesComponentState = {
   allObjects: SearchPlacesSelectOption[];
 };
 
+export type SearchPlacesActionType = 'changeDestinationPoint' | 'changeStartPoint' | 'loadObjects';
+
 type SearchPlacesSelectAction = {
   type: SearchPlacesActionType;
   payload: SearchPlacesSelectOption | SearchPlacesSelectOption[] | null;
 };
-
-export type SearchPlacesActionType = 'changeDestinationPoint' | 'changeStartPoint' | 'loadObjects';
 
 interface SearchPlacesSelectProps {
   onSetPoints: Dispatch<
@@ -40,7 +39,7 @@ export const SearchPlaces = ({ onSetPoints }: SearchPlacesSelectProps) => {
       case 'changeDestinationPoint':
         return {
           ...state,
-          destinationPoint: action.payload,
+          destinationPoint: action.payload as SearchPlacesSelectOption | null,
           allObjects:
             action.payload !== null
               ? state.allObjects.filter(
@@ -50,11 +49,10 @@ export const SearchPlaces = ({ onSetPoints }: SearchPlacesSelectProps) => {
                 )
               : [...state.allObjects, state.destinationPoint],
         };
-
       case 'changeStartPoint':
         return {
           ...state,
-          startPoint: action.payload,
+          startPoint: action.payload as SearchPlacesSelectOption | null,
           allObjects:
             action.payload !== null
               ? state.allObjects.filter(
@@ -68,16 +66,24 @@ export const SearchPlaces = ({ onSetPoints }: SearchPlacesSelectProps) => {
       case 'loadObjects':
         return {
           ...state,
-          allObjects: action.payload,
+          allObjects: action.payload as SearchPlacesSelectOption[],
         };
+      default:
+        return state;
     }
   };
 
-  const [state, dispatch] = useReducer(reducer, {
+  const initialState: SearchPlacesComponentState = {
     startPoint: null,
     destinationPoint: null,
     allObjects: [],
-  });
+  };
+
+  const [state, dispatch] = useReducer(
+    reducer,
+    initialState as SearchPlacesComponentState,
+    () => initialState
+  );
 
   useEffect(() => {
     getObjectsList().then((data) => {
@@ -100,37 +106,42 @@ export const SearchPlaces = ({ onSetPoints }: SearchPlacesSelectProps) => {
 
   return (
     <div className="search-places__wrapper">
-      <Select
-        options={state.allObjects}
-        className="search-places__input"
-        isSearchable
-        isClearable
-        value={state.startPoint}
-        onChange={(e) =>
-          dispatch({
-            type: 'changeStartPoint',
-            payload: e,
-          })
-        }
-      />
-      <Select
-        options={state.allObjects}
-        className="search-places__input"
-        isSearchable
-        isClearable
-        value={state.destinationPoint}
-        onChange={(e) =>
-          dispatch({
-            type: 'changeDestinationPoint',
-            payload: e,
-          })
-        }
-      />
+      <div className="search-places-field__wrapper">
+        <Select
+          options={state.allObjects}
+          className="search-places__input"
+          placeholder="homePage.searchPlaces.startPoint.placeholder"
+          isSearchable
+          isClearable
+          value={state.startPoint}
+          onChange={(e) =>
+            dispatch({
+              type: 'changeStartPoint',
+              payload: e,
+            })
+          }
+        />
+      </div>
+      <div className="search-places-field__wrapper">
+        <Select
+          options={state.allObjects}
+          className="search-places__input"
+          placeholder="homePage.searchPlaces.destination.placeholder"
+          isSearchable
+          isClearable
+          value={state.destinationPoint}
+          onChange={(e) =>
+            dispatch({
+              type: 'changeDestinationPoint',
+              payload: e,
+            })
+          }
+        />
+      </div>
       <Button
         label="Search"
         primary
         onClick={() => {
-          console.log('setting points');
           onSetPoints({
             startPoint: state.startPoint.value,
             destinationPoint: state.destinationPoint.value,
