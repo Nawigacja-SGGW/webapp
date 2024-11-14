@@ -39,4 +39,30 @@ export const handlers = [
       },
     ]);
   }),
+  http.get('/objects/1', () => {
+    return HttpResponse.json<ObjectData>({
+      lat: '52.162',
+      lng: '21.046319957149112',
+      name: 'Budynek 34',
+      type: 'building',
+      description: 'dasdas das dasd adas dadas d adadasd asd ad asd asda dasd adad asd ada ',
+      imageUrl: 'https://example.com/statue_of_liberty.jpg',
+      website: 'example website building 34',
+      addressId: 1,
+      guideId: 1,
+    });
+  }),
+  http.get('/objects/2', () => {
+    return HttpResponse.json<ObjectData>({
+      lat: '52.1600272',
+      lng: '21.044767625367818',
+      name: 'Budynek 32',
+      type: 'building',
+      description: 'dasdas das dasd adas dadas d adadasd asd ad asd asda dasd adad asd ada ',
+      imageUrl: 'https://example.com/statue_of_liberty.jpg',
+      website: 'example website building 32',
+      addressId: 2,
+      guideId: 2,
+    });
+  }),
 ];
