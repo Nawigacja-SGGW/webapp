@@ -3,9 +3,9 @@
   display: flex;
   gap: var(--spacing-l);
   flex-direction: column;
-  position: fixed;
+  position: absolute;
   background-color: var(--white);
-  width: calc(100% - 415px);
+  width: 100%;
 }
 
 .objects-list {

@@ -12,8 +12,7 @@
 
   .object-wrapper-image {
     height: var(--object-wrapper-image-size);
-    max-width: var(--object-wrapper-image-size);
-    width: 100%;
+    min-width: var(--object-wrapper-image-size);
     background-color: #235d31;
     border-radius: var(--input-border-radius);
   }
@@ -44,5 +43,17 @@
   .actions {
     display: flex;
     justify-content: flex-end;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .object-wrapper {
+    padding: var(--spacing-m);
+
+    .object-wrapper-data {
+      .description {
+        display: none;
+      }
+    }
   }
 }
