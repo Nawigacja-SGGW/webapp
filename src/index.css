@@ -9,4 +9,5 @@
 
 .container {
   display: flex;
+  overflow: hidden;
 }

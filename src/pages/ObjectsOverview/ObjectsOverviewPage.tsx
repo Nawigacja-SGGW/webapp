@@ -11,7 +11,14 @@ import './ObjectsOverviewPage.scss';
 export const ObjectsOverviewPage = () => {
   const { t } = useTranslation();
 
-  const [places, setPlaces] = useState<Place[]>(demo_places);
+  const [places, setPlaces] = useState<Place[]>([]);
+
+  useEffect(() => {
+    fetch('/objects')
+      .then((data) => data.json())
+      .then((data) => setPlaces(data));
+  }, []);
+
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   const handleFilterPlaces = (e: ChangeEvent<HTMLInputElement>) => {
@@ -32,9 +39,8 @@ export const ObjectsOverviewPage = () => {
   }, [debounceFilterPlaces]);
 
   return (
-    <PageContentWrapper noHorizontalPadding>
+    <PageContentWrapper noHorizontalPadding noPadding>
       <div className="objects-overview-heading">
-        <h1>{t('objectsOverviewPage.title')}</h1>
         <Input
           placeholder={t('objectsOverviewPage.search.placeholder')}
           onChange={debounceFilterPlaces}
