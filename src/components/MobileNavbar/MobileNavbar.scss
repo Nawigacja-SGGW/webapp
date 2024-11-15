@@ -1,0 +1,21 @@
+.mobile-navbar {
+  background-color: var(--dark-green);
+  padding: 1rem;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  color: #fff;
+
+  button {
+    background-color: transparent;
+    border: none;
+  }
+}
+
+//todo spytaj o breakpoint
+@media screen and (min-width: 768px) {
+  .mobile-navbar {
+    display: none;
+  }
+}
