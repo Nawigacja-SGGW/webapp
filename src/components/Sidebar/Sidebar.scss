@@ -30,6 +30,11 @@
       input,
       label {
         cursor: pointer;
+
+        &.active {
+          font-weight: 600;
+          text-decoration: underline;
+        }
       }
     }
 
@@ -70,7 +75,7 @@
           display: none;
           text-decoration: none;
 
-          &--active {
+          &.active {
             text-decoration: underline;
             font-weight: 600;
           }
@@ -108,10 +113,6 @@
             font-size: 1rem;
             line-height: 1.5rem;
             font-weight: 400;
-
-            &:checked + label {
-              font-weight: 700;
-            }
           }
         }
 

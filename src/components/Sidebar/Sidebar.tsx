@@ -1,7 +1,7 @@
 import './Sidebar.scss';
 import React, { useEffect, useState } from 'react';
 import { clsx } from 'clsx';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Map, Buildings } from '@styled-icons/boxicons-solid';
 import { PersonFill } from '@styled-icons/bootstrap/PersonFill';
@@ -10,13 +10,13 @@ import { LogOut } from '@styled-icons/ionicons-outline/LogOut';
 import { ChevronDoubleLeft, ChevronDoubleRight } from '@styled-icons/fluentui-system-filled/';
 
 //todo add translations
-
 export type SidebarProps = {
   sidebarOpen: boolean;
   setSidebarOpen: (open: boolean) => void;
 };
 export const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
   const { t, i18n } = useTranslation();
+  const location = useLocation();
 
   const handleLanguageChange = (e) => {
     console.log('change');
@@ -31,23 +31,30 @@ export const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
     <div className={clsx('sidebar', sidebarOpen && 'sidebar--open')}>
       <div className="sidebar__container">
         <div className="sidebar__container__language-picker">
-          <label htmlFor="pl">PL</label>
+          <label className={clsx(i18n.language === 'pl' && 'active')} htmlFor="lang-pl">
+            PL
+          </label>
+          /
           <input
             type="radio"
-            id="pl"
+            id="lang-pl"
             name="language"
             value="pl"
-            onChange={handleLanguageChange}
             checked={i18n.language === 'pl'}
+            onChange={handleLanguageChange}
+            hidden
           />
-          /<label htmlFor="pl">EN</label>
+          <label className={clsx(i18n.language === 'en' && 'active')} htmlFor="lang-en">
+            EN
+          </label>
           <input
             type="radio"
-            id="en"
+            id="lang-en"
             name="language"
             value="en"
-            onChange={handleLanguageChange}
             checked={i18n.language === 'en'}
+            onChange={handleLanguageChange}
+            hidden
           />
         </div>
         <div className="sidebar__container__app-identity">
@@ -57,28 +64,56 @@ export const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
           </div>
         </div>
         <div className="sidebar__container__links">
-          <Link to="/home/map">
+          <Link to="/home/map" style={{ textDecoration: 'none' }}>
             <div className="sidebar__container__links__item">
               <Map size="40" fill="white" />
-              <div className="sidebar__container__links__item__text">Map</div>
+              <div
+                className={clsx(
+                  'sidebar__container__links__item__text',
+                  location.pathname.includes('/map') && 'active'
+                )}
+              >
+                Map
+              </div>
             </div>
           </Link>
-          <Link to="/home/objects">
+          <Link to="/home/objects" style={{ textDecoration: 'none' }}>
             <div className="sidebar__container__links__item">
               <Buildings size="40" fill="white" />
-              <div className="sidebar__container__links__item__text">Objects</div>
+              <div
+                className={clsx(
+                  'sidebar__container__links__item__text',
+                  location.pathname.includes('/objects') && 'active'
+                )}
+              >
+                Objects
+              </div>
             </div>
           </Link>
-          <Link to="/home/profile">
+          <Link to="/home/profile" style={{ textDecoration: 'none' }}>
             <div className="sidebar__container__links__item">
               <PersonFill size="40" fill="white" />
-              <div className="sidebar__container__links__item__text">Profile</div>
+              <div
+                className={clsx(
+                  'sidebar__container__links__item__text',
+                  location.pathname.includes('/profile') && 'active'
+                )}
+              >
+                Profile
+              </div>
             </div>
           </Link>
-          <Link to="/home/settings">
+          <Link to="/home/settings" style={{ textDecoration: 'none' }}>
             <div className="sidebar__container__links__item">
               <Settings size="40" fill="white" />
-              <div className="sidebar__container__links__item__text">Settings</div>
+              <div
+                className={clsx(
+                  'sidebar__container__links__item__text',
+                  location.pathname.includes('/settings') && 'active'
+                )}
+              >
+                Settings
+              </div>
             </div>
           </Link>
         </div>
