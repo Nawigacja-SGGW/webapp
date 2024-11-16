@@ -2,5 +2,19 @@
   "exampleTranslation": "Przykład translacji",
   "exampleTranslationStructure": {
     "example": "Przykład"
+  },
+  "errorPage": {
+    "header": "O nie!",
+    "subheader": "Nie odnaleziono strony (kod błędu: 404)",
+    "button.label": "Strona główna"
+  },
+  "objectsOverviewPage": {
+    "title": "Lista obiektów",
+    "button.navigate": "Szczegóły",
+    "search.placeholder": "Wyszukaj obiekty"
+  },
+  "homePage": {
+    "searchPlaces.startPoint.placeholder": "Twoja lokalizacja",
+    "searchPlaces.destination.placeholder": "Kierunek"
   }
 }

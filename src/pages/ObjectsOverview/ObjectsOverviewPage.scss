@@ -1,0 +1,14 @@
+.objects-overview-heading {
+  padding: var(--spacing-l);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.objects-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(var(--object-wrapper-max-width), 1fr));
+  gap: var(--spacing-l);
+  overflow-y: scroll;
+  padding: 100px var(--spacing-l);
+}

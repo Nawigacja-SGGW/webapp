@@ -1,0 +1,23 @@
+.image {
+  height: 40vh;
+  background-color: var(--light-blue);
+}
+.details {
+  height: 60vh;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.details > div {
+  flex: 1 1 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.map {
+  height: 350px;
+  width: 550px;
+  background-color: var(--purple);
+}
