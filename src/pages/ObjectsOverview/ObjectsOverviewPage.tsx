@@ -1,6 +1,6 @@
 import { PageContentWrapper } from '../../layouts/PageContentWrapper/PageContentWrapper.tsx';
 import { useTranslation } from 'react-i18next';
-import { demo_places, Place } from '../../mocks/places.ts';
+import { Place } from '../../mocks/places.ts';
 import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { Object } from './components/Object/Object.tsx';
 import { Input } from '../../components/ui/Input/Input.tsx';
@@ -11,30 +11,40 @@ import './ObjectsOverviewPage.scss';
 export const ObjectsOverviewPage = () => {
   const { t } = useTranslation();
 
-  const [places, setPlaces] = useState<Place[]>(demo_places);
+  const [places, setPlaces] = useState<Place[]>([]);
+  const [initialPlaces, setInitialPlaces] = useState<Place[]>([]);
+
   const inputRef = useRef<HTMLInputElement | null>(null);
+
+  useEffect(() => {
+    fetch('/objects')
+      .then((data) => data.json())
+      .then((data) => {
+        setPlaces(data);
+        setInitialPlaces(data);
+      });
+  }, []);
 
   const handleFilterPlaces = (e: ChangeEvent<HTMLInputElement>) => {
     if (inputRef.current && (inputRef.current as HTMLInputElement).value === '') {
-      setPlaces(demo_places);
+      setPlaces(initialPlaces);
     } else {
-      const filteredPlaces = demo_places.filter((place) =>
+      const filteredPlaces = initialPlaces.filter((place) =>
         place.name.toLowerCase().includes(e.target.value.toLowerCase())
       );
       setPlaces(filteredPlaces);
     }
   };
 
-  const debounceFilterPlaces = debounce(handleFilterPlaces, 500);
+  const debounceFilterPlaces = debounce(handleFilterPlaces, 200);
 
   useEffect(() => {
     return () => debounceFilterPlaces.cancel();
   }, [debounceFilterPlaces]);
 
   return (
-    <PageContentWrapper noHorizontalPadding>
+    <PageContentWrapper noHorizontalPadding noPadding>
       <div className="objects-overview-heading">
-        <h1>{t('objectsOverviewPage.title')}</h1>
         <Input
           placeholder={t('objectsOverviewPage.search.placeholder')}
           onChange={debounceFilterPlaces}

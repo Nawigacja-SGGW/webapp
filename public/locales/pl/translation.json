@@ -67,5 +67,11 @@
     "title": "Twój profil",
     "username": "Nazwa użytkownika",
     "e-mail": "E-mail"
+    "button.navigate": "Szczegóły",
+    "search.placeholder": "Wyszukaj obiekty"
+  },
+  "homePage": {
+    "searchPlaces.startPoint.placeholder": "Twoja lokalizacja",
+    "searchPlaces.destination.placeholder": "Kierunek"
   }
 }

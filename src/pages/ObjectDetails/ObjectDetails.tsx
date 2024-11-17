@@ -1,43 +1,70 @@
 import { useParams } from 'react-router-dom';
-import { demo_places, Place } from '../../mocks/places.ts';
+import { ObjectData } from '../../mocks/handlers.ts';
 import { useEffect, useState } from 'react';
-import './ObjectDetails.scss';
 import { TextObject } from './components/TextObject.tsx';
+import { MapContainer, TileLayer } from 'react-leaflet';
+import CustomMarker from '../../components/Map/CustomMarker.tsx';
+import L from 'leaflet';
+
+import './ObjectDetails.scss';
 
 export const ObjectDetails = () => {
   const { id } = useParams();
-  const [placeData, setPlaceData] = useState<Place>();
+  const [placeData, setPlaceData] = useState<ObjectData>();
+  const [coords, setCoords] = useState<L.LatLng>();
+
+  async function fetchLocation(): Promise<void> {
+    const response = await fetch(`/objects/${id}`);
+    const data: ObjectData = await response.json();
+
+    if (!Number.isFinite(Number(id)) || !data) {
+      console.log('Invalid param');
+    } else {
+      setPlaceData(data);
+      setCoords(L.latLng(parseFloat(data.lat), parseFloat(data.lng)));
+    }
+  }
 
   useEffect(() => {
-    if (
-      !Number.isFinite(Number(id)) ||
-      (Number.isFinite(Number(id)) &&
-        !demo_places.find((place) => place.addressId === parseInt(id!)))
-    ) {
-      console.log('invalid param');
-    } else {
-      setPlaceData(demo_places.find((place) => place.addressId === parseInt(id!)));
-    }
-  }, [placeData?.addressId, id]);
+    fetchLocation();
+  }, [id]);
+
+  const sw = L.latLng(52.15656, 21.03624);
+  const ne = L.latLng(52.1674, 21.05596);
 
   return (
-    <div>
+    <div className="main-container">
       <div className="image">
         <img src={placeData?.imageUrl} alt="" />
       </div>
       <div className="details">
         <div>
           <TextObject
-            title="Dziekanat Wydziału Zastosowań Informatyki i Matematyki"
-            link="https://student.wzim.sggw.pl/"
-            address="ul. Nowoursynowska 159"
-            city="02-776 Warszawa"
-            buildingInfo="Budynek 34, III piętro, pokój 3/35 i 3/36 B"
-            description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam bibendum leo quis lectus commodo, sit amet pellentesque leo scelerisque. Sed quis orci quis leo tempor finibus. Fusce fringilla, dui nec mollis faucibus, enim sapien gravida risus, eu tempor metus sapien ut nibh. Cras id nunc nec ligula tempor ultrices nec nec neque. Curabitur elit justo, ultrices sed orci sit amet, scelerisque maximus est. Nunc egestas metus libero, in accumsan diam bibendum a. Cras malesuada metus justo, in malesuada nulla faucibus eget. Nam iaculis mauris non nibh volutpat, sit amet molestie lorem condimentum. Duis egestas mauris ut scelerisque iaculis. Ut suscipit in risus at finibus. Etiam congue magna id lorem dignissim, at lobortis ante semper. Nunc lacinia ullamcorper libero eget euismod. Sed in lacus volutpat, ultrices lorem et, varius erat. Phasellus laoreet diam vitae ante pellentesque hendrerit."
+            title={placeData?.name || ''}
+            link={placeData?.website || ''}
+            address={placeData?.lat || ''}
+            city={placeData?.lng || ''}
+            buildingInfo={placeData?.type || ''}
+            description={placeData?.description || ''}
           />
         </div>
-        <div>
-          <div className="map"></div>
+        <div className="map">
+          {coords && (
+            <MapContainer
+              center={[coords.lat, coords.lng]}
+              maxBounds={L.latLngBounds(sw, ne)}
+              maxBoundsViscosity={1}
+              zoom={16}
+              minZoom={16}
+              maxZoom={18}
+            >
+              <TileLayer
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+              />
+              <CustomMarker position={coords} text={placeData?.name} />
+            </MapContainer>
+          )}
         </div>
       </div>
     </div>
