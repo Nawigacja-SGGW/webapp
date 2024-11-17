@@ -73,7 +73,7 @@ export const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                   location.pathname.includes('/map') && 'active'
                 )}
               >
-                Map
+                {t('sideBar.link.map')}
               </div>
             </div>
           </Link>
@@ -86,7 +86,7 @@ export const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                   location.pathname.includes('/objects') && 'active'
                 )}
               >
-                Objects
+                {t('sideBar.link.objects')}
               </div>
             </div>
           </Link>
@@ -99,7 +99,7 @@ export const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                   location.pathname.includes('/profile') && 'active'
                 )}
               >
-                Profile
+                {t('sideBar.link.profile')}
               </div>
             </div>
           </Link>
@@ -112,14 +112,14 @@ export const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                   location.pathname.includes('/settings') && 'active'
                 )}
               >
-                Settings
+                {t('sideBar.link.settings')}
               </div>
             </div>
           </Link>
         </div>
         <button className="sidebar__container__logout" onClick={handleLogout}>
           <LogOut size="40" fill="white" />
-          <div className="sidebar__container__logout__text">Log out</div>
+          <div className="sidebar__container__logout__text">{t('sideBar.button.logOut')}</div>
         </button>
       </div>
 

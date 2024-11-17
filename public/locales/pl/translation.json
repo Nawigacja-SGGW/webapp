@@ -56,7 +56,8 @@
   },
   "objectsOverviewPage": {
     "title": "Lista obiektów",
-    "search.placeholder": "Szukaj"
+    "search.placeholder": "Szukaj",
+    "button.navigate": "Szczegóły"
   },
   "settingsPage": {
     "title": "Twoje dane",
@@ -66,7 +67,7 @@
   "profilePage": {
     "title": "Twój profil",
     "username": "Nazwa użytkownika",
-    "e-mail": "E-mail"
+    "e-mail": "E-mail",
     "button.navigate": "Szczegóły",
     "search.placeholder": "Wyszukaj obiekty"
   },
