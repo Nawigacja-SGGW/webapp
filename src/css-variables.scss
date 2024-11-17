@@ -3,6 +3,7 @@
 :root {
   --green: rgb(110, 200, 80);
   --light-green: rgb(200, 240, 180);
+  --light-gray: #f9f9f9;
   --yellow: rgb(240, 220, 140);
   --light-blue: rgb(190, 220, 240);
   --white: rgb(255, 255, 255);
@@ -21,6 +22,7 @@
   --main-font: 'Inter', sans-serif;
   --font-color: rgb(0, 0, 0);
   --header-font-size: 40px;
+  --header-2-font-size: 24px;
   --menu-font-size: 32px;
   --menu-font-size-sm: 20px;
   --main-font-size: 16px;
@@ -52,12 +54,11 @@
 
   //object item
 
-  --object-wrapper-height: 520px;
-  --object-wrapper-image-size: 200px;
+  --object-wrapper-height: 180px;
+  --object-wrapper-image-size: 140px;
   --object-wrapper-footer-height: 60px;
   --object-wrapper-name-height: 100px;
   --object-wrapper-description-height: 70px;
-  --object-wrapper-max-width: 320px;
 
   --search-places-margin: 60px;
 

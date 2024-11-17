@@ -22,12 +22,14 @@ export const Object = ({ imageUrl, name, description, addressId, key }: ObjectPr
 
   return (
     <div className="object-wrapper" key={key}>
-      <div className="image">
-        <img src={imageUrl} alt="" />
-      </div>
-      <div className="details">
-        <div className="name">{name}</div>
-        <div className="description">{description}</div>
+      <div className="object-wrapper-details">
+        <div className="object-wrapper-image">
+          <img src={imageUrl} alt="" />
+        </div>
+        <div className="object-wrapper-data">
+          <div className="name">{name}</div>
+          <div className="description">{description}</div>
+        </div>
       </div>
       <div className="actions">
         <Button label={t('objectsOverviewPage.button.navigate')} onClick={handleNavigateToObject} />
