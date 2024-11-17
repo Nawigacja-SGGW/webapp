@@ -3,8 +3,10 @@ import { Input } from '../../components/ui/Input/Input';
 import { Button } from '../../components/ui/Button/Button';
 import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 export const RegisterPage = () => {
+  const { t, i18n } = useTranslation();
   const emailInput = useRef<HTMLInputElement>();
   const usernameInput = useRef<HTMLInputElement>();
   const passwordInput = useRef<HTMLInputElement>();
@@ -56,19 +58,19 @@ export const RegisterPage = () => {
   };
 
   return (
-    <FormLayout title="Create account">
-      <p className="input-label">E-mail</p>
+    <FormLayout title={t('authPage.title.signup')}>
+      <p className="input-label">{t('authPage.labels.email')}</p>
       <Input placeholder="sXXXXXX@sggw.edu.pl" ref={emailInput} />
-      <p className="input-label">Username</p>
+      <p className="input-label">{t('authPage.labels.username')}</p>
       <Input placeholder="xxxxx" ref={usernameInput} />
-      <p className="input-label">Password</p>
+      <p className="input-label">{t('authPage.labels.password')}</p>
       <Input placeholder="••••••••" type="password" ref={passwordInput} />
-      <p className="input-label">Confirm password</p>
+      <p className="input-label">{t('authPage.labels.confirmPassword')}</p>
       <Input placeholder="••••••••" type="password" ref={confirmPasswordInput} />
 
       {error && <span>{error}</span>}
 
-      <Button className="green-button" label="Sign up" onClick={signUp} />
+      <Button className="green-button" label={t('authPage.button.signup')} onClick={signUp} />
     </FormLayout>
   );
 };
