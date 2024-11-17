@@ -45,6 +45,12 @@ export const Map = () => {
       ).then((data) => setRoad(data));
   }, [points]);
 
+  const startCoords = [points?.startPoint.lat, points?.startPoint.lng] as L.LatLngExpression;
+  const destCoords = [
+    points?.destinationPoint.lat,
+    points?.destinationPoint.lng,
+  ] as L.LatLngExpression;
+
   return (
     <div className="map-container">
       <SearchPlaces onSetPoints={setPoints} />
@@ -60,7 +66,15 @@ export const Map = () => {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         />
-        <CustomMarker position={wzimCoords} text={'WZIM'} />
+        {!(points?.startPoint && points?.destinationPoint) && (
+          <CustomMarker position={wzimCoords} text={'WZIM'} />
+        )}
+        {points?.startPoint && (
+          <CustomMarker position={startCoords} text={points?.startPoint.name} />
+        )}
+        {points?.destinationPoint && (
+          <CustomMarker position={destCoords} text={points?.destinationPoint.name} />
+        )}
         <Polyline positions={road} />
         <OnMapClick />
       </MapContainer>
