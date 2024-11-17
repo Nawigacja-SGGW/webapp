@@ -8,8 +8,65 @@
     "subheader": "Page not found (error 404)",
     "button.label": "Home page"
   },
+  "sideBar": {
+    "link.map": "Map",
+    "link.objects": "Objects",
+    "link.profile": "Profile",
+    "link.settings": "Settings",
+    "button.logOut": "Log out"
+  },
+  "authPage": {
+    "title.signup": "Create account",
+    "title.signin": "Login",
+    "button.signup": "Sign up",
+    "button.signin": "Sign in",
+    "labels": {
+      "email": "E-mail",
+      "username": "Username",
+      "usernameOrEmail": "Username or e-mail",
+      "password": "Password",
+      "confirmPassword": "Confirm password"
+    },
+    "forgotPassword": "Forgot password?",
+    "continueWith": "Or continue with",
+    "noAccount": "Don't have account yet?"
+  },
+  "forgotPasswordPage1": {
+    "title": "Change your password",
+    "E-mail": "E-mail",
+    "button.sendEmail": "Send e-mail"
+  },
+  "forgotPasswordPage2": {
+    "title": "Change your password",
+    "newPassword": "New password",
+    "repeatNewPassword": "Repeat new password",
+    "button.changePassword": "Change password"
+  },
+  "mapPage": {
+    "title": "Map",
+    "searchbar.placeholder": "Search for objects",
+    "route": {
+      "yourLocation": "Your location",
+      "destination": "Destination"
+    },
+    "errors": {
+      "reconnecting": "Reconnecting...",
+      "locationNotFound": "Location not found"
+    }
+  },
   "objectsOverviewPage": {
     "title": "Objects list",
+    "search.placeholder": "Search"
+  },
+  "settingsPage": {
+    "title": "Your data",
+    "e-mail": "E-mail",
+    "username": "Username"
+  },
+  "profilePage": {
+    "title": "Your profile",
+    "username": "Username",
+    "e-mail": "E-mail"
     "button.navigate": "Details",
     "search.placeholder": "Search objects"
   },
