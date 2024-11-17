@@ -2,6 +2,7 @@ import { FormLayout } from '../AuthorizationFormLayout/AuthorizationFormLayout';
 import { Input } from '../../components/ui/Input/Input';
 import { Button } from '../../components/ui/Button/Button';
 import { useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export const RegisterPage = () => {
   const emailInput = useRef<HTMLInputElement>();
@@ -9,6 +10,7 @@ export const RegisterPage = () => {
   const passwordInput = useRef<HTMLInputElement>();
   const confirmPasswordInput = useRef<HTMLInputElement>();
   const [error, setError] = useState('');
+  const navigate = useNavigate();
 
   const validateForm = () => {
     setError('');
@@ -43,10 +45,14 @@ export const RegisterPage = () => {
   };
 
   const signUp = () => {
-    if (validateForm()) {
-      setError('');
-      console.log('registered');
-    }
+    // if (validateForm()) {
+    //   setError('');
+    //   console.log('registered');
+    // }
+    //TODO create logic
+    setTimeout(() => {
+      navigate('/home/map');
+    }, 1000);
   };
 
   return (

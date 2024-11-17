@@ -1,7 +1,7 @@
 import './Sidebar.scss';
 import React, { useEffect, useState } from 'react';
 import { clsx } from 'clsx';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Map, Buildings } from '@styled-icons/boxicons-solid';
 import { PersonFill } from '@styled-icons/bootstrap/PersonFill';
@@ -17,6 +17,7 @@ export type SidebarProps = {
 export const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
   const { t, i18n } = useTranslation();
   const location = useLocation();
+  const navigate = useNavigate();
 
   const handleLanguageChange = (e) => {
     console.log('change');
@@ -24,6 +25,7 @@ export const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
   };
   const handleLogout = () => {
     console.log('logout');
+    navigate('/');
     //TODO implement handleLogout based on auth logic
   };
 

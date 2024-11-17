@@ -13,7 +13,10 @@ export const LoginPage = () => {
   }, []);
 
   const signIn = () => {
-    console.log('logged in');
+    //TODO create logic
+    setTimeout(() => {
+      navigate('/home/map');
+    }, 1000);
   };
   const handleNavigateToForgotPassword = useCallback(() => {
     navigate(`/forgot-password`);
