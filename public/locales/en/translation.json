@@ -12,5 +12,9 @@
     "title": "Objects list",
     "button.navigate": "Details",
     "search.placeholder": "Search objects"
+  },
+  "homePage": {
+    "searchPlaces.startPoint.placeholder": "Your location",
+    "searchPlaces.destination.placeholder": "Destination"
   }
 }

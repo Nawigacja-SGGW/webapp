@@ -12,5 +12,9 @@
     "title": "Lista obiektów",
     "button.navigate": "Szczegóły",
     "search.placeholder": "Wyszukaj obiekty"
+  },
+  "homePage": {
+    "searchPlaces.startPoint.placeholder": "Twoja lokalizacja",
+    "searchPlaces.destination.placeholder": "Kierunek"
   }
 }
