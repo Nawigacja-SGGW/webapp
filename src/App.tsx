@@ -32,7 +32,7 @@ function App() {
         },
         {
           path: '/home/profile',
-          element: <ProfilePage profileImage={undefined} />,
+          element: <ProfilePage />,
         },
         // TODO: Add a route for specific object like /object/id
         {

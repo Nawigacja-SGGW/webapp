@@ -1,28 +1,29 @@
 .profile-page__content {
   display: flex;
-  padding: 20px 30px;
+  padding: var(--spacing-s);
   justify-content: start;
   align-items: center;
   flex-direction: column;
-  gap: var(--spacing-l);
+  gap: var(--spacing-m);
 
   .profile-page__header {
     text-align: center;
-    font-size: 40px;
-    margin: 10px 0;
+    font-size: var(--header-font-size);
+    padding: var(--spacing-s);
   }
 
   .profile-page__image {
     width: 260px;
     height: 260px;
     border-radius: 50%;
-    background-color: #d9d9d9;
+    background-color: var(--light-gray);
   }
 }
 
 @media screen and (min-width: 1024px) {
   .profile-page__content {
-    padding: 20px 40px;
+    padding: var(--spacing-l);
+    gap: var(--spacing-l);
     align-items: start;
     .profile-page__image {
       width: 25vw;
@@ -33,5 +34,6 @@
 @media screen and (min-width: 1200px) {
   .profile-page__content {
     align-items: start;
+    padding: var(--spacing-l);
   }
 }
