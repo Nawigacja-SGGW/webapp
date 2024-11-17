@@ -1,0 +1,48 @@
+.authorization-layout {
+  display: flex;
+
+  &__logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--dark-green);
+    height: 100vh;
+    flex: 1;
+  }
+
+  &__logo-container {
+    width: 22rem;
+  }
+  &__logo-container img {
+    width: 100%;
+  }
+
+  &__content {
+    flex: 1;
+  }
+
+  &__logos {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-l);
+  }
+  &__logo-wrapper {
+    height: 7rem;
+  }
+  &__logo-wrapper img {
+    height: 100%;
+  }
+
+  &__divider {
+    border-right: 1px solid var(--black);
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .authorization-layout {
+    &__logo {
+      display: none;
+    }
+  }
+}
