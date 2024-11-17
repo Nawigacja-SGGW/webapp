@@ -16,12 +16,9 @@ function App() {
   const router = createBrowserRouter([
     {
       path: '/',
-      element: <div>Init page, check auth and redirect</div>,
-    },
-    {
-      path: '/auth',
       element: <AuthorizationLayout />,
       children: [
+        { path: '/', element: <LoginPage /> },
         { path: 'login', element: <LoginPage /> },
         { path: 'register', element: <RegisterPage /> },
         { path: 'forgot-password', element: <ForgotPasswordPage /> },

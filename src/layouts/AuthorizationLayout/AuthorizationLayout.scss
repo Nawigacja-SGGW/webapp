@@ -10,6 +10,13 @@
     flex: 1;
   }
 
+  &__logo-container {
+    width: 22rem;
+  }
+  &__logo-container img {
+    width: 100%;
+  }
+
   &__content {
     flex: 1;
   }
@@ -19,6 +26,12 @@
     display: flex;
     justify-content: center;
     gap: var(--spacing-l);
+  }
+  &__logo-wrapper {
+    height: 7rem;
+  }
+  &__logo-wrapper img {
+    height: 100%;
   }
 
   &__divider {

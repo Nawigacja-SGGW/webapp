@@ -9,14 +9,14 @@ export const LoginPage = () => {
   const usernameInput = useRef<HTMLInputElement>();
   const passwordInput = useRef<HTMLInputElement>();
   const handleNavigateToRegisterPage = useCallback(() => {
-    navigate(`/auth/register`);
+    navigate(`/register`);
   }, []);
 
   const signIn = () => {
     console.log('logged in');
   };
   const handleNavigateToForgotPassword = useCallback(() => {
-    navigate(`/auth/forgot-password`);
+    navigate(`/forgot-password`);
   }, []);
 
   return (
