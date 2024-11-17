@@ -15,7 +15,4 @@ i18n
       escapeValue: false,
     },
   });
-//TODO add logic to change language based on user choice
-i18n.changeLanguage('pl');
-
 export default i18n;

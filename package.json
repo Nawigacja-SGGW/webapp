@@ -24,6 +24,7 @@
     }
   },
   "dependencies": {
+    "@styled-icons/material": "^10.47.0",
     "@types/lodash": "^4.17.13",
     "@types/react-select": "^5.0.1",
     "axios": "^1.7.7",
@@ -36,7 +37,8 @@
     "react-dom": "^18.3.1",
     "react-i18next": "^15.1.0",
     "react-router-dom": "^6.27.0",
-    "react-select": "^5.8.3"
+    "react-select": "^5.8.3",
+    "styled-icons": "^10.47.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.11.1",
