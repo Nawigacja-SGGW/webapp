@@ -1,6 +1,7 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { AuthLayout } from './layouts/AuthLayout';
 import { useTranslation } from 'react-i18next';
+import { ProfilePage } from './pages/ProfilePage/ProfilePage.tsx';
 import { ObjectsOverviewPage } from './pages/ObjectsOverview/ObjectsOverviewPage.tsx';
 import { ErrorPage } from './pages/ErrorPage/ErrorPage.tsx';
 import Map from './components/Map/Map';
@@ -31,7 +32,7 @@ function App() {
         },
         {
           path: '/home/profile',
-          element: <div>Profile component</div>,
+          element: <ProfilePage profileImage={undefined} />,
         },
         // TODO: Add a route for specific object like /object/id
         {
