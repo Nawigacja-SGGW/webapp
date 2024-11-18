@@ -37,6 +37,23 @@
   &__divider {
     border-right: 1px solid var(--black);
   }
+
+  &__language-picker {
+    position: absolute;
+    right: 55%;
+    top: 2.5%;
+    display: block;
+    color: white;
+    input,
+    label {
+      cursor: pointer;
+
+      &.active {
+        font-weight: 600;
+        text-decoration: underline;
+      }
+    }
+  }
 }
 
 @media only screen and (max-width: 768px) {
