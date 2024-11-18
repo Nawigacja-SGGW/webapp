@@ -55,6 +55,13 @@
     }
   },
   "objectsOverviewPage": {
+<<<<<<< HEAD
+    "title": "Lista obiektów"
+  },
+  "settingsPage": {
+    "header": "Ustawienia",
+    "yourData": "Twoje dane"
+=======
     "title": "Lista obiektów",
     "search.placeholder": "Szukaj",
     "button.navigate": "Szczegóły"
@@ -74,5 +81,6 @@
   "homePage": {
     "searchPlaces.startPoint.placeholder": "Twoja lokalizacja",
     "searchPlaces.destination.placeholder": "Kierunek"
+>>>>>>> origin/dev
   }
 }

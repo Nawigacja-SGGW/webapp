@@ -60,9 +60,8 @@
     "button.navigate": "Details"
   },
   "settingsPage": {
-    "title": "Your data",
-    "e-mail": "E-mail",
-    "username": "Username"
+    "header": "Settings",
+    "yourData": "Your Data"
   },
   "profilePage": {
     "title": "Your profile",

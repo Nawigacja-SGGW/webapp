@@ -1,8 +1,8 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { AuthLayout } from './layouts/AuthLayout';
-import { useTranslation } from 'react-i18next';
 import { ObjectsOverviewPage } from './pages/ObjectsOverview/ObjectsOverviewPage.tsx';
 import { ErrorPage } from './pages/ErrorPage/ErrorPage.tsx';
+import { Settings } from './components/Settings/Settings.tsx';
 import Map from './components/Map/Map';
 import { ObjectDetails } from './pages/ObjectDetails/ObjectDetails.tsx';
 import { AuthorizationLayout } from './layouts/AuthorizationLayout/AuthorizationLayout.tsx';
@@ -12,7 +12,6 @@ import { ForgotPasswordPage } from './layouts/ForgotPasswordPage/ForgotPasswordP
 import { ChangePasswordPage } from './layouts/ChangePasswordPage/ChangePasswordPage.tsx';
 
 function App() {
-  const { t } = useTranslation();
   const router = createBrowserRouter([
     {
       path: '/',
@@ -35,7 +34,7 @@ function App() {
         },
         {
           path: '/home/settings',
-          element: <div>{t('exampleTranslation')}</div>,
+          element: <Settings />,
         },
         {
           path: '/home/profile',
