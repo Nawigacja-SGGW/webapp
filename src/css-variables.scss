@@ -3,6 +3,7 @@
 :root {
   --green: rgb(110, 200, 80);
   --light-green: rgb(200, 240, 180);
+  --light-gray: #f9f9f9;
   --yellow: rgb(240, 220, 140);
   --light-blue: rgb(190, 220, 240);
   --white: rgb(255, 255, 255);
@@ -15,18 +16,21 @@
 
   --input-border-radius: 8px;
   --input-border-width: 2px;
-  --button-border-radius: 8px;
+  --button-border-radius: var(--input-border-radius);
   --section-border-radius: 15px;
 
   --main-font: 'Inter', sans-serif;
   --font-color: rgb(0, 0, 0);
   --header-font-size: 40px;
+  --header-2-font-size: 24px;
   --menu-font-size: 32px;
+  --menu-font-size-sm: 20px;
   --main-font-size: 16px;
   --forms-label-font-size: 15px;
   --normal-font-weight: 400;
   --bold-font-weight: 700;
 
+  //button
   --button-small-min-width: 110px;
   --button-medium-min-width: 130px;
   --button-large-min-width: 150px;
@@ -48,12 +52,25 @@
   --button-background__secondary: var(--white);
   --button-color-font__secondary: var(--dark-green);
 
+  //object item
+
+  --object-wrapper-height: 180px;
+  --object-wrapper-image-size: 140px;
+  --object-wrapper-footer-height: 60px;
+  --object-wrapper-name-height: 100px;
+  --object-wrapper-description-height: 70px;
+
+  --search-places-margin: 60px;
+
   //  spacing
   --spacing-xs: 5px;
   --spacing-s: 10px;
   --spacing-m: 20px;
   --spacing-l: 30px;
   --spacing-xl: 40px;
+
+  //  card
+  --card-border-radius: 8px;
 
   //margins
   --main-content-margin: 60px 0px 0px 120px;

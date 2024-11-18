@@ -3,16 +3,26 @@ import { AuthLayout } from './layouts/AuthLayout';
 import { ObjectsOverviewPage } from './pages/ObjectsOverview/ObjectsOverviewPage.tsx';
 import { ErrorPage } from './pages/ErrorPage/ErrorPage.tsx';
 import { Settings } from './components/Settings/Settings.tsx';
+import Map from './components/Map/Map';
+import { ObjectDetails } from './pages/ObjectDetails/ObjectDetails.tsx';
+import { AuthorizationLayout } from './layouts/AuthorizationLayout/AuthorizationLayout.tsx';
+import { LoginPage } from './layouts/LoginPage/LoginPage.tsx';
+import { RegisterPage } from './layouts/RegisterPage/RegisterPage.tsx';
+import { ForgotPasswordPage } from './layouts/ForgotPasswordPage/ForgotPasswordPage.tsx';
+import { ChangePasswordPage } from './layouts/ChangePasswordPage/ChangePasswordPage.tsx';
 
 function App() {
   const router = createBrowserRouter([
     {
       path: '/',
-      element: <div>Init page, check auth and redirect</div>,
-    },
-    {
-      path: '/auth',
-      element: <div>Auth page</div>,
+      element: <AuthorizationLayout />,
+      children: [
+        { path: '/', element: <LoginPage /> },
+        { path: 'login', element: <LoginPage /> },
+        { path: 'register', element: <RegisterPage /> },
+        { path: 'forgot-password', element: <ForgotPasswordPage /> },
+        { path: 'change-password', element: <ChangePasswordPage /> },
+      ],
     },
     {
       path: '/home',
@@ -20,7 +30,7 @@ function App() {
       children: [
         {
           path: '/home/map',
-          element: <div>Map component</div>,
+          element: <Map />,
         },
         {
           path: '/home/settings',
@@ -34,6 +44,10 @@ function App() {
         {
           path: '/home/objects',
           element: <ObjectsOverviewPage />,
+        },
+        {
+          path: '/home/objects/:id',
+          element: <ObjectDetails />,
         },
       ],
     },
