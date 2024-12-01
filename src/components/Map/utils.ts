@@ -9,7 +9,7 @@ export async function getPath(
   const routePoints: L.LatLng[] = [];
 
   return fetch(
-    `${import.meta.env.VITE_OSMR_API_URL}/${type}/${location.lng},${location.lat};${destination.lng},${destination.lat}?overview=false&steps=true`
+    `${import.meta.env.VITE_OSMR_API_URL}/routed-${type}/route/v1/driving/${location.lng},${location.lat};${destination.lng},${destination.lat}?overview=false&steps=true`
   )
     .then((response) => response.json())
     .then((data) => {
