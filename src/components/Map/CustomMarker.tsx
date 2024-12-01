@@ -14,15 +14,13 @@ const markerIcon = new L.Icon({
 export const CustomMarker = ({
   position,
   text,
+  onClick,
 }: {
   position: L.LatLngExpression;
   text: string | undefined;
+  onClick?: () => any;
 }) => {
-  return (
-    <Marker position={position} icon={markerIcon}>
-      {text && <Popup>{text}</Popup>}
-    </Marker>
-  );
+  return <Marker position={position} icon={markerIcon} eventHandlers={{ click: onClick }} />;
 };
 
 export default CustomMarker;
