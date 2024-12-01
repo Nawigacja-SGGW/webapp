@@ -1,5 +1,6 @@
-import L from 'leaflet';
+import L, { LeafletMouseEventHandlerFn } from 'leaflet';
 import { Marker, Popup } from 'react-leaflet';
+import { ObjectData } from '../../models';
 
 const markerIcon = new L.Icon({
   iconUrl: '../../../public/marker-icon.png',
@@ -13,12 +14,10 @@ const markerIcon = new L.Icon({
 
 export const CustomMarker = ({
   position,
-  text,
   onClick,
 }: {
   position: L.LatLngExpression;
-  text: string | undefined;
-  onClick?: () => any;
+  onClick?: LeafletMouseEventHandlerFn;
 }) => {
   return <Marker position={position} icon={markerIcon} eventHandlers={{ click: onClick }} />;
 };

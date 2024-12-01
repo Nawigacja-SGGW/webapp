@@ -1,24 +1,17 @@
+import axios from 'axios';
 import L from 'leaflet';
+import { useEffect, useState } from 'react';
 import { MapContainer, TileLayer } from 'react-leaflet';
 import { useMapEvents, Polyline } from 'react-leaflet';
+
 import CustomMarker from './CustomMarker';
 import InformationPanel from './InformationPanel.tsx';
-import { SearchPlaces } from '../SearchPlaces/SearchPlaces.tsx';
-import './leaflet.css';
-import './Map.scss';
-import { useEffect, useState } from 'react';
+import { SearchPlaces, getObjectsList } from '../SearchPlaces/SearchPlaces.tsx';
 import { ObjectData } from '../../models';
 import { getPath } from './utils.ts';
 
-function OnMapClick() {
-  useMapEvents({
-    click: (event) => {
-      console.log(event.latlng);
-    },
-  });
-
-  return null;
-}
+import './leaflet.css';
+import './Map.scss';
 
 export const Map = () => {
   const [points, setPoints] = useState<{
@@ -30,7 +23,15 @@ export const Map = () => {
   const ne = L.latLng(52.1704, 21.0554);
 
   const wzimCoords = L.latLng(52.16198, 21.04633);
-  const [visibleInformation, setVisibleInformation] = useState<boolean>(false);
+
+  // following lines temporary
+  const [clickedMarker, setClickedMarker] = useState<ObjectData | undefined>();
+  const [allLocations, setAllLocations] = useState<ObjectData[]>([]);
+  useEffect(() => {
+    getObjectsList().then((data) => {
+      setAllLocations(data);
+    }); // maybe this passed down to SearchPlaces, then just filtering the list
+  }, []);
 
   useEffect(() => {
     if (points?.startPoint && points?.destinationPoint)
@@ -53,14 +54,14 @@ export const Map = () => {
     points?.destinationPoint.lng,
   ] as L.LatLngExpression;
 
-  const OnMarkerClick = () => {
-    setVisibleInformation(true);
+  const OnMarkerClick = (location: ObjectData) => {
+    setClickedMarker(location);
   };
 
   return (
     <div className="map-container">
       <SearchPlaces onSetPoints={setPoints} />
-      {visibleInformation && <InformationPanel />}
+      {clickedMarker && <InformationPanel data={clickedMarker} />}
       <MapContainer
         center={[52.16256, 21.04219]}
         maxBounds={L.latLngBounds(sw, ne)}
@@ -73,17 +74,21 @@ export const Map = () => {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         />
-        {!(points?.startPoint && points?.destinationPoint) && (
-          <CustomMarker position={wzimCoords} text={'WZIM'} onClick={OnMarkerClick} />
-        )}
-        {points?.startPoint && (
+        {allLocations &&
+          allLocations.map((location, i) => (
+            <CustomMarker
+              position={L.latLng(location.lat, location.lng)}
+              onClick={() => OnMarkerClick(location)}
+              key={i}
+            ></CustomMarker>
+          ))}
+        {/* {points?.startPoint && (
           <CustomMarker position={startCoords} text={points?.startPoint.name} />
         )}
         {points?.destinationPoint && (
           <CustomMarker position={destCoords} text={points?.destinationPoint.name} />
-        )}
+        )} */}
         <Polyline positions={road} />
-        <OnMapClick />
       </MapContainer>
     </div>
   );
