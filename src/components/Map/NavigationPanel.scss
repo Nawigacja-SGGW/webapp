@@ -1,0 +1,40 @@
+.container {
+  position: absolute;
+  bottom: calc(var(--information-panel-margin) / 2);
+  left: var(--information-panel-margin);
+  width: calc(100% - 2 * var(--information-panel-margin));
+  z-index: 499;
+
+  background-color: var(--dark-green);
+  color: white;
+  padding: 20px;
+  border-radius: 20px;
+
+  display: flex;
+  gap: 40px;
+}
+
+.details-container {
+  text-align: center;
+
+  flex-grow: 1;
+}
+
+.direction-container {
+  text-align: center;
+
+  flex-grow: 4;
+}
+
+.button-container {
+  flex-grow: 1;
+
+  display: flex;
+  align-items: flex-end;
+}
+
+button {
+  background-color: white;
+  color: var(--dark-green);
+  font-weight: bold;
+}
