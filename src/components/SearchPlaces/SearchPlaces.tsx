@@ -3,6 +3,7 @@ import Select from '../ui/Select/Select.tsx';
 import { ObjectData, SearchPlacesSelectOption } from '../../models';
 import axios from 'axios';
 import { mapObjectsDataToSelectOption } from '../../utils';
+import { Points } from '../Map/Map.tsx';
 import { Button } from '../ui/Button/Button.tsx';
 import './SearchPlaces.scss';
 import L from 'leaflet';
@@ -14,16 +15,8 @@ export const getObjectsList = async (): Promise<ObjectData[]> => {
 };
 
 interface SearchPlacesSelectProps {
-  points: {
-    locationPoint: L.LatLng | null;
-    destinationPoint: ObjectData | null;
-  };
-  onSetPoints: Dispatch<
-    SetStateAction<{
-      locationPoint: L.LatLng | null;
-      destinationPoint: ObjectData | null;
-    }>
-  >;
+  points: Points;
+  onSetPoints: Dispatch<SetStateAction<Points>>;
   allLocations: ObjectData[];
 }
 
