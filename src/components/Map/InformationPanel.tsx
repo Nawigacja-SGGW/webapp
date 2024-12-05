@@ -10,13 +10,21 @@ import './InformationPanel.scss';
 
 interface InformationPanelProps {
   data: ObjectData;
+  pathDistance: number;
+  pathTime: number;
   isLocationSet: boolean;
   setMapState: Dispatch<SetStateAction<MapState>>;
 }
 
 type PanelState = 'details' | 'navigation';
 
-export const InformationPanel = ({ data, isLocationSet, setMapState }: InformationPanelProps) => {
+export const InformationPanel = ({
+  data,
+  pathDistance,
+  pathTime,
+  isLocationSet,
+  setMapState,
+}: InformationPanelProps) => {
   // const { t } = useTranslation();
   const navigate = useNavigate();
   const handleNavigateToObject = () => {
@@ -49,7 +57,7 @@ export const InformationPanel = ({ data, isLocationSet, setMapState }: Informati
             </>
           ) : (
             <>
-              <div className="field">[__] _._ km</div>
+              <div className="field">[__] {Math.round(pathDistance / 100) / 10} km</div>
               <div className="field"></div>
             </>
           )}
@@ -66,7 +74,11 @@ export const InformationPanel = ({ data, isLocationSet, setMapState }: Informati
             </>
           ) : (
             <>
-              <Button label={`Start - ${0} min`} size="sm" onClick={startNavigation}></Button>
+              <Button
+                label={`Start - ${Math.round(pathTime / 60)} min`}
+                size="sm"
+                onClick={startNavigation}
+              ></Button>
               <Button label="Cancel" size="sm" onClick={() => setPanelState('details')}></Button>
             </>
           )}
