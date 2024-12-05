@@ -33,7 +33,7 @@ export async function getPath(
     .then((route) => {
       pathInfo.totalTime = route['duration'];
       pathInfo.totalDistance = route['distance'];
-      pathInfo.direction = route[0]['mode'] === 'walking' ? 'Walk' : 'Cycle';
+      pathInfo.direction = route['steps'][0]['mode'] === 'walking' ? 'Walk' : 'Cycle';
       pathInfo.nextDirection = `${route['steps'][1]['maneuver']['type']} ${route['steps'][1]['maneuver']['modifier']}`;
       pathInfo.distanceUntillNextDirection = route['steps'][0]['distance'];
 
