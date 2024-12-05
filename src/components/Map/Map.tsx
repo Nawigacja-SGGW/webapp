@@ -144,7 +144,9 @@ export const Map = () => {
         />
       )}
 
-      {mapState === 'navigating' && pathInfo && <NavigationPanel pathInfo={pathInfo} />}
+      {mapState === 'navigating' && pathInfo && (
+        <NavigationPanel pathInfo={pathInfo} setMapState={setMapState} />
+      )}
 
       <MapContainer
         center={[52.16256, 21.04219]}

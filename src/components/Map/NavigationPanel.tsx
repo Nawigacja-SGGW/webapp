@@ -1,8 +1,15 @@
-import { PathInfo } from './utils.ts';
+import { Dispatch, SetStateAction } from 'react';
+import { MapState } from './Map.tsx';
 import { Button } from '../ui/Button/Button.tsx';
+import { PathInfo } from './utils.ts';
 import './NavigationPanel.scss';
 
-export const NavigationPanel = ({ pathInfo }: { pathInfo: PathInfo }) => {
+interface NavigationPanelProps {
+  pathInfo: PathInfo;
+  setMapState: Dispatch<SetStateAction<MapState>>;
+}
+
+export const NavigationPanel = ({ pathInfo, setMapState }: NavigationPanelProps) => {
   return (
     <div className="container">
       <div className="details-container">
@@ -18,7 +25,7 @@ export const NavigationPanel = ({ pathInfo }: { pathInfo: PathInfo }) => {
       </div>
 
       <div className="button-container">
-        <Button label="Cancel" size="sm" onClick={() => {}}></Button>
+        <Button label="Cancel" size="sm" onClick={() => setMapState('browsing')}></Button>
       </div>
     </div>
   );
