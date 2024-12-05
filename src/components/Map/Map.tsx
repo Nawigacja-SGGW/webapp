@@ -13,14 +13,15 @@ import { getPath } from './utils.ts';
 import './leaflet.css';
 import './Map.scss';
 
-type Points = {
+export type Points = {
   locationPoint: L.LatLng | null;
   destinationPoint: ObjectData | null;
 };
 
+export type MapState = 'browsing' | 'navigating';
+
 const BORDER_SW = L.latLng(52.1524, 21.0354);
 const BORDER_NE = L.latLng(52.1704, 21.0554);
-// const WZIM_COORDS = L.latLng(52.16198, 21.04633);
 
 const INITIAL_POINTS: Points = {
   locationPoint: null,
@@ -31,7 +32,9 @@ export const Map = () => {
   const [points, setPoints] = useState(INITIAL_POINTS);
   const [path, setPath] = useState<[L.LatLng, L.LatLng][]>([]);
 
-  // getting all locations from handlers.ts                   (check getObjectList)
+  const [mapState, setMapState] = useState<MapState>('browsing');
+
+  // getting all locations from handlers.ts
   const [allLocations, setAllLocations] = useState<ObjectData[]>([]);
   useEffect(() => {
     getObjectsList().then((data) => {
@@ -54,12 +57,6 @@ export const Map = () => {
         'foot'
       ).then((data) => setPath(data));
   }, [points]);
-
-  // const locationCoords = [points?.locationPoint.lat, points?.locationPoint.lng] as L.LatLngExpression;
-  // const destinationCoords = [
-  //   points?.destinationPoint.lat,
-  //   points?.destinationPoint.lng,
-  // ] as L.LatLngExpression;
 
   const PopulateWithMarkers = () => {
     return allLocations.map((location, i) => (
@@ -92,11 +89,19 @@ export const Map = () => {
 
   return (
     <div className="map-container">
-      {allLocations.length !== 0 && (
+      {mapState === 'browsing' && allLocations.length !== 0 && (
         <SearchPlaces points={points} onSetPoints={setPoints} allLocations={allLocations} />
       )}
 
-      {points.destinationPoint && <InformationPanel data={points.destinationPoint} />}
+      {mapState === 'browsing' && points.destinationPoint && (
+        <InformationPanel
+          data={points.destinationPoint}
+          isLocationSet={points.locationPoint !== null}
+          setMapState={setMapState}
+        />
+      )}
+
+      {mapState === 'navigating'}
 
       <MapContainer
         center={[52.16256, 21.04219]}

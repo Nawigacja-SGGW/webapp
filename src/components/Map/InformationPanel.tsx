@@ -1,18 +1,36 @@
 import axios from 'axios';
-import { useCallback, useEffect } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 // import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
+import { MapState } from './Map.tsx';
 import { ObjectData } from '../../models';
 import { Button } from '../ui/Button/Button.tsx';
 import './InformationPanel.scss';
 
-export const InformationPanel = ({ data }: { data: ObjectData }) => {
+interface InformationPanelProps {
+  data: ObjectData;
+  isLocationSet: boolean;
+  setMapState: Dispatch<SetStateAction<MapState>>;
+}
+
+type PanelState = 'details' | 'navigation';
+
+export const InformationPanel = ({ data, isLocationSet, setMapState }: InformationPanelProps) => {
   // const { t } = useTranslation();
   const navigate = useNavigate();
-
   const handleNavigateToObject = () => {
     navigate(`/home/objects/${data.addressId}`); // temporary, as there is no id for objects yet
+  };
+
+  const [panelState, setPanelState] = useState<PanelState>('details');
+  const TrySetPanelState = (newState: PanelState) => {
+    if (newState === 'details' || (newState === 'navigation' && isLocationSet))
+      setPanelState(newState);
+  };
+
+  const startNavigation = () => {
+    setMapState('navigating');
   };
 
   return (
@@ -24,13 +42,34 @@ export const InformationPanel = ({ data }: { data: ObjectData }) => {
           {/* those fields later updates from address via addressid, unless packaged inside object */}
           <div className="field">[__] Budynek nr _ </div>
           <div className="field">[__] ul. Nowoursynowska ___/__, 02-787 Warszawa</div>
-          <div className="field">[__] _@sggw.edu.pl</div>
-          <div className="field">[__] __ ___ __ __</div>
+          {panelState === 'details' ? (
+            <>
+              <div className="field">[__] _@sggw.edu.pl</div>
+              <div className="field">[__] __ ___ __ __</div>
+            </>
+          ) : (
+            <>
+              <div className="field">[__] _._ km</div>
+              <div className="field"></div>
+            </>
+          )}
         </div>
         <div className="buttons-container">
-          {/* When navigation done, will add functionality to the button */}
-          <Button label="Navigate" size="sm"></Button>
-          <Button label="Details" size="sm" onClick={handleNavigateToObject}></Button>
+          {panelState === 'details' ? (
+            <>
+              <Button
+                label="Navigate"
+                size="sm"
+                onClick={() => TrySetPanelState('navigation')}
+              ></Button>
+              <Button label="Details" size="sm" onClick={handleNavigateToObject}></Button>
+            </>
+          ) : (
+            <>
+              <Button label={`Start - ${0} min`} size="sm" onClick={startNavigation}></Button>
+              <Button label="Cancel" size="sm" onClick={() => setPanelState('details')}></Button>
+            </>
+          )}
         </div>
       </div>
     </div>
