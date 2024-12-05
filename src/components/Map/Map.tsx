@@ -6,9 +6,10 @@ import { useMapEvents, Polyline } from 'react-leaflet';
 
 import CustomMarker from './CustomMarker';
 import InformationPanel from './InformationPanel.tsx';
+import NavigationPanel from './NavigationPanel.tsx';
 import { SearchPlaces, getObjectsList } from '../SearchPlaces/SearchPlaces.tsx';
 import { ObjectData } from '../../models';
-import { getPath } from './utils.ts';
+import { getPath, PathInfo } from './utils.ts';
 
 import './leaflet.css';
 import './Map.scss';
@@ -28,9 +29,18 @@ const INITIAL_POINTS: Points = {
   destinationPoint: null,
 };
 
+const INITIAL_PATH_INFO: PathInfo = {
+  path: [],
+  totalTime: 0,
+  totalDistance: 0,
+  direction: '',
+  nextDirection: '',
+  distanceUntillNextDirection: 0,
+};
+
 export const Map = () => {
   const [points, setPoints] = useState(INITIAL_POINTS);
-  const [path, setPath] = useState<[L.LatLng, L.LatLng][]>([]);
+  const [pathInfo, setPathInfo] = useState<PathInfo>(INITIAL_PATH_INFO);
 
   const [mapState, setMapState] = useState<MapState>('browsing');
 
@@ -42,21 +52,54 @@ export const Map = () => {
     });
   }, []);
 
-  // fetching path from server                                 maybe change to use axios
   useEffect(() => {
+    console.log(points);
     if (points?.locationPoint && points?.destinationPoint)
       getPath(
         {
-          lat: points?.locationPoint.lat,
-          lng: points?.locationPoint.lng,
+          lat: points.locationPoint.lat,
+          lng: points.locationPoint.lng,
         } as L.LatLng,
         {
-          lat: points?.destinationPoint.lat,
-          lng: points?.destinationPoint.lng,
+          lat: points.destinationPoint.lat,
+          lng: points.destinationPoint.lng,
         } as L.LatLng,
         'foot'
-      ).then((data) => setPath(data));
+      ).then((data) => setPathInfo(data));
   }, [points]);
+
+  useEffect(() => {
+    if (points?.locationPoint && points?.destinationPoint) {
+      if (mapState === 'navigating') {
+        const interval = setInterval(() => {
+          getPath(
+            {
+              lat: points.locationPoint!.lat,
+              lng: points.locationPoint!.lng,
+            } as L.LatLng,
+            {
+              lat: points.destinationPoint!.lat,
+              lng: points.destinationPoint!.lng,
+            } as L.LatLng,
+            'foot'
+          ).then((data) => setPathInfo(data));
+        }, 1000);
+        return () => clearInterval(interval);
+      } else {
+        getPath(
+          {
+            lat: points.locationPoint!.lat,
+            lng: points.locationPoint!.lng,
+          } as L.LatLng,
+          {
+            lat: points.destinationPoint!.lat,
+            lng: points.destinationPoint!.lng,
+          } as L.LatLng,
+          'foot'
+        ).then((data) => setPathInfo(data));
+      }
+    }
+  }, []);
 
   const PopulateWithMarkers = () => {
     return allLocations.map((location, i) => (
@@ -101,7 +144,7 @@ export const Map = () => {
         />
       )}
 
-      {mapState === 'navigating'}
+      {mapState === 'navigating' && pathInfo && <NavigationPanel pathInfo={pathInfo} />}
 
       <MapContainer
         center={[52.16256, 21.04219]}
@@ -118,9 +161,9 @@ export const Map = () => {
 
         {allLocations && PopulateWithMarkers()}
 
-        <Polyline positions={path} />
-
         {points.locationPoint && <CustomMarker position={points.locationPoint} />}
+
+        <Polyline positions={pathInfo.path} />
 
         <OnMapClick />
       </MapContainer>
