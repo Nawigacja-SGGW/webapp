@@ -1,6 +1,5 @@
 import L, { LeafletMouseEventHandlerFn } from 'leaflet';
-import { Marker, Popup } from 'react-leaflet';
-import { ObjectData } from '../../models';
+import { Marker } from 'react-leaflet';
 
 const markerIcon = new L.Icon({
   iconUrl: '../../../public/marker-icon.png',

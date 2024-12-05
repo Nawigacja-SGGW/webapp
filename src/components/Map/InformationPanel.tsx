@@ -11,9 +11,9 @@ export const InformationPanel = ({ data }: { data: ObjectData }) => {
   // const { t } = useTranslation();
   const navigate = useNavigate();
 
-  const handleNavigateToObject = useCallback(() => {
+  const handleNavigateToObject = () => {
     navigate(`/home/objects/${data.addressId}`); // temporary, as there is no id for objects yet
-  }, []);
+  };
 
   return (
     <div className="container">
