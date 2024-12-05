@@ -53,8 +53,11 @@ export const Map = () => {
   }, []);
 
   useEffect(() => {
-    console.log(points);
-    if (points?.locationPoint && points?.destinationPoint)
+    // Canceling navigation when too close to destination
+    if (mapState === 'navigating' && pathInfo.totalDistance < 5) {
+      setMapState('browsing');
+      setPoints(INITIAL_POINTS);
+    } else if (points?.locationPoint && points?.destinationPoint) {
       getPath(
         {
           lat: points.locationPoint.lat,
@@ -66,25 +69,27 @@ export const Map = () => {
         } as L.LatLng,
         'foot'
       ).then((data) => setPathInfo(data));
+    }
   }, [points]);
 
   useEffect(() => {
     if (points?.locationPoint && points?.destinationPoint) {
       if (mapState === 'navigating') {
-        const interval = setInterval(() => {
-          getPath(
-            {
-              lat: points.locationPoint!.lat,
-              lng: points.locationPoint!.lng,
-            } as L.LatLng,
-            {
-              lat: points.destinationPoint!.lat,
-              lng: points.destinationPoint!.lng,
-            } as L.LatLng,
-            'foot'
-          ).then((data) => setPathInfo(data));
-        }, 1000);
-        return () => clearInterval(interval);
+        // Below solution when using real location (update on a timer, could add if location changed enough)
+        // const interval = setInterval(() => {
+        //   getPath(
+        //     {
+        //       lat: points.locationPoint!.lat,
+        //       lng: points.locationPoint!.lng,
+        //     } as L.LatLng,
+        //     {
+        //       lat: points.destinationPoint!.lat,
+        //       lng: points.destinationPoint!.lng,
+        //     } as L.LatLng,
+        //     'foot'
+        //   ).then((data) => setPathInfo(data));
+        // }, 1000);
+        // return () => clearInterval(interval);
       } else {
         getPath(
           {
