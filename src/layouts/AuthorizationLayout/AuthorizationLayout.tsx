@@ -2,10 +2,11 @@ import { Outlet } from 'react-router-dom';
 import './AuthorizationLayout.scss';
 import { clsx } from 'clsx';
 import { useTranslation } from 'react-i18next';
+import { ChangeEvent } from 'react';
 
 export const AuthorizationLayout = () => {
-  const { t, i18n } = useTranslation();
-  const handleLanguageChange = (e) => {
+  const { i18n } = useTranslation();
+  const handleLanguageChange = (e: ChangeEvent<HTMLInputElement>) => {
     console.log('change');
     i18n.changeLanguage(e.target.value);
   };

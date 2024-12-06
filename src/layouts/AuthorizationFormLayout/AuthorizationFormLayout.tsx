@@ -5,6 +5,7 @@ interface FormLayoutProps {
   title: string;
   children: React.ReactNode;
 }
+
 export const FormLayout = ({ title, children }: FormLayoutProps) => {
   return (
     <div className="form-layout">

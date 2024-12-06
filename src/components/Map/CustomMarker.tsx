@@ -17,6 +17,7 @@ export const CustomMarker = ({
 }: {
   position: L.LatLngExpression;
   onClick?: LeafletMouseEventHandlerFn;
+  text?: string;
 }) => {
   return <Marker position={position} icon={markerIcon} eventHandlers={{ click: onClick }} />;
 };

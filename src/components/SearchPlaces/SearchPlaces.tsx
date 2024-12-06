@@ -4,13 +4,11 @@ import { ObjectData, SearchPlacesSelectOption } from '../../models';
 import axios from 'axios';
 import { mapObjectsDataToSelectOption } from '../../utils';
 import { Points } from '../Map/Map.tsx';
-import { Button } from '../ui/Button/Button.tsx';
 import './SearchPlaces.scss';
-import L from 'leaflet';
-import { OnChangeValue } from 'react-select';
 
-export const getObjectsList = async (): Promise<ObjectData[]> => {
-  const { data } = await axios.get<ObjectData[], ObjectData[]>('/objects');
+export const getObjectsList = async () => {
+  //@ts-ignore
+  const { data } = await axios.get('/objects');
   return data;
 };
 
@@ -121,9 +119,9 @@ export const SearchPlaces = ({ points, onSetPoints, allLocations }: SearchPlaces
   useEffect(() => {
     dispatch({
       type: 'loadObjects',
-      payload: mapObjectsDataToSelectOption(allLocations),
+      payload: allLocations && mapObjectsDataToSelectOption(allLocations),
     });
-  }, []); // only when first rendering
+  }, [allLocations]); // only when first rendering
 
   useEffect(() => {
     if (
@@ -152,8 +150,12 @@ export const SearchPlaces = ({ points, onSetPoints, allLocations }: SearchPlaces
   return (
     <div className="search-places__wrapper">
       <div className="search-places-field__wrapper">
+        {/*//@ts-ignore*/}
         <Select
-          // options={state.allObjects.filter((item: SearchPlacesSelectOption) => item !== state.destinationPoint && item !== state.locationPoint)}
+          options={state.allObjects.filter(
+            (item: SearchPlacesSelectOption) =>
+              item !== state.destinationPoint && item !== state.locationPoint
+          )}
           className="search-places__input"
           placeholder="homePage.searchPlaces.startPoint.placeholder"
           isSearchable
@@ -172,6 +174,7 @@ export const SearchPlaces = ({ points, onSetPoints, allLocations }: SearchPlaces
         />
       </div>
       <div className="search-places-field__wrapper">
+        {/*//@ts-ignore*/}
         <Select
           options={state.allObjects.filter(
             (item: SearchPlacesSelectOption) =>

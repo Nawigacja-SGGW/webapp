@@ -1,5 +1,4 @@
 import './Sidebar.scss';
-import React, { useEffect, useState } from 'react';
 import { clsx } from 'clsx';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -8,6 +7,7 @@ import { PersonFill } from '@styled-icons/bootstrap/PersonFill';
 import { Settings } from '@styled-icons/evaicons-solid/Settings';
 import { LogOut } from '@styled-icons/ionicons-outline/LogOut';
 import { ChevronDoubleLeft, ChevronDoubleRight } from '@styled-icons/fluentui-system-filled/';
+import { ChangeEvent } from 'react';
 
 //todo add translations
 export type SidebarProps = {
@@ -19,7 +19,7 @@ export const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const handleLanguageChange = (e) => {
+  const handleLanguageChange = (e: ChangeEvent<HTMLInputElement>) => {
     console.log('change');
     i18n.changeLanguage(e.target.value);
   };

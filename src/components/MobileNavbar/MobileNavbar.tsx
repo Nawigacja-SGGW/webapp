@@ -1,4 +1,3 @@
-import React from 'react';
 import './MobileNavbar.scss';
 import { Menu, Search } from '@styled-icons/material';
 import { ChevronLeft } from '@styled-icons/boxicons-regular/ChevronLeft';

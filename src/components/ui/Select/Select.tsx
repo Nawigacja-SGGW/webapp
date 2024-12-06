@@ -9,7 +9,7 @@ export interface SelectProps extends SelectDefaultProps {
   value: unknown;
   onChange: (e: OnChangeValue<unknown, false>) => void;
   styles?: { control: (baseStyles: any, state: any) => any };
-  placeholder?: string;
+  placeholder: string;
   isSearchable?: boolean;
   isClearable?: boolean;
   className?: string;
@@ -31,7 +31,8 @@ export const SelectComponent = (props: SelectProps) => {
       value={value}
       onChange={onChange}
       styles={{
-        control: (baseStyles, state) => ({
+        //@ts-ignore
+        control: (baseStyles) => ({
           ...baseStyles,
           border: 'none',
           ...styles,

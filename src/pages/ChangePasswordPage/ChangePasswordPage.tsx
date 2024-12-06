@@ -1,11 +1,11 @@
-import { FormLayout } from '../AuthorizationFormLayout/AuthorizationFormLayout';
+import { FormLayout } from '../../layouts/AuthorizationFormLayout/AuthorizationFormLayout';
 import { Input } from '../../components/ui/Input/Input';
 import { useRef, useState } from 'react';
 import { Button } from '../../components/ui/Button/Button';
 import { useTranslation } from 'react-i18next';
 
 export const ChangePasswordPage = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const newPassword = useRef<HTMLInputElement>();
   const repeatedPassword = useRef<HTMLInputElement>();
   const [message, setMessage] = useState('');
@@ -26,9 +26,9 @@ export const ChangePasswordPage = () => {
   return (
     <FormLayout title={t('forgotPasswordPage2.title')}>
       <p className="input-label">{t('forgotPasswordPage2.newPassword')}</p>
-      <Input placeholder="••••••••" type="password" ref={newPassword} />
+      <Input placeholder="••••••••" type="password" />
       <p className="input-label">{t('forgotPasswordPage2.repeatNewPassword')}</p>
-      <Input placeholder="••••••••" type="password" ref={repeatedPassword} />
+      <Input placeholder="••••••••" type="password" />
       {message && <span>{message}</span>}
       <Button
         className="green-button"

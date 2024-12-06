@@ -1,6 +1,4 @@
-import axios from 'axios';
 import { Dispatch, SetStateAction, useState } from 'react';
-// import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 import { MapState } from './Map.tsx';
