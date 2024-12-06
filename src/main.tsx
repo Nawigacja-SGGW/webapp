@@ -8,7 +8,7 @@ async function enableMocking() {
   if (process.env.NODE_ENV !== 'development') {
     return;
   }
-
+  //@ts-ignore
   const { worker } = await import('./mocks/browser.js');
 
   // `worker.start()` returns a Promise that resolves

@@ -49,5 +49,7 @@ export async function getPath(
       return pathInfo;
       // at this point we have newRoute, we could do setRoute(newRoute) here, then no return
     })
-    .catch((error) => console.log(error));
+    .catch((error) => {
+      throw new Error(error);
+    });
 }

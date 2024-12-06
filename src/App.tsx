@@ -6,10 +6,10 @@ import { Settings } from './components/Settings/Settings.tsx';
 import Map from './components/Map/Map';
 import { ObjectDetails } from './pages/ObjectDetails/ObjectDetails.tsx';
 import { AuthorizationLayout } from './layouts/AuthorizationLayout/AuthorizationLayout.tsx';
-import { LoginPage } from './layouts/LoginPage/LoginPage.tsx';
-import { RegisterPage } from './layouts/RegisterPage/RegisterPage.tsx';
-import { ForgotPasswordPage } from './layouts/ForgotPasswordPage/ForgotPasswordPage.tsx';
-import { ChangePasswordPage } from './layouts/ChangePasswordPage/ChangePasswordPage.tsx';
+import { LoginPage } from './pages/LoginPage/LoginPage.tsx';
+import { RegisterPage } from './pages/RegisterPage/RegisterPage.tsx';
+import { ForgotPasswordPage } from './pages/ForgotPasswordPage/ForgotPasswordPage.tsx';
+import { ChangePasswordPage } from './pages/ChangePasswordPage/ChangePasswordPage.tsx';
 
 function App() {
   const router = createBrowserRouter([

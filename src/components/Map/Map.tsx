@@ -1,4 +1,3 @@
-import axios from 'axios';
 import L from 'leaflet';
 import { useEffect, useState } from 'react';
 import { MapContainer, TileLayer } from 'react-leaflet';
@@ -46,8 +45,10 @@ export const Map = () => {
 
   // getting all locations from handlers.ts
   const [allLocations, setAllLocations] = useState<ObjectData[]>([]);
+
   useEffect(() => {
     getObjectsList().then((data) => {
+      console.log(data);
       setAllLocations(data);
     });
   }, []);
@@ -107,13 +108,15 @@ export const Map = () => {
   }, []);
 
   const PopulateWithMarkers = () => {
-    return allLocations.map((location, i) => (
-      <CustomMarker
-        position={L.latLng(location.lat, location.lng)}
-        onClick={() => OnMarkerClick(location)}
-        key={i}
-      />
-    ));
+    return allLocations.length
+      ? allLocations.map((location, i) => (
+          <CustomMarker
+            position={L.latLng(location.lat, location.lng)}
+            onClick={() => OnMarkerClick(location)}
+            key={i}
+          />
+        ))
+      : null;
   };
 
   const OnMarkerClick = (markerObject: ObjectData) => {

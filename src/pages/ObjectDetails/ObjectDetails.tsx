@@ -62,7 +62,7 @@ export const ObjectDetails = () => {
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
               />
-              <CustomMarker position={coords} text={placeData?.name} />
+              <CustomMarker position={coords} />
             </MapContainer>
           )}
         </div>
