@@ -61,7 +61,13 @@
   },
   "settingsPage": {
     "header": "Settings",
-    "yourData": "Your Data"
+    "yourData": "Your Data",
+    "section.routePreferences": "Route preferences",
+    "section.appLanguage": "App language",
+    "section.changeYourPassword": "Change your password",
+    "input.placeholder.newPassword": "New password",
+    "input.placeholder.confirmPassword": "Confirm password",
+    "button.save": "Save"
   },
   "profilePage": {
     "title": "Your profile",
