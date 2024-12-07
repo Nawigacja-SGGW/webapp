@@ -16,14 +16,17 @@ export const RadioInputs = <T extends string>(attrs: RadioInputsWrapperAttribute
   return (
     <div>
       {attrs.radioInputsValues.map((radioInputValues) => (
-        <div>
+        <div key={radioInputValues.id} className="radio-container">
           <input
             id={radioInputValues.id}
             type="radio"
             value={radioInputValues.value}
             {...attrs.registerOptions}
+            className="radio-input"
           />
-          <label htmlFor={radioInputValues.id}>{radioInputValues.label}</label>
+          <label htmlFor={radioInputValues.id} className="radio-label">
+            {radioInputValues.label}
+          </label>
         </div>
       ))}
     </div>

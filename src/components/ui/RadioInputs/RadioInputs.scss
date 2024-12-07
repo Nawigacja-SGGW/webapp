@@ -1,0 +1,33 @@
+.radio-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.radio-input {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  appearance: none;
+  border: 2px solid var(--light-gray);
+  border-radius: 50%;
+  background-color: var(--light-gray) !important;
+  cursor: pointer;
+  outline: none;
+  width: auto !important;
+}
+
+.radio-input:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.radio-input:checked {
+  background-color: var(--light-gray);
+  box-shadow: inset 0 0 0 5px white;
+}
+
+.radio-label {
+  font-size: 18px;
+  color: black;
+}

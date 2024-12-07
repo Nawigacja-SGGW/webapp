@@ -45,25 +45,6 @@ export const Settings = () => {
             registerOptions={register('appLanguage', { required: true })}
           ></RadioInputs>
           <h3>{t('settingsPage.section.appLanguage')}</h3>
-          <Input
-            id="pl"
-            name="app-language"
-            value="polish"
-            placeholder={t('settingsPage.input.placeholder.newPassword')}
-            type="radio"
-            {...register('appLanguage', { required: true })}
-          />
-          <label htmlFor="pl">Polski</label>
-
-          <Input
-            id="pl"
-            placeholder={t('settingsPage.input.placeholder.newPassword')}
-            type="radio"
-            name="app-language"
-            value="english"
-            {...register('appLanguage', { required: true })}
-          />
-          <label htmlFor="pl">Angielski</label>
 
           <h3>{t('settingsPage.section.changeYourPassword')}</h3>
           <p className="input-label">{t('authPage.labels.password')}</p>
