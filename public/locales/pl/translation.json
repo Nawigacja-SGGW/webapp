@@ -55,7 +55,12 @@
     }
   },
   "objectsOverviewPage": {
-    "title": "Lista obiektów"
+    "title": "Lista obiektów",
+    "search.placeholder": "Wyszukaj",
+    "button.navigate": "Szczegóły",
+    "sortBy": "Sortuj według", 
+    "sort.az": "Nazwa: od A do Z",
+    "sort.za": "Nazwa: od Z do A"
   },
   "settingsPage": {
     "header": "Ustawienia",
@@ -75,4 +80,5 @@
     "searchPlaces.startPoint.placeholder": "Twoja lokalizacja",
     "searchPlaces.destination.placeholder": "Kierunek"
   }
+
 }
