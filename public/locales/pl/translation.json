@@ -72,7 +72,8 @@
     "section.changeYourPassword": "Zmień hasło",
     "input.placeholder.newPassword": "Nowe hasło",
     "input.placeholder.confirmPassword": "powtórz hasło",
-    "button.save": "Zapisz"
+    "button.save": "Zapisz",
+    "input.error.passwordsNotMatch": "Podane hasła nie pasują!"
   },
   "profilePage": {
     "title": "Twój profil",

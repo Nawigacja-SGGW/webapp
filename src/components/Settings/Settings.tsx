@@ -28,7 +28,10 @@ export const Settings = () => {
     clearErrors();
     const { password, confirmPassword } = data;
     if (password !== confirmPassword) {
-      setError('confirmPassword', { type: 'manual', message: 'Passwords do not match' });
+      setError('confirmPassword', {
+        type: 'manual',
+        message: t('settingsPage.input.error.passwordsNotMatch'),
+      });
     }
   };
 
@@ -85,16 +88,12 @@ export const Settings = () => {
             type="password"
             {...register('password', { required: true })}
           />
-          {errors.password && <span className="input-error">This field is required</span>}
           <p className="input-label">{t('authPage.labels.confirmPassword')}</p>
           <Input
             placeholder={t('settingsPage.input.placeholder.confirmPassword')}
             type="password"
             {...register('confirmPassword', { required: true })}
           />
-          {errors.confirmPassword && errors.confirmPassword.type != 'manual' && (
-            <span className="input-error">This field is required</span>
-          )}
           {errors.confirmPassword && errors.confirmPassword && (
             <span className="input-error">{errors.confirmPassword.message}</span>
           )}

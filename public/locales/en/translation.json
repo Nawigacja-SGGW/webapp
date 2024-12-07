@@ -71,7 +71,8 @@
     "section.changeYourPassword": "Change your password",
     "input.placeholder.newPassword": "New password",
     "input.placeholder.confirmPassword": "Confirm password",
-    "button.save": "Save"
+    "button.save": "Save",
+    "input.error.passwordsNotMatch": "Password do not match!"
   },
   "profilePage": {
     "title": "Your profile",
