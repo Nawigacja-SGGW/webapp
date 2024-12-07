@@ -33,8 +33,8 @@ export const Settings = () => {
 
   return (
     <div className="settings">
-      <FormLayout title={t('settingsPage.header')}>
-        <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <FormLayout title={t('settingsPage.header')}>
           <h3>{t('settingsPage.section.routePreferences')}</h3>
           <h3>{t('settingsPage.section.appLanguage')}</h3>
           <p className="input-label">{t('authPage.labels.password')}</p>
@@ -50,19 +50,25 @@ export const Settings = () => {
             type="password"
             {...register('confirmPassword', { required: true })}
           />
-        </form>
-      </FormLayout>
-      <div className="submit-btn-wrapper">
-        <div>
-          <Button
-            className="green-button submit-btn"
-            label={t('settingsPage.button.save')}
-            type="submit"
-            disabled={isSubmitting || !isValid}
-            primary
-          />
+          {errors.confirmPassword && errors.confirmPassword.type != 'manual' && (
+            <span className="input-error">This field is required</span>
+          )}
+          {errors.confirmPassword && errors.confirmPassword && (
+            <span className="input-error">{errors.confirmPassword.message}</span>
+          )}
+        </FormLayout>
+        <div className="submit-btn-wrapper">
+          <div>
+            <Button
+              className="green-button submit-btn"
+              label={t('settingsPage.button.save')}
+              type="submit"
+              disabled={isSubmitting || !isValid}
+              primary
+            />
+          </div>
         </div>
-      </div>
+      </form>
     </div>
   );
 };
