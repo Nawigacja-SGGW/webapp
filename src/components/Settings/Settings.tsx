@@ -33,13 +33,29 @@ export const Settings = () => {
   };
 
   const routePreferencesOptions: RadioInputAttributes[] = [
-    { value: 'walk', label: 'Walk', id: 'option-walk' },
-    { value: 'bike', label: 'Bike', id: 'option-bike' },
+    {
+      value: 'walk',
+      label: t('settingsPage.section.routePreferences.option.walk'),
+      id: 'option-walk',
+    },
+    {
+      value: 'bike',
+      label: t('settingsPage.section.routePreferences.option.bike'),
+      id: 'option-bike',
+    },
   ];
 
   const appLanguageOptions: RadioInputAttributes[] = [
-    { value: 'polish', label: 'Polish', id: 'option-polish' },
-    { value: 'english', label: 'English', id: 'option-english' },
+    {
+      value: 'polish',
+      label: t('settingsPage.section.appLanguage.option.polish'),
+      id: 'option-polish',
+    },
+    {
+      value: 'english',
+      label: t('settingsPage.section.appLanguage.option.english'),
+      id: 'option-english',
+    },
   ];
 
   return (
