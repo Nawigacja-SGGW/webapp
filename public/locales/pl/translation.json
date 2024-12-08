@@ -62,7 +62,18 @@
     "yourData": "Twoje dane",
     "title": "Lista obiektów",
     "search.placeholder": "Szukaj",
-    "button.navigate": "Szczegóły"
+    "button.navigate": "Szczegóły",
+    "section.routePreferences": "Preferencje tras",
+    "section.routePreferences.option.walk": "Pieszo",
+    "section.routePreferences.option.bike": "Rower",
+    "section.appLanguage": "Domyślny język aplikacji",
+    "section.appLanguage.option.polish": "Polski",
+    "section.appLanguage.option.english": "Angielski",
+    "section.changeYourPassword": "Zmień hasło",
+    "input.placeholder.newPassword": "Nowe hasło",
+    "input.placeholder.confirmPassword": "powtórz hasło",
+    "button.save": "Zapisz",
+    "input.error.passwordsNotMatch": "Podane hasła nie pasują!"
   },
   "profilePage": {
     "title": "Twój profil",
