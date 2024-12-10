@@ -12,7 +12,7 @@ export const Settings = () => {
   const { t } = useTranslation();
 
   type SettingsInputs = {
-    routePreference: 'walking' | 'bike';
+    routePreference: 'foot' | 'bike';
     appLanguage: 'en' | 'pl';
     password: string;
     confirmPassword: string;
@@ -49,7 +49,7 @@ export const Settings = () => {
 
   const Options: RadioInputAttributes[] = [
     {
-      value: 'walking',
+      value: 'foot',
       label: t('settingsPage.section.routePreferences.option.walk'),
       id: 'option-walk',
     },
