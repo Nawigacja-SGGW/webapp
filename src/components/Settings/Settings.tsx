@@ -1,20 +1,28 @@
 import './Settings.scss';
 import { useTranslation } from 'react-i18next';
 import { FormLayout } from '../../layouts/AuthorizationFormLayout/AuthorizationFormLayout';
-import { Input } from '../../components/ui/Input/Input';
-import { Button } from '../../components/ui/Button/Button';
+import { Input } from '../ui/Input/Input.tsx';
+import { Button } from '../ui/Button/Button.tsx';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { RadioInputAttributes, RadioInputs } from '../ui/RadioInputs/RadioInputs';
+import { useAppStore } from '../../store';
+import i18n from 'i18next';
 
 export const Settings = () => {
   const { t } = useTranslation();
 
   type SettingsInputs = {
-    routePreferences: string;
-    appLanguage: string;
+    routePreference: 'walk' | 'bike';
+    appLanguage: 'en' | 'pl';
     password: string;
     confirmPassword: string;
   };
+
+  const { routePreference, language } = useAppStore((state) => state.preferences);
+  const setRoutePreference = useAppStore((state) => state.setRoutePreference);
+  const setLanguage = useAppStore((state) => state.setLanguage);
+
+  console.log(routePreference);
 
   const {
     formState: { errors, isSubmitting, isValid },
@@ -26,7 +34,11 @@ export const Settings = () => {
 
   const onSubmit: SubmitHandler<SettingsInputs> = (data) => {
     clearErrors();
-    const { password, confirmPassword } = data;
+    const { password, confirmPassword, routePreference, appLanguage } = data;
+    setRoutePreference(routePreference);
+    setLanguage(appLanguage);
+    i18n.changeLanguage(appLanguage);
+
     if (password !== confirmPassword) {
       setError('confirmPassword', {
         type: 'manual',
@@ -35,7 +47,7 @@ export const Settings = () => {
     }
   };
 
-  const routePreferencesOptions: RadioInputAttributes[] = [
+  const Options: RadioInputAttributes[] = [
     {
       value: 'walk',
       label: t('settingsPage.section.routePreferences.option.walk'),
@@ -50,12 +62,12 @@ export const Settings = () => {
 
   const appLanguageOptions: RadioInputAttributes[] = [
     {
-      value: 'polish',
+      value: 'pl',
       label: t('settingsPage.section.appLanguage.option.polish'),
       id: 'option-polish',
     },
     {
-      value: 'english',
+      value: 'en',
       label: t('settingsPage.section.appLanguage.option.english'),
       id: 'option-english',
     },
@@ -68,14 +80,16 @@ export const Settings = () => {
           <h3>{t('settingsPage.section.routePreferences')}</h3>
           <br />
           <RadioInputs
-            radioInputsValues={routePreferencesOptions}
-            registerOptions={register('routePreferences', { required: true })}
+            defaultValue={routePreference}
+            radioInputsValues={Options}
+            registerOptions={register('routePreference', { required: true })}
           ></RadioInputs>
 
           <br />
           <h3>{t('settingsPage.section.appLanguage')}</h3>
           <br />
           <RadioInputs
+            defaultValue={language}
             radioInputsValues={appLanguageOptions}
             registerOptions={register('appLanguage', { required: true })}
           ></RadioInputs>

@@ -8,6 +8,7 @@ import { Settings } from '@styled-icons/evaicons-solid/Settings';
 import { LogOut } from '@styled-icons/ionicons-outline/LogOut';
 import { ChevronDoubleLeft, ChevronDoubleRight } from '@styled-icons/fluentui-system-filled/';
 import { ChangeEvent } from 'react';
+import { useAppStore, Language } from '../../store';
 
 //todo add translations
 export type SidebarProps = {
@@ -19,8 +20,11 @@ export const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
   const location = useLocation();
   const navigate = useNavigate();
 
+  const setLanguage = useAppStore((state) => state.setLanguage);
+  const isSettingsRoute = location.pathname.includes('/settings');
+
   const handleLanguageChange = (e: ChangeEvent<HTMLInputElement>) => {
-    console.log('change');
+    setLanguage(e.target.value as Language);
     i18n.changeLanguage(e.target.value);
   };
   const handleLogout = () => {
@@ -33,31 +37,35 @@ export const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
     <div className={clsx('sidebar', sidebarOpen && 'sidebar--open')}>
       <div className="sidebar__container">
         <div className="sidebar__container__language-picker">
-          <label className={clsx(i18n.language === 'pl' && 'active')} htmlFor="lang-pl">
-            PL
-          </label>
-          /
-          <input
-            type="radio"
-            id="lang-pl"
-            name="language"
-            value="pl"
-            checked={i18n.language === 'pl'}
-            onChange={handleLanguageChange}
-            hidden
-          />
-          <label className={clsx(i18n.language === 'en' && 'active')} htmlFor="lang-en">
-            EN
-          </label>
-          <input
-            type="radio"
-            id="lang-en"
-            name="language"
-            value="en"
-            checked={i18n.language === 'en'}
-            onChange={handleLanguageChange}
-            hidden
-          />
+          {!isSettingsRoute ? (
+            <>
+              <label className={clsx(i18n.language === 'pl' && 'active')} htmlFor="lang-pl">
+                PL
+              </label>
+              /
+              <input
+                type="radio"
+                id="lang-pl"
+                name="language"
+                value="pl"
+                checked={i18n.language === 'pl'}
+                onChange={handleLanguageChange}
+                hidden
+              />
+              <label className={clsx(i18n.language === 'en' && 'active')} htmlFor="lang-en">
+                EN
+              </label>
+              <input
+                type="radio"
+                id="lang-en"
+                name="language"
+                value="en"
+                checked={i18n.language === 'en'}
+                onChange={handleLanguageChange}
+                hidden
+              />{' '}
+            </>
+          ) : null}
         </div>
         <div className="sidebar__container__app-identity">
           <div className="sidebar__container__app-identity__heading">Logo/name</div>

@@ -4,6 +4,7 @@ import './RadioInputs.scss';
 export type RadioInputsWrapperAttributes<T extends string> = {
   radioInputsValues: RadioInputAttributes[];
   registerOptions: UseFormRegisterReturn<T>;
+  defaultValue: T;
 };
 
 export type RadioInputAttributes = {
@@ -23,6 +24,7 @@ export const RadioInputs = <T extends string>(attrs: RadioInputsWrapperAttribute
             value={radioInputValues.value}
             {...attrs.registerOptions}
             className="radio-input"
+            defaultChecked={radioInputValues.value === attrs.defaultValue}
           />
           <label htmlFor={radioInputValues.id} className="radio-label">
             {radioInputValues.label}
