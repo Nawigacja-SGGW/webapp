@@ -3,7 +3,7 @@ import { create } from 'zustand';
 export type Language = 'en' | 'pl';
 
 interface Preferences {
-  routePreference: 'walk' | 'bike';
+  routePreference: 'walking' | 'bike';
   language: Language;
 }
 
@@ -18,7 +18,7 @@ interface Action {
 
 export const useAppStore = create<AppState & Action>((set) => ({
   preferences: {
-    routePreference: 'walk',
+    routePreference: 'walking',
     language: 'pl',
   },
   setRoutePreference: (routePreference: AppState['preferences']['routePreference']) =>
