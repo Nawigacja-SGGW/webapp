@@ -9,12 +9,14 @@ import NavigationPanel from './NavigationPanel.tsx';
 import { SearchPlaces, getObjectsList } from '../SearchPlaces/SearchPlaces.tsx';
 import { ObjectData } from '../../models';
 import { getPath, PathInfo } from './utils.ts';
+import { useAppStore, AppState } from '../../store/index.ts';
 
 import './leaflet.css';
 import './Map.scss';
 
 export type Points = {
-  locationPoint: L.LatLng | null;
+  startingPoint: ObjectData | null;
+  locationCoords: L.LatLng | null;
   destinationPoint: ObjectData | null;
 };
 
@@ -24,7 +26,8 @@ const BORDER_SW = L.latLng(52.1524, 21.0354);
 const BORDER_NE = L.latLng(52.1704, 21.0554);
 
 const INITIAL_POINTS: Points = {
-  locationPoint: null,
+  startingPoint: null,
+  locationCoords: null,
   destinationPoint: null,
 };
 
@@ -42,70 +45,66 @@ export const Map = () => {
   const [pathInfo, setPathInfo] = useState<PathInfo>(INITIAL_PATH_INFO);
 
   const [mapState, setMapState] = useState<MapState>('browsing');
-
-  // getting all locations from handlers.ts
   const [allLocations, setAllLocations] = useState<ObjectData[]>([]);
 
+  const route_type = useAppStore((state: AppState) => state.preferences.routePreference);
+
+  // Fetch all objects
+  // when first loading Map
   useEffect(() => {
     getObjectsList().then((data) => {
-      console.log(data);
       setAllLocations(data);
     });
   }, []);
 
+  // Update path (and path info)
+  // when points changes
   useEffect(() => {
     // Canceling navigation when too close to destination
     if (mapState === 'navigating' && pathInfo.totalDistance < 5) {
       setMapState('browsing');
       setPoints(INITIAL_POINTS);
-    } else if (points?.locationPoint && points?.destinationPoint) {
-      getPath(
-        {
-          lat: points.locationPoint.lat,
-          lng: points.locationPoint.lng,
-        } as L.LatLng,
-        {
-          lat: points.destinationPoint.lat,
-          lng: points.destinationPoint.lng,
-        } as L.LatLng,
-        'foot'
-      ).then((data) => setPathInfo(data));
+    } else if (points?.destinationPoint && (points.startingPoint || points.locationCoords)) {
+      let startingPoint: L.LatLng | undefined;
+      let destinationPoint: L.LatLng = {
+        lat: points.destinationPoint.lat,
+        lng: points.destinationPoint.lng,
+      } as L.LatLng;
+
+      if (points.startingPoint) {
+        startingPoint = {
+          lat: points.startingPoint.lat,
+          lng: points.startingPoint.lng,
+        } as L.LatLng;
+      } else if (points.locationCoords) {
+        startingPoint = points.locationCoords;
+      }
+
+      if (startingPoint) {
+        getPath(startingPoint, destinationPoint, route_type).then((data) => setPathInfo(data));
+      }
     }
   }, [points]);
 
-  useEffect(() => {
-    if (points?.locationPoint && points?.destinationPoint) {
-      if (mapState === 'navigating') {
-        // Below solution when using real location (update on a timer, could add if location changed enough)
-        // const interval = setInterval(() => {
-        //   getPath(
-        //     {
-        //       lat: points.locationPoint!.lat,
-        //       lng: points.locationPoint!.lng,
-        //     } as L.LatLng,
-        //     {
-        //       lat: points.destinationPoint!.lat,
-        //       lng: points.destinationPoint!.lng,
-        //     } as L.LatLng,
-        //     'foot'
-        //   ).then((data) => setPathInfo(data));
-        // }, 1000);
-        // return () => clearInterval(interval);
-      } else {
-        getPath(
-          {
-            lat: points.locationPoint!.lat,
-            lng: points.locationPoint!.lng,
-          } as L.LatLng,
-          {
-            lat: points.destinationPoint!.lat,
-            lng: points.destinationPoint!.lng,
-          } as L.LatLng,
-          'foot'
-        ).then((data) => setPathInfo(data));
-      }
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (mapState === 'navigating') {
+  //     // Below solution when using real location (update on a timer, could add if location changed enough)
+  //     const interval = setInterval(() => {
+  //       getPath(
+  //         {
+  //           lat: points.locationPoint!.lat,
+  //           lng: points.locationPoint!.lng,
+  //         } as L.LatLng,
+  //         {
+  //           lat: points.destinationObject!.lat,
+  //           lng: points.destinationObject!.lng,
+  //         } as L.LatLng,
+  //         'foot'
+  //       ).then((data) => setPathInfo(data));
+  //     }, 1000);
+  //     return () => clearInterval(interval);
+  //   }
+  // }, []);
 
   const PopulateWithMarkers = () => {
     return allLocations.length
@@ -119,6 +118,7 @@ export const Map = () => {
       : null;
   };
 
+  // Setting clicked marker's object as destination
   const OnMarkerClick = (markerObject: ObjectData) => {
     setPoints({
       ...points,
@@ -126,12 +126,14 @@ export const Map = () => {
     });
   };
 
+  // Setting location when clicked on map (not marker)
   function OnMapClick() {
     useMapEvents({
       click: (event) => {
         setPoints({
           ...points,
-          locationPoint: event.latlng,
+          locationCoords: event.latlng,
+          startingPoint: null,
         });
       },
     });
@@ -149,7 +151,7 @@ export const Map = () => {
           data={points.destinationPoint}
           pathDistance={pathInfo.totalDistance}
           pathTime={pathInfo.totalTime}
-          isLocationSet={points.locationPoint !== null}
+          isLocationSet={points.locationCoords !== null}
           setMapState={setMapState}
         />
       )}
@@ -173,7 +175,7 @@ export const Map = () => {
 
         {allLocations && PopulateWithMarkers()}
 
-        {points.locationPoint && <CustomMarker position={points.locationPoint} />}
+        {points.locationCoords && <CustomMarker position={points.locationCoords} />}
 
         <Polyline positions={pathInfo.path} />
 

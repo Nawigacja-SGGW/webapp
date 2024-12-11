@@ -19,13 +19,16 @@ interface SearchPlacesSelectProps {
 }
 
 type SearchPlacesComponentState = {
-  locationPoint: SearchPlacesSelectOption | null;
+  startingPoint: SearchPlacesSelectOption | null;
   destinationPoint: SearchPlacesSelectOption | null;
   allObjects: SearchPlacesSelectOption[];
   filteredObjects: SearchPlacesSelectOption[];
 };
 
-export type SearchPlacesActionType = 'changeDestinationPoint' | 'loadObjects'; //  | 'changeLocationPoint' | 'filterObjects'
+export type SearchPlacesActionType =
+  | 'changeDestinationPoint'
+  | 'changeStartingPoint'
+  | 'loadObjects';
 
 type SearchPlacesSelectAction = {
   type: SearchPlacesActionType;
@@ -33,7 +36,7 @@ type SearchPlacesSelectAction = {
 };
 
 const INITIAL_STATE: SearchPlacesComponentState = {
-  locationPoint: null,
+  startingPoint: null,
   destinationPoint: null,
   allObjects: [],
   filteredObjects: [],
@@ -45,48 +48,36 @@ export const SearchPlaces = ({ points, onSetPoints, allLocations }: SearchPlaces
     action: SearchPlacesSelectAction
   ): SearchPlacesComponentState => {
     switch (action.type) {
+      case 'changeStartingPoint':
+        return {
+          ...state,
+          startingPoint: action.payload as SearchPlacesSelectOption | null,
+          filteredObjects: state.allObjects.filter(
+            (item: SearchPlacesSelectOption) =>
+              item.label !== (action.payload as SearchPlacesSelectOption | null)?.label &&
+              item.value !== (action.payload as SearchPlacesSelectOption | null)?.value &&
+              item.label !== state.destinationPoint?.label &&
+              item.value !== state.destinationPoint?.value
+          ),
+        };
       case 'changeDestinationPoint':
         return {
           ...state,
           destinationPoint: action.payload as SearchPlacesSelectOption | null,
-          // allObjects:
-          //   action.payload !== null
-          //     ? state.allObjects.filter(
-          //         (obj) =>
-          //           obj.value.addressId !==
-          //           (action.payload as SearchPlacesSelectOption).value.addressId
-          //       )
-          //     : [...state.allObjects, state.destinationPoint],
+          filteredObjects: state.allObjects.filter(
+            (item: SearchPlacesSelectOption) =>
+              item.label !== state.startingPoint?.label &&
+              item.value !== state.startingPoint?.value &&
+              item.label !== (action.payload as SearchPlacesSelectOption | null)?.label &&
+              item.value !== (action.payload as SearchPlacesSelectOption | null)?.value
+          ),
         };
-      // case 'changeLocationPoint':
-      //   return {
-      //     ...state,
-      //     locationPoint: action.payload as SearchPlacesSelectOption | null,
-      //     // allObjects:
-      //     //   action.payload !== null
-      //     //     ? state.allObjects.filter(
-      //     //         (obj) =>
-      //     //           obj &&
-      //     //           obj.value.addressId !==
-      //     //             (action.payload as SearchPlacesSelectOption).value.addressId
-      //     //       )
-      //     //     : [...state.allObjects, state.locationPoint],
-      //   };
       case 'loadObjects':
         return {
           ...state,
           allObjects: action.payload as SearchPlacesSelectOption[],
+          filteredObjects: action.payload as SearchPlacesSelectOption[],
         };
-      // case 'filterObjects':
-      //   return {
-      //     ...state,
-      //     filteredObjects:
-      //       action.payload !== null
-      //         ? state.allObjects.filter((obj) => {
-      //           obj && obj.value !== (action.payload as SearchPlacesSelectOption).value
-      //         })
-      //         : [...state.allObjects],
-      //   }
       default:
         return state;
     }
@@ -94,47 +85,43 @@ export const SearchPlaces = ({ points, onSetPoints, allLocations }: SearchPlaces
 
   const [state, dispatch] = useReducer(reducer, INITIAL_STATE, () => INITIAL_STATE);
 
-  // I feel like fetching all object each time we choose option isn't optimal
-  // Wouldn't it be better to fetch them once (in Map.tsx, as it also needs them) and pass them here
-  // and then just filter for specific use cases?
-  // useEffect(() => {
-  //   getObjectsList().then((data) => {
-  //     const filteredData = data.filter((d) => {
-  //       if (state.locationPoint || state.destinationPoint) {
-  //         return ![
-  //           state.locationPoint.value.addressId,
-  //           state.destinationPoint.value.addressId,
-  //         ].includes(d.addressId);
-  //       } else {
-  //         return true;
-  //       }
-  //     });
-  //     dispatch({
-  //       type: 'loadObjects',
-  //       payload: mapObjectsDataToSelectOption(filteredData),
-  //     });
-  //   });
-  // }, [dispatch]);
-
+  // Load all objects
+  // only when first rendering this component
   useEffect(() => {
     dispatch({
       type: 'loadObjects',
       payload: allLocations && mapObjectsDataToSelectOption(allLocations),
     });
-  }, [allLocations]); // only when first rendering
+  }, [allLocations]);
 
+  // Following useEffects are for syncing between Map points and Searchlaces state
+
+  // Update destination in Map
+  // when chosen destination from list
   useEffect(() => {
-    if (
-      state.destinationPoint &&
-      (!points.destinationPoint || points.destinationPoint !== state.destinationPoint.value)
-    ) {
+    if (points.destinationPoint !== state.destinationPoint?.value) {
       onSetPoints({
         ...points,
-        destinationPoint: state.destinationPoint.value,
+        destinationPoint: state.destinationPoint ? state.destinationPoint.value : null,
       });
     }
   }, [state.destinationPoint]);
 
+  // Update location in Map
+  // when chosen location from list
+  useEffect(() => {
+    if (state.startingPoint && points.startingPoint !== state.startingPoint?.value) {
+      onSetPoints({
+        ...points,
+        locationCoords: null,
+        startingPoint: state.startingPoint ? state.startingPoint.value : null,
+      });
+    }
+  }, [state.startingPoint]);
+
+  // Update destination (and location) here
+  // when clicked on a pin
+  // or clicked on map
   useEffect(() => {
     if (points.destinationPoint && points.destinationPoint !== state.destinationPoint?.value) {
       dispatch({
@@ -142,44 +129,46 @@ export const SearchPlaces = ({ points, onSetPoints, allLocations }: SearchPlaces
         payload: {
           value: points.destinationPoint,
           label: points.destinationPoint.name,
-        },
+        } as SearchPlacesSelectOption,
+      });
+
+      if (points.destinationPoint === state.startingPoint?.value) {
+        dispatch({
+          type: 'changeStartingPoint',
+          payload: null,
+        });
+      }
+    } else if (points.locationCoords) {
+      dispatch({
+        type: 'changeStartingPoint',
+        payload: null,
       });
     }
-  }, [points.destinationPoint]);
+  }, [points]);
 
   return (
     <div className="search-places__wrapper">
       <div className="search-places-field__wrapper">
         {/*//@ts-ignore*/}
         <Select
-          options={state.allObjects.filter(
-            (item: SearchPlacesSelectOption) =>
-              item !== state.destinationPoint && item !== state.locationPoint
-          )}
+          options={state.filteredObjects}
           className="search-places__input"
           placeholder="homePage.searchPlaces.startPoint.placeholder"
           isSearchable
           isClearable
-          value={state.locationPoint}
-          onChange={(_) => {
-            // dispatch({
-            //   type: 'changeLocationPoint',
-            //   payload: e as SearchPlacesSelectOption,
-            // })
-            // onSetPoints({
-            //   ...points,
-            //   locationPoint: state.locationPoint ? L.latLng(state.locationPoint.value.lat, state.locationPoint.value.lng) : null
-            // })
+          value={state.startingPoint}
+          onChange={(e) => {
+            dispatch({
+              type: 'changeStartingPoint',
+              payload: e as SearchPlacesSelectOption,
+            });
           }}
         />
       </div>
       <div className="search-places-field__wrapper">
         {/*//@ts-ignore*/}
         <Select
-          options={state.allObjects.filter(
-            (item: SearchPlacesSelectOption) =>
-              item !== state.destinationPoint && item !== state.locationPoint
-          )}
+          options={state.filteredObjects}
           className="search-places__input"
           placeholder="homePage.searchPlaces.destination.placeholder"
           isSearchable
