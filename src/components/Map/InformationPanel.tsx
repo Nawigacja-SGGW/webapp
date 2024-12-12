@@ -38,9 +38,12 @@ export const InformationPanel = ({
   };
 
   const [panelState, setPanelState] = useState<PanelState>('details');
-  const TrySetPanelState = (newState: PanelState) => {
-    if (newState === 'details' || (newState === 'navigation' && isLocationSet))
-      setPanelState(newState);
+  const tryStartNavigating = () => {
+    if (isLocationSet) {
+      startNavigation();
+    }
+    // if (newState === 'details' || (newState === 'navigation' && isLocationSet))
+    //   setPanelState(newState);
   };
 
   const startNavigation = () => {
@@ -82,11 +85,9 @@ export const InformationPanel = ({
           {panelState === 'details' ? (
             <>
               <Button
-                className={!isLocationSet ? 'button primary' : ''}
                 label={t('mapPage.detailsPanel.button.navigate')}
                 size="sm"
-                onClick={() => TrySetPanelState('navigation')}
-                disabled={!isLocationSet}
+                onClick={() => setPanelState('navigation')}
               ></Button>
               <Button
                 label={t('mapPage.detailsPanel.button.details')}
@@ -97,9 +98,11 @@ export const InformationPanel = ({
           ) : (
             <>
               <Button
+                className={!isLocationSet ? 'button primary' : ''}
                 label={`Start - ${Math.round(pathTime / 60)} min`}
                 size="sm"
-                onClick={startNavigation}
+                onClick={tryStartNavigating}
+                disabled={!isLocationSet}
               ></Button>
               <Button
                 label={t('mapPage.detailsPanel.button.cancel')}
