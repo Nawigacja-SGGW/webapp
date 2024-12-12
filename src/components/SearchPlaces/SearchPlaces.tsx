@@ -110,10 +110,10 @@ export const SearchPlaces = ({ points, onSetPoints, allLocations }: SearchPlaces
   // Update location in Map
   // when chosen location from list
   useEffect(() => {
-    if (state.startingPoint && points.startingPoint !== state.startingPoint?.value) {
+    if (points.startingPoint !== state.startingPoint?.value) {
       onSetPoints({
         ...points,
-        locationCoords: null,
+        locationCoords: state.startingPoint ? null : points.locationCoords,
         startingPoint: state.startingPoint ? state.startingPoint.value : null,
       });
     }

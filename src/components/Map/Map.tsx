@@ -85,6 +85,8 @@ export const Map = () => {
       if (startingPoint) {
         getPath(startingPoint, destinationPoint, route_type).then((data) => setPathInfo(data));
       }
+    } else {
+      setPathInfo(INITIAL_PATH_INFO);
     }
   }, [points]);
 
@@ -109,7 +111,7 @@ export const Map = () => {
   // }, []);
 
   const PopulateWithMarkers = () => {
-    return allLocations.length
+    return allLocations.length > 0
       ? allLocations.map((location, i) => (
           <CustomMarker
             position={L.latLng(location.lat, location.lng)}
