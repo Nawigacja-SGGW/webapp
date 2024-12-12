@@ -48,9 +48,9 @@
 }
 
 button {
-  background-color: white;
-  color: var(--dark-green);
-  font-weight: bold;
-
   flex-grow: 1;
+}
+
+button:disabled {
+  background-color: green;
 }

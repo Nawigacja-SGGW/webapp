@@ -35,8 +35,9 @@ const INITIAL_PATH_INFO: PathInfo = {
   path: [],
   totalTime: 0,
   totalDistance: 0,
-  direction: '',
-  nextDirection: '',
+  transportationMode: '',
+  nextManeuver: '',
+  nextManeuverModifier: '',
   distanceUntillNextDirection: 0,
 };
 
@@ -64,6 +65,7 @@ export const Map = () => {
     if (mapState === 'navigating' && pathInfo.totalDistance < 5) {
       setMapState('browsing');
       setPoints(INITIAL_POINTS);
+      setPathInfo(INITIAL_PATH_INFO);
     } else if (points?.destinationPoint && (points.startingPoint || points.locationCoords)) {
       let startingPoint: L.LatLng | undefined;
       let destinationPoint: L.LatLng = {
@@ -120,10 +122,12 @@ export const Map = () => {
 
   // Setting clicked marker's object as destination
   const OnMarkerClick = (markerObject: ObjectData) => {
-    setPoints({
-      ...points,
-      destinationPoint: markerObject,
-    });
+    if (mapState !== 'navigating') {
+      setPoints({
+        ...points,
+        destinationPoint: markerObject,
+      });
+    }
   };
 
   // Setting location when clicked on map (not marker)

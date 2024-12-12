@@ -6,6 +6,12 @@ import { ObjectData } from '../../models';
 import { Button } from '../ui/Button/Button.tsx';
 import './InformationPanel.scss';
 
+import { Location } from '@styled-icons/evil';
+import { BuildingOffice } from '@styled-icons/heroicons-outline';
+import { EmailOutline } from '@styled-icons/evaicons-outline';
+import { Telephone } from '@styled-icons/bootstrap';
+import { InfoOutline } from '@styled-icons/evaicons-outline';
+
 interface InformationPanelProps {
   data: ObjectData;
   pathDistance: number;
@@ -46,16 +52,26 @@ export const InformationPanel = ({
         <div className="title">{data.name}</div>
         <div className="information-container">
           {/* those fields later updates from address via addressid, unless packaged inside object */}
-          <div className="field">[__] Budynek nr _ </div>
-          <div className="field">[__] ul. Nowoursynowska ___/__, 02-787 Warszawa</div>
+          <div className="field">
+            <Location size="22" /> Budynek nr _{' '}
+          </div>
+          <div className="field">
+            <BuildingOffice size="22" /> ul. Nowoursynowska ___/__, 02-787 Warszawa
+          </div>
           {panelState === 'details' ? (
             <>
-              <div className="field">[__] _@sggw.edu.pl</div>
-              <div className="field">[__] __ ___ __ __</div>
+              <div className="field">
+                <EmailOutline size="18" /> _@sggw.edu.pl
+              </div>
+              <div className="field">
+                <Telephone size="18" /> __ ___ __ __
+              </div>
             </>
           ) : (
             <>
-              <div className="field">[__] {Math.round(pathDistance / 100) / 10} km</div>
+              <div className="field">
+                <InfoOutline size="22" /> {Math.round(pathDistance / 100) / 10} km
+              </div>
               <div className="field"></div>
             </>
           )}
@@ -64,9 +80,11 @@ export const InformationPanel = ({
           {panelState === 'details' ? (
             <>
               <Button
+                className={!isLocationSet ? 'button primary' : ''}
                 label="Navigate"
                 size="sm"
                 onClick={() => TrySetPanelState('navigation')}
+                disabled={!isLocationSet}
               ></Button>
               <Button label="Details" size="sm" onClick={handleNavigateToObject}></Button>
             </>

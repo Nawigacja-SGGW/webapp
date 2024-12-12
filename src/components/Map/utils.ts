@@ -1,11 +1,44 @@
 import L from 'leaflet';
 
+type mode = '' | 'Walk' | 'Cycle';
+type maneuver =
+  | ''
+  | 'turn'
+  | 'new name'
+  | 'depart'
+  | 'arrive'
+  | 'merge'
+  | 'ramp'
+  | 'on ramp'
+  | 'off ramp'
+  | 'fork'
+  | 'end of road'
+  | 'use lane'
+  | 'continue'
+  | 'roundabout'
+  | 'rotary'
+  | 'roundabout turn'
+  | 'notification'
+  | 'exit roundabout'
+  | 'exit rotary';
+type maneuverModifier =
+  | ''
+  | 'uturn'
+  | 'sharp right'
+  | 'right'
+  | 'slight right'
+  | 'straight'
+  | 'slight left'
+  | 'left'
+  | 'sharp left';
+
 export type PathInfo = {
   path: [L.LatLng, L.LatLng][];
   totalTime: number;
   totalDistance: number;
-  direction: string;
-  nextDirection: string;
+  transportationMode: mode;
+  nextManeuver: maneuver;
+  nextManeuverModifier: maneuverModifier;
   distanceUntillNextDirection: number;
 };
 
@@ -20,8 +53,9 @@ export async function getPath(
     path: [],
     totalTime: -1,
     totalDistance: -1,
-    direction: '',
-    nextDirection: '',
+    transportationMode: '',
+    nextManeuver: '',
+    nextManeuverModifier: '',
     distanceUntillNextDirection: -1,
   };
 
@@ -32,9 +66,10 @@ export async function getPath(
     .then((data) => data['routes'][0]['legs'][0])
     .then((route) => {
       pathInfo.totalTime = route['duration'];
-      pathInfo.totalDistance = route['distance'];
-      pathInfo.direction = route['steps'][0]['mode'] === 'walking' ? 'Walk' : 'Cycle';
-      pathInfo.nextDirection = `${route['steps'][1]['maneuver']['type']} ${route['steps'][1]['maneuver']['modifier']}`;
+      pathInfo.totalDistance = Math.round(route['distance']);
+      pathInfo.transportationMode = route['steps'][0]['mode'] === 'walking' ? 'Walk' : 'Cycle';
+      pathInfo.nextManeuver = route['steps'][1]['maneuver']['type'];
+      pathInfo.nextManeuverModifier = route['steps'][1]['maneuver']['modifier'];
       pathInfo.distanceUntillNextDirection = route['steps'][0]['distance'];
 
       route['steps'].map((step: any) => {
