@@ -7,7 +7,7 @@ interface Preferences {
   language: Language;
 }
 
-interface AppState {
+export interface AppState {
   preferences: Preferences;
 }
 

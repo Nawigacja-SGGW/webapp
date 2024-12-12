@@ -52,6 +52,30 @@
     "errors": {
       "reconnecting": "Ponowne łączenie...",
       "locationNotFound": "Lokalizacja nieznaleziona"
+    },
+    "detailsPanel": {
+      "button.navigate": "Nawiguj",
+      "button.details": "Szczegóły",
+      "button.cancel": "Anuluj"
+    },
+    "navigationPanel": {
+      "mode.walk": "Idź",
+      "mode.cycle": "Jedź",
+      "maneuver.then": "Potem",
+      "maneuver.depart": "wystartuj",
+      "maneuver.continue": "kontynuuj",
+      "maneuver.turn": "skręt",
+      "maneuver.endofroad": "koniec drogi",
+      "maneuver.arrive": "dotarłeś",
+      "maneuverModifier.left": "w lewo",
+      "maneuverModifier.slightleft": "lekko w lewo",
+      "maneuverModifier.sharpleft": "ostro w lewo",
+      "maneuverModifier.right": "w prawo",
+      "maneuverModifier.slightright": "lekko w prawo",
+      "maneuverModifier.sharpright": "ostro w prawo",
+      "maneuverModifier.straight": "na wprost",
+      "maneuverModifier.uturn": "zawróć",
+      "button.cancel": "Zakończ"
     }
   },
   "objectsOverviewPage": {
