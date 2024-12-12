@@ -7,6 +7,7 @@ import './NavigationPanel.scss';
 import { Arrow90degLeft, Arrow90degRight, ArrowUp } from '@styled-icons/bootstrap';
 import { Walk } from '@styled-icons/boxicons-regular';
 import { DirectionsBike } from '@styled-icons/material-outlined';
+import { useTranslation } from 'react-i18next';
 
 interface NavigationPanelProps {
   pathInfo: PathInfo;
@@ -14,6 +15,8 @@ interface NavigationPanelProps {
 }
 
 export const NavigationPanel = ({ pathInfo, setMapState }: NavigationPanelProps) => {
+  const { t } = useTranslation();
+
   const GetManeuverSymbol = () => {
     switch (pathInfo.nextManeuver) {
       case 'continue':
@@ -36,6 +39,41 @@ export const NavigationPanel = ({ pathInfo, setMapState }: NavigationPanelProps)
     return 2;
   };
 
+  const GetCurrentManeuverTranslation = () => {
+    let mode = t(
+      `mapPage.navigationPanel.mode.${pathInfo.transportationMode == 'Walk' ? 'walk' : 'cycle'}`
+    );
+    let straight = t('mapPage.navigationPanel.maneuverModifier.straight');
+    let distance =
+      pathInfo.distanceUntillNextDirection >= 1000
+        ? Math.round(pathInfo.distanceUntillNextDirection / 100) / 10
+        : pathInfo.distanceUntillNextDirection;
+    let unit = pathInfo.distanceUntillNextDirection >= 1000 ? 'km' : 'm';
+
+    return `${mode} ${straight} ${distance} ${unit}`;
+  };
+
+  const GetNextManeuverTranslation = () => {
+    let then = t('mapPage.navigationPanel.maneuver.then');
+    let maneuver = '';
+
+    switch (pathInfo.nextManeuver) {
+      case 'end of road': {
+        maneuver = t('mapPage.navigationPanel.maneuver.endOfRoad');
+        break;
+      }
+      default: {
+        maneuver = t(`mapPage.navigationPanel.maneuver.${pathInfo.nextManeuver}`);
+        break;
+      }
+    }
+
+    let modifier = pathInfo.nextManeuverModifier.replace(' ', '');
+    let maneuverModifier = t(`mapPage.navigationPanel.maneuverModifier.${modifier}`);
+
+    return `${then} ${maneuver} ${maneuverModifier}`;
+  };
+
   return (
     <div className="container">
       <div className="details-container">
@@ -50,12 +88,8 @@ export const NavigationPanel = ({ pathInfo, setMapState }: NavigationPanelProps)
       <div className="direction-container">
         <div className="direction-symbol-container">{GetManeuverSymbol()}</div>
         <div className="direction-text-container">
-          <h1>
-            {pathInfo.transportationMode} straight {pathInfo.distanceUntillNextDirection} m
-          </h1>
-          <h2>
-            Then {pathInfo.nextManeuver} {pathInfo.nextManeuverModifier}
-          </h2>
+          <h1> {GetCurrentManeuverTranslation()} </h1>
+          <h2> {GetNextManeuverTranslation()} </h2>
         </div>
       </div>
 
@@ -67,7 +101,11 @@ export const NavigationPanel = ({ pathInfo, setMapState }: NavigationPanelProps)
             <DirectionsBike size="40" />
           )}
         </div>
-        <Button label="Cancel" size="sm" onClick={() => setMapState('browsing')}></Button>
+        <Button
+          label={t('mapPage.navigationPanel.button.cancel')}
+          size="sm"
+          onClick={() => setMapState('browsing')}
+        ></Button>
       </div>
     </div>
   );

@@ -1,4 +1,5 @@
 import { Dispatch, SetStateAction, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 import { MapState } from './Map.tsx';
@@ -29,7 +30,8 @@ export const InformationPanel = ({
   isLocationSet,
   setMapState,
 }: InformationPanelProps) => {
-  // const { t } = useTranslation();
+  const { t } = useTranslation();
+
   const navigate = useNavigate();
   const handleNavigateToObject = () => {
     navigate(`/home/objects/${data.addressId}`); // temporary, as there is no id for objects yet
@@ -81,12 +83,16 @@ export const InformationPanel = ({
             <>
               <Button
                 className={!isLocationSet ? 'button primary' : ''}
-                label="Navigate"
+                label={t('mapPage.detailsPanel.button.navigate')}
                 size="sm"
                 onClick={() => TrySetPanelState('navigation')}
                 disabled={!isLocationSet}
               ></Button>
-              <Button label="Details" size="sm" onClick={handleNavigateToObject}></Button>
+              <Button
+                label={t('mapPage.detailsPanel.button.details')}
+                size="sm"
+                onClick={handleNavigateToObject}
+              ></Button>
             </>
           ) : (
             <>
@@ -95,7 +101,11 @@ export const InformationPanel = ({
                 size="sm"
                 onClick={startNavigation}
               ></Button>
-              <Button label="Cancel" size="sm" onClick={() => setPanelState('details')}></Button>
+              <Button
+                label={t('mapPage.detailsPanel.button.cancel')}
+                size="sm"
+                onClick={() => setPanelState('details')}
+              ></Button>
             </>
           )}
         </div>

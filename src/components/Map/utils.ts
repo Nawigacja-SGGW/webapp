@@ -70,7 +70,7 @@ export async function getPath(
       pathInfo.transportationMode = route['steps'][0]['mode'] === 'walking' ? 'Walk' : 'Cycle';
       pathInfo.nextManeuver = route['steps'][1]['maneuver']['type'];
       pathInfo.nextManeuverModifier = route['steps'][1]['maneuver']['modifier'];
-      pathInfo.distanceUntillNextDirection = route['steps'][0]['distance'];
+      pathInfo.distanceUntillNextDirection = Math.round(route['steps'][0]['distance']);
 
       route['steps'].map((step: any) => {
         step['intersections'].map((intersection: any) => {
