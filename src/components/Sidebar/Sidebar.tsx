@@ -110,7 +110,7 @@ export const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                   location.pathname.includes('/guide') && 'active'
                 )}
               >
-                {t('sideBar.link.objects')}
+                {t('sideBar.link.guide')}
               </div>
             </div>
           </Link>

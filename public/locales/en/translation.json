@@ -13,6 +13,7 @@
     "link.objects": "Objects",
     "link.profile": "Profile",
     "link.settings": "Settings",
+    "link.guide": "Guide",
     "button.logOut": "Log out"
   },
   "authPage": {
