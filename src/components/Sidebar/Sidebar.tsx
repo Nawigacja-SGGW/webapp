@@ -9,6 +9,7 @@ import { LogOut } from '@styled-icons/ionicons-outline/LogOut';
 import { ChevronDoubleLeft, ChevronDoubleRight } from '@styled-icons/fluentui-system-filled/';
 import { ChangeEvent } from 'react';
 import { useAppStore, Language } from '../../store';
+import { Guide } from '@styled-icons/remix-line/Guide';
 
 //todo add translations
 export type SidebarProps = {
@@ -94,6 +95,19 @@ export const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                 className={clsx(
                   'sidebar__container__links__item__text',
                   location.pathname.includes('/objects') && 'active'
+                )}
+              >
+                {t('sideBar.link.objects')}
+              </div>
+            </div>
+          </Link>
+          <Link to="/home/guide" style={{ textDecoration: 'none' }}>
+            <div className="sidebar__container__links__item">
+              <Guide size="40" fill="white" />
+              <div
+                className={clsx(
+                  'sidebar__container__links__item__text',
+                  location.pathname.includes('/guide') && 'active'
                 )}
               >
                 {t('sideBar.link.objects')}

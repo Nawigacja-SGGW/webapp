@@ -10,6 +10,7 @@ import { LoginPage } from './pages/LoginPage/LoginPage.tsx';
 import { RegisterPage } from './pages/RegisterPage/RegisterPage.tsx';
 import { ForgotPasswordPage } from './pages/ForgotPasswordPage/ForgotPasswordPage.tsx';
 import { ChangePasswordPage } from './pages/ChangePasswordPage/ChangePasswordPage.tsx';
+import { GuidePage } from './pages/GuidePage/GuidePage.tsx';
 
 function App() {
   const router = createBrowserRouter([
@@ -31,6 +32,10 @@ function App() {
         {
           path: '/home/map',
           element: <Map />,
+        },
+        {
+          path: '/home/guide',
+          element: <GuidePage />,
         },
         {
           path: '/home/settings',
