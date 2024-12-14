@@ -54,7 +54,9 @@ export const Map = () => {
   // when first loading Map
   useEffect(() => {
     getObjectsList().then((data) => {
-      setAllLocations(data);
+      if (data != null) {
+        setAllLocations(data);
+      }
     });
   }, []);
 
@@ -111,7 +113,7 @@ export const Map = () => {
   // }, []);
 
   const PopulateWithMarkers = () => {
-    return allLocations.length > 0
+    return Array.isArray(allLocations)
       ? allLocations.map((location, i) => (
           <CustomMarker
             position={L.latLng(location.lat, location.lng)}
