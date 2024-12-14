@@ -98,3 +98,58 @@ export async function getPath(
       throw new Error(error);
     });
 }
+
+export async function getPaths(
+  destinationPoints: L.LatLng[],
+  type: 'foot' | 'bike'
+): Promise<PathInfo[]> {
+  const destinationPointsUrl = destinationPoints
+    .reduce((prev, curr) => {
+      return `${prev};${curr.lng},${curr.lat}`;
+    }, '')
+    .substring(1);
+
+  return fetch(
+    `${import.meta.env.VITE_OSMR_API_URL}/routed-${type}/route/v1/driving/${destinationPointsUrl}?overview=false&steps=true`
+  )
+    .then((response) => response.json())
+    .then((data) => data['routes'][0]['legs'])
+    .then((legs: any[]) => {
+      const pathInfos = legs.map((route) => {
+        const routePoints: L.LatLng[] = [];
+
+        let pathInfo: PathInfo = {
+          path: [],
+          totalTime: -1,
+          totalDistance: -1,
+          transportationMode: '',
+          nextManeuver: '',
+          nextManeuverModifier: '',
+          distanceUntillNextDirection: -1,
+        };
+
+        pathInfo.totalTime = route['duration'];
+        pathInfo.totalDistance = Math.round(route['distance']);
+        pathInfo.transportationMode = route['steps'][0]['mode'] === 'walking' ? 'Walk' : 'Cycle';
+        pathInfo.nextManeuver = route['steps'][1]['maneuver']['type'];
+        pathInfo.nextManeuverModifier = route['steps'][1]['maneuver']['modifier'];
+        pathInfo.distanceUntillNextDirection = Math.round(route['steps'][0]['distance']);
+
+        route['steps'].map((step: any) => {
+          step['intersections'].map((intersection: any) => {
+            const position: [number, number] = intersection['location'];
+            routePoints.push(new L.LatLng(position[1], position[0]));
+          });
+        });
+        routePoints.slice(0, -1).map((_, i) => {
+          pathInfo.path.push([routePoints[i], routePoints[i + 1]]);
+        });
+        return pathInfo;
+      });
+
+      return pathInfos;
+    })
+    .catch((error) => {
+      throw new Error(error);
+    });
+}
