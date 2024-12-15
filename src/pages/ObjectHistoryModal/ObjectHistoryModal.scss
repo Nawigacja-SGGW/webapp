@@ -1,13 +1,11 @@
 .modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  position: absolute;
+  top: 15%;
+  padding: var(--spacing-l);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000;
+  width: 100%;
 }
 
 .modal-content {
@@ -16,4 +14,34 @@
   width: 100%;
   text-align: center;
   border: 1px solid grey;
+  overflow: hidden;
+}
+
+.history-item {
+  width: 100%;
+  padding: 2.5% 5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-align: left;
+}
+
+.history-item:nth-child(odd) {
+  background: var(--light-gray);
+}
+
+.history-item-data {
+  display: flex;
+  width: 80%;
+}
+
+.history-item-data img {
+  width: 7vw;
+  height: 7vw;
+  margin-right: 10px;
+  background: #d9d9d9;
+}
+
+.history-item svg {
+  cursor: pointer;
 }
