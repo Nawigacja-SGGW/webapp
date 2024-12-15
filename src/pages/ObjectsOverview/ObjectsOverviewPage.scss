@@ -17,12 +17,15 @@
   width: 100%;
 }
 
-.search-icon {
+.search-icons {
   position: absolute;
-  right: 15px;
+  right: 9px;
+  display: flex;
+  gap: var(--spacing-s);
+}
+.search-icon {
   color: var(--gray-dark);
 }
-
 .set-section {
   width: 100%;
   padding: 0 var(--spacing-l);

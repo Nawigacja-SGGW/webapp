@@ -17,6 +17,23 @@ export const Object = ({ imageUrl, name, description, addressId, key }: ObjectPr
   const navigate = useNavigate();
 
   const handleNavigateToObject = useCallback(() => {
+    const rawSearchHistory = localStorage.getItem('searchHistory');
+    const searchHistory = rawSearchHistory ? JSON.parse(rawSearchHistory) : [];
+    const newObject = {
+      imageUrl,
+      name,
+      description,
+      addressId,
+    };
+    const updatedHistory = [
+      newObject,
+      ...searchHistory.filter((item: ObjectProps) => item.addressId !== addressId),
+    ];
+    const maxHistoryItems = 5;
+    if (updatedHistory.length > maxHistoryItems) {
+      updatedHistory.pop();
+    }
+    localStorage.setItem('searchHistory', JSON.stringify(updatedHistory));
     navigate(`/home/objects/${addressId}`);
   }, []);
 
