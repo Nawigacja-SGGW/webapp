@@ -1,33 +1,56 @@
 import { PageContentWrapper } from '../../layouts/PageContentWrapper/PageContentWrapper.tsx';
 import { useState, useEffect } from 'react';
-// import { useNavigate } from 'react-router-dom';
-// import { Button } from '../../components/ui/Button/Button.tsx';
-// import { useCallback } from 'react';
-// import { useTranslation } from 'react-i18next';
-import { demo_users, User } from '../../mocks/users.ts';
 import './ProfilePage.scss';
+import axios from 'axios';
 
 export function ProfilePage() {
-  const [profileData, setProfileData] = useState<User | null>(null);
+  const [email, setEmail] = useState<string | null>(null);
+  const [traveledKm, setTraveledKm] = useState<number | null>(null);
+  const [designatedRoutes, setDesignatedRoutes] = useState<number | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  const apiUrl = import.meta.env.VITE_PUBLIC_API_URL;
 
   useEffect(() => {
-    const fetchProfileData = async () => {
-      await new Promise((resolve) => setTimeout(resolve, 1000)); // Symulacja opóźnienia
-      setProfileData(demo_users[0]); // Po załadowaniu dane demo_users
+    const fetchUserData = async () => {
+      try {
+        const response = await axios.get(`${apiUrl}/all-users`);
+        if (response.data?.user?.length > 0) {
+          const currentUser = response.data.user[1];
+
+          setEmail(currentUser.email || 'Email not found');
+          setTraveledKm(currentUser.distance_sum || 0);
+          setDesignatedRoutes(currentUser.user_object_search.length);
+        } else {
+          setError('No user found');
+        }
+      } catch (err) {
+        console.error('Error fetching user data', err);
+        setError('Failed to load user data');
+      }
     };
 
-    fetchProfileData();
-  }, []);
+    fetchUserData();
+  }, [apiUrl]);
 
   return (
     <PageContentWrapper>
-      <div className="profile-page__content">
-        <h1 className="profile-page__header">Your profile</h1>
-        {profileData ? (
-          <img className="profile-page__image" src={profileData.image} alt="User's profile"></img>
-        ) : (
-          <div className="profile-page__image"></div>
-        )}
+      <div className="profile-page">
+        <h1 className="profile-page__heading">Your profile</h1>
+        <div className="profile-page__content">
+          <div className="profile-page__info-item">
+            <p className="profile-page__info-label">Email</p>
+            <p className="profile-page__info-value">{email || 'Loading...'}</p>
+          </div>
+          <div className="profile-page__info-item">
+            <p className="profile-page__info-label">Number of traveled km</p>
+            <p className="profile-page__info-value">{traveledKm + 'km' || 'Loading...'}</p>
+          </div>
+          <div className="profile-page__info-item">
+            <p className="profile-page__info-label">Number of designated routes</p>
+            <p className="profile-page__info-value">{designatedRoutes || 'Loading...'}</p>
+          </div>
+        </div>
       </div>
     </PageContentWrapper>
   );
