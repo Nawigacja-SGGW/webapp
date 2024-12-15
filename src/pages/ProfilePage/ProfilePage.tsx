@@ -7,7 +7,7 @@ export function ProfilePage() {
   const [email, setEmail] = useState<string | null>(null);
   const [traveledKm, setTraveledKm] = useState<number | null>(null);
   const [designatedRoutes, setDesignatedRoutes] = useState<number | null>(null);
-  const [error, setError] = useState<string | null>(null);
+  const [_, setError] = useState<string | null>(null);
 
   const apiUrl = import.meta.env.VITE_PUBLIC_API_URL;
 
