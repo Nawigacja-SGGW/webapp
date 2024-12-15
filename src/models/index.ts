@@ -1,16 +1,6 @@
-export interface ObjectData {
-  lat: number;
-  lng: number;
-  name: string;
-  type: string;
-  description: string;
-  imageUrl: string;
-  website: string;
-  addressId: number;
-  guideId: number;
-}
+import { PlaceObject } from '../common/model';
 
 export interface SearchPlacesSelectOption {
-  value: ObjectData;
+  value: PlaceObject;
   label: string;
 }

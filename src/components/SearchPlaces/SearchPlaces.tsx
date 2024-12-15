@@ -1,21 +1,15 @@
 import { Dispatch, SetStateAction, useEffect, useReducer } from 'react';
 import Select from '../ui/Select/Select.tsx';
-import { ObjectData, SearchPlacesSelectOption } from '../../models';
-import axios from 'axios';
+import { PlaceObject } from '../../common/model.ts';
+import { SearchPlacesSelectOption } from '../../models';
 import { mapObjectsDataToSelectOption } from '../../utils';
 import { Points } from '../Map/Map.tsx';
 import './SearchPlaces.scss';
 
-export const getObjectsList = async () => {
-  //@ts-ignore
-  const { data } = await axios.get('/objects');
-  return data;
-};
-
 interface SearchPlacesSelectProps {
   points: Points;
   onSetPoints: Dispatch<SetStateAction<Points>>;
-  allLocations: ObjectData[];
+  allLocations: PlaceObject[];
 }
 
 type SearchPlacesComponentState = {

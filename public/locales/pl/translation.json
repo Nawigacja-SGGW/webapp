@@ -28,6 +28,11 @@
       "password": "Hasło",
       "confirmPassword": "Potwierdź hasło"
     },
+    "validation": {
+      "required": "Pole jest wymagane",
+      "passwordNotMatch": "Hasła nie są identyczne",
+      "invalidEmail": "Email jest niepoprawny"
+    },
     "forgotPassword": "Zapomniałeś hasła?",
     "continueWith": "Lub kontynuuj z",
     "noAccount": "Nie masz jeszcze konta?"
@@ -83,7 +88,7 @@
     "title": "Lista obiektów",
     "search.placeholder": "Wyszukaj",
     "button.navigate": "Szczegóły",
-    "sortBy": "Sortuj według:", 
+    "sortBy": "Sortuj według:",
     "sort.az": "Nazwa: od A do Z",
     "sort.za": "Nazwa: od Z do A"
   },
@@ -121,5 +126,4 @@
     "info": "Nawigacja dostępna na wersji moblinej!",
     "estimatedTime": "Szacowany czas spaceru:"
   }
-
 }
