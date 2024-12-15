@@ -22,8 +22,6 @@ export const Settings = () => {
   const setRoutePreference = useAppStore((state) => state.setRoutePreference);
   const setLanguage = useAppStore((state) => state.setLanguage);
 
-  console.log(routePreference);
-
   const {
     formState: { errors, isSubmitting, isValid },
     register,
