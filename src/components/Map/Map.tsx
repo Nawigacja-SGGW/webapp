@@ -156,7 +156,7 @@ export const Map = () => {
 
       {mapState === 'browsing' && points.destinationPoint && (
         <InformationPanel
-          data={points.destinationPoint}
+          place={points.destinationPoint}
           pathDistance={pathInfo.totalDistance}
           pathTime={pathInfo.totalTime}
           isLocationSet={points.locationCoords !== null}

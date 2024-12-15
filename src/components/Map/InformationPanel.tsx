@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 import { MapState } from './Map.tsx';
-import { ObjectData } from '../../models';
+import { PlaceObject } from '../../common/model.ts';
 import { Button } from '../ui/Button/Button.tsx';
 import './InformationPanel.scss';
 
@@ -14,7 +14,7 @@ import { Telephone } from '@styled-icons/bootstrap';
 import { InfoOutline } from '@styled-icons/evaicons-outline';
 
 interface InformationPanelProps {
-  data: ObjectData;
+  place: PlaceObject;
   pathDistance: number;
   pathTime: number;
   isLocationSet: boolean;
@@ -24,7 +24,7 @@ interface InformationPanelProps {
 type PanelState = 'details' | 'navigation';
 
 export const InformationPanel = ({
-  data,
+  place,
   pathDistance,
   pathTime,
   isLocationSet,
@@ -34,7 +34,7 @@ export const InformationPanel = ({
 
   const navigate = useNavigate();
   const handleNavigateToObject = () => {
-    navigate(`/home/objects/${data.addressId}`); // temporary, as there is no id for objects yet
+    navigate(`/home/objects/${place.id}`); // temporary, as there is no id for objects yet
   };
 
   const [panelState, setPanelState] = useState<PanelState>('details');
@@ -54,7 +54,7 @@ export const InformationPanel = ({
     <div className="container">
       <div className="photo" />
       <div className="column-container">
-        <div className="title">{data.name}</div>
+        <div className="title">{place.name}</div>
         <div className="information-container">
           {/* those fields later updates from address via addressid, unless packaged inside object */}
           <div className="field">
