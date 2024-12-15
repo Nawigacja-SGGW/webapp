@@ -13,22 +13,14 @@ import {
   PathInfo,
 } from '../../components/Map/utils';
 import { useEffect, useState } from 'react';
+import { useAppStore, AppState } from '../../store/index.ts';
+import { IndexMarker } from '../../components/Map/IndexMarker.tsx';
 
 export const GuidePage = () => {
-  const INITIAL_PATH_INFO: PathInfo = {
-    path: [],
-    totalTime: 0,
-    totalDistance: 0,
-    transportationMode: '',
-    nextManeuver: '',
-    nextManeuverModifier: '',
-    distanceUntillNextDirection: 0,
-  };
+  const route_type = useAppStore((state: AppState) => state.preferences.routePreference);
 
-  //21.044767625367818,52.1600272;21.046319957149112,52.162
-
-  const [pathInfo1, setPathInfo1] = useState<PathInfo>(INITIAL_PATH_INFO);
-  const [pathInfo2, setPathInfo2] = useState<PathInfo>(INITIAL_PATH_INFO);
+  const [pathsInfos, setPathsInfo] = useState<PathInfo[]>([]);
+  const testMakerPosition = L.latLng(52.16256, 21.04222);
 
   const destinatonPoints: L.LatLng[] = [
     L.latLng(52.162, 21.046319957149112),
@@ -37,14 +29,7 @@ export const GuidePage = () => {
   ];
 
   useEffect(() => {
-    getPaths(destinatonPoints, 'foot').then((data) => {
-      console.log('\n\n\n');
-      console.log(data);
-      console.log('\n\n\n');
-
-      setPathInfo1(data[0]);
-      setPathInfo2(data[1]);
-    });
+    getPaths(destinatonPoints, route_type).then((data) => setPathsInfo(data));
   }, []);
 
   return (
@@ -61,8 +46,11 @@ export const GuidePage = () => {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         />
-        <Polyline positions={pathInfo1.path} />
-        <Polyline pathOptions={{ color: 'red' }} positions={pathInfo2.path} />
+        {pathsInfos.map((pathInfo) => (
+          <Polyline positions={pathInfo.path} />
+        ))}
+
+        <IndexMarker position={testMakerPosition} index={1} />
       </MapContainer>
     </div>
   );
