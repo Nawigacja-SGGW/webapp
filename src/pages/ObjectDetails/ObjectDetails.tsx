@@ -1,27 +1,27 @@
 import { useParams } from 'react-router-dom';
-import { ObjectData } from '../../mocks/handlers.ts';
 import { useEffect, useState } from 'react';
 import { TextObject } from './components/TextObject.tsx';
 import { MapContainer, TileLayer } from 'react-leaflet';
 import CustomMarker from '../../components/Map/CustomMarker.tsx';
+import { PlaceObject } from '../../common/model.ts';
 import L from 'leaflet';
 
 import './ObjectDetails.scss';
 
 export const ObjectDetails = () => {
   const { id } = useParams();
-  const [placeData, setPlaceData] = useState<ObjectData>();
+  const [placeData, setPlaceData] = useState<PlaceObject>();
   const [coords, setCoords] = useState<L.LatLng>();
 
   async function fetchLocation(): Promise<void> {
-    const response = await fetch(`/objects/${id}`);
-    const data: ObjectData = await response.json();
+    const response = await fetch(`/object/${id}`);
+    const data: PlaceObject = await response.json();
 
     if (!Number.isFinite(Number(id)) || !data) {
       console.log('Invalid param');
     } else {
       setPlaceData(data);
-      setCoords(L.latLng(parseFloat(data.lat), parseFloat(data.lng)));
+      setCoords(L.latLng(parseFloat(data.latitude), parseFloat(data.longitude)));
     }
   }
 
@@ -34,16 +34,14 @@ export const ObjectDetails = () => {
 
   return (
     <div className="main-container">
-      <div className="image">
-        <img src={placeData?.imageUrl} alt="" />
-      </div>
+      <div className="image">{/*<img src={placeData.imageUrl} alt="" />*/}</div>
       <div className="details">
         <div>
           <TextObject
             title={placeData?.name || ''}
             link={placeData?.website || ''}
-            address={placeData?.lat || ''}
-            city={placeData?.lng || ''}
+            address={placeData?.latitude || ''}
+            city={placeData?.longitude || ''}
             buildingInfo={placeData?.type || ''}
             description={placeData?.description || ''}
           />
