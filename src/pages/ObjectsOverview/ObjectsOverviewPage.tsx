@@ -110,6 +110,7 @@ export const ObjectsOverviewPage = () => {
         {places.map((place: PlaceObject, idx) => (
           <ObjectComponent
             key={idx}
+            objKey={idx}
             imageUrl={place.imageUrl}
             name={place.name}
             description={place.description}
