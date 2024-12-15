@@ -1,0 +1,23 @@
+.leaflet-div-icon {
+  background-color: transparent !important;
+  border: none !important;
+}
+
+.index-marker {
+  position: relative;
+  left: calc(var(--index-marker-size) / 2 * -1);
+  top: calc(var(--index-marker-size) / 2 * -1);
+  color: var(--index-marker-color);
+  font-size: var(--index-marker-font-size);
+  border: var(--index-marker-border);
+  border-radius: 50%;
+  font-weight: var(--index-marker-font-weight);
+  width: var(--index-marker-size);
+  height: var(--index-marker-size);
+  text-align: center;
+  display: flex;
+  background-color: var(--index-marker-fill-color);
+
+  justify-content: center;
+  align-items: center;
+}

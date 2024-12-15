@@ -13,6 +13,7 @@
     "link.objects": "Obiekty",
     "link.profile": "Profil",
     "link.settings": "Ustawienia",
+    "link.guide": "Przewodnik",
     "button.logOut": "Wyloguj się"
   },
   "authPage": {
@@ -119,5 +120,10 @@
   "homePage": {
     "searchPlaces.startPoint.placeholder": "Twoja lokalizacja",
     "searchPlaces.destination.placeholder": "Kierunek"
+  },
+  "CampusGuide":{
+    "title": "Przewodnik po kampusie SGGW",
+    "info": "Nawigacja dostępna na wersji moblinej!",
+    "estimatedTime": "Szacowany czas spaceru:"
   }
 }

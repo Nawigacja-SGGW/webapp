@@ -100,13 +100,13 @@ export const Settings = () => {
           <Input
             placeholder={t('settingsPage.input.placeholder.newPassword')}
             type="password"
-            {...register('password', { required: true })}
+            {...register('password')}
           />
           <p className="input-label">{t('authPage.labels.confirmPassword')}</p>
           <Input
             placeholder={t('settingsPage.input.placeholder.confirmPassword')}
             type="password"
-            {...register('confirmPassword', { required: true })}
+            {...register('confirmPassword')}
           />
           {errors.confirmPassword && errors.confirmPassword && (
             <span className="input-error">{errors.confirmPassword.message}</span>

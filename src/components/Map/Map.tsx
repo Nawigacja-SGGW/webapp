@@ -8,12 +8,22 @@ import InformationPanel from './InformationPanel.tsx';
 import NavigationPanel from './NavigationPanel.tsx';
 import { SearchPlaces } from '../SearchPlaces/SearchPlaces.tsx';
 import { PlaceObject } from '../../common/model.ts';
-import { getPath, PathInfo } from './utils.ts';
+import {
+  BORDER_NE,
+  BORDER_SW,
+  getPath,
+  MAP_CENTER,
+  MAP_MAX_BOUNDS_VISCOSITY,
+  MAP_MAX_ZOOM,
+  MAP_MIN_ZOOM,
+  MAP_ZOOM,
+  PathInfo,
+} from './utils.ts';
 import { useAppStore, AppState } from '../../store/index.ts';
 
 import { getObjectsList } from '../../utils';
 
-import './leaflet.css';
+import '../../leaflet.css';
 import './Map.scss';
 
 export type Points = {
@@ -23,9 +33,6 @@ export type Points = {
 };
 
 export type MapState = 'browsing' | 'navigating';
-
-const BORDER_SW = L.latLng(52.1524, 21.0354);
-const BORDER_NE = L.latLng(52.1704, 21.0554);
 
 const INITIAL_POINTS: Points = {
   startingPoint: null,
@@ -171,12 +178,12 @@ export const Map = () => {
       )}
 
       <MapContainer
-        center={[52.16256, 21.04219]}
+        center={MAP_CENTER}
         maxBounds={L.latLngBounds(BORDER_SW, BORDER_NE)}
-        maxBoundsViscosity={1}
-        zoom={16}
-        minZoom={16}
-        maxZoom={18}
+        maxBoundsViscosity={MAP_MAX_BOUNDS_VISCOSITY}
+        zoom={MAP_ZOOM}
+        minZoom={MAP_MIN_ZOOM}
+        maxZoom={MAP_MAX_ZOOM}
       >
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
