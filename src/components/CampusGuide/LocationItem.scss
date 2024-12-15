@@ -1,0 +1,55 @@
+.contentBox {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.information {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  align-items: center;
+  gap: 5px;
+}
+
+.number {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid var(--dark-green-2);
+  color: var(--black);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-size: var(--main-font-size);
+}
+
+.locationName {
+  font-size: var(--main-font-size);
+}
+
+.detailContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: var(--spacing-s) var(--spacing-m);
+  gap: 30px;
+}
+
+.lineBox {
+  border-left: 1px solid black;
+  height: 100px;
+  width: 2px;
+}
+
+.travelTime {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.time {
+  font-size: var(--main-font-size);
+}
