@@ -1,56 +1,176 @@
 import L from 'leaflet';
+import { useEffect, useState } from 'react';
 import { MapContainer, TileLayer } from 'react-leaflet';
 import { useMapEvents, Polyline } from 'react-leaflet';
+
 import CustomMarker from './CustomMarker';
-import { SearchPlaces } from '../SearchPlaces/SearchPlaces.tsx';
+import InformationPanel from './InformationPanel.tsx';
+import NavigationPanel from './NavigationPanel.tsx';
+import { SearchPlaces, getObjectsList } from '../SearchPlaces/SearchPlaces.tsx';
+import { ObjectData } from '../../models';
+import { getPath, PathInfo } from './utils.ts';
+import { useAppStore, AppState } from '../../store/index.ts';
+
 import './leaflet.css';
 import './Map.scss';
-import { useEffect, useState } from 'react';
-import { ObjectData } from '../../models';
-import { getPath } from './utils.ts';
 
-function OnMapClick() {
-  useMapEvents({
-    click: (event) => {
-      console.log(event.latlng);
-    },
-  });
+export type Points = {
+  startingPoint: ObjectData | null;
+  locationCoords: L.LatLng | null;
+  destinationPoint: ObjectData | null;
+};
 
-  return null;
-}
+export type MapState = 'browsing' | 'navigating';
+
+const BORDER_SW = L.latLng(52.1524, 21.0354);
+const BORDER_NE = L.latLng(52.1704, 21.0554);
+
+const INITIAL_POINTS: Points = {
+  startingPoint: null,
+  locationCoords: null,
+  destinationPoint: null,
+};
+
+const INITIAL_PATH_INFO: PathInfo = {
+  path: [],
+  totalTime: 0,
+  totalDistance: 0,
+  transportationMode: '',
+  nextManeuver: '',
+  nextManeuverModifier: '',
+  distanceUntillNextDirection: 0,
+};
 
 export const Map = () => {
-  const [points, setPoints] = useState<{
-    startPoint: ObjectData;
-    destinationPoint: ObjectData;
-  }>();
-  const [road, setRoad] = useState<[L.LatLng, L.LatLng][]>([]);
-  const sw = L.latLng(52.15656, 21.03624);
-  const ne = L.latLng(52.1674, 21.05596);
+  const [points, setPoints] = useState(INITIAL_POINTS);
+  const [pathInfo, setPathInfo] = useState<PathInfo>(INITIAL_PATH_INFO);
 
-  const wzimCoords = L.latLng(52.16198, 21.04633);
+  const [mapState, setMapState] = useState<MapState>('browsing');
+  const [allLocations, setAllLocations] = useState<ObjectData[]>([]);
 
+  const route_type = useAppStore((state: AppState) => state.preferences.routePreference);
+
+  // Fetch all objects
+  // when first loading Map
   useEffect(() => {
-    if (points?.startPoint && points?.destinationPoint)
-      getPath(
-        {
-          lat: points?.startPoint.lat,
-          lng: points?.startPoint.lng,
-        } as L.LatLng,
-        {
-          lat: points?.destinationPoint.lat,
-          lng: points?.destinationPoint.lng,
-        } as L.LatLng,
-        'foot'
-      ).then((data) => setRoad(data));
+    getObjectsList().then((data) => {
+      if (data != null) {
+        setAllLocations(data);
+      }
+    });
+  }, []);
+
+  // Update path (and path info)
+  // when points changes
+  useEffect(() => {
+    // Canceling navigation when too close to destination
+    if (mapState === 'navigating' && pathInfo.totalDistance < 5) {
+      setMapState('browsing');
+      setPoints(INITIAL_POINTS);
+      setPathInfo(INITIAL_PATH_INFO);
+    } else if (points?.destinationPoint && (points.startingPoint || points.locationCoords)) {
+      let startingPoint: L.LatLng | undefined;
+      let destinationPoint: L.LatLng = {
+        lat: points.destinationPoint.lat,
+        lng: points.destinationPoint.lng,
+      } as L.LatLng;
+
+      if (points.startingPoint) {
+        startingPoint = {
+          lat: points.startingPoint.lat,
+          lng: points.startingPoint.lng,
+        } as L.LatLng;
+      } else if (points.locationCoords) {
+        startingPoint = points.locationCoords;
+      }
+
+      if (startingPoint) {
+        getPath(startingPoint, destinationPoint, route_type).then((data) => setPathInfo(data));
+      }
+    } else {
+      setPathInfo(INITIAL_PATH_INFO);
+    }
   }, [points]);
+
+  // useEffect(() => {
+  //   if (mapState === 'navigating') {
+  //     // Below solution when using real location (update on a timer, could add if location changed enough)
+  //     const interval = setInterval(() => {
+  //       getPath(
+  //         {
+  //           lat: points.locationPoint!.lat,
+  //           lng: points.locationPoint!.lng,
+  //         } as L.LatLng,
+  //         {
+  //           lat: points.destinationObject!.lat,
+  //           lng: points.destinationObject!.lng,
+  //         } as L.LatLng,
+  //         'foot'
+  //       ).then((data) => setPathInfo(data));
+  //     }, 1000);
+  //     return () => clearInterval(interval);
+  //   }
+  // }, []);
+
+  const PopulateWithMarkers = () => {
+    return Array.isArray(allLocations)
+      ? allLocations.map((location, i) => (
+          <CustomMarker
+            position={L.latLng(location.lat, location.lng)}
+            onClick={() => OnMarkerClick(location)}
+            key={i}
+          />
+        ))
+      : null;
+  };
+
+  // Setting clicked marker's object as destination
+  const OnMarkerClick = (markerObject: ObjectData) => {
+    if (mapState !== 'navigating') {
+      setPoints({
+        ...points,
+        destinationPoint: markerObject,
+      });
+    }
+  };
+
+  // Setting location when clicked on map (not marker)
+  function OnMapClick() {
+    useMapEvents({
+      click: (event) => {
+        setPoints({
+          ...points,
+          locationCoords: event.latlng,
+          startingPoint: null,
+        });
+      },
+    });
+    return null;
+  }
 
   return (
     <div className="map-container">
-      <SearchPlaces onSetPoints={setPoints} />
+      {mapState === 'browsing' && allLocations.length !== 0 && (
+        <SearchPlaces points={points} onSetPoints={setPoints} allLocations={allLocations} />
+      )}
+
+      {mapState === 'browsing' && points.destinationPoint && (
+        <InformationPanel
+          data={points.destinationPoint}
+          pathDistance={pathInfo.totalDistance}
+          pathTime={pathInfo.totalTime}
+          isLocationSet={points.locationCoords !== null}
+          setMapState={setMapState}
+        />
+      )}
+
+      {mapState === 'navigating' && pathInfo && (
+        <NavigationPanel pathInfo={pathInfo} setMapState={setMapState} />
+      )}
+
       <MapContainer
         center={[52.16256, 21.04219]}
-        maxBounds={L.latLngBounds(sw, ne)}
+        maxBounds={L.latLngBounds(BORDER_SW, BORDER_NE)}
         maxBoundsViscosity={1}
         zoom={16}
         minZoom={16}
@@ -60,8 +180,13 @@ export const Map = () => {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         />
-        <CustomMarker position={wzimCoords} text={'WZIM'} />
-        <Polyline positions={road} />
+
+        {allLocations && PopulateWithMarkers()}
+
+        {points.locationCoords && <CustomMarker position={points.locationCoords} />}
+
+        <Polyline positions={pathInfo.path} />
+
         <OnMapClick />
       </MapContainer>
     </div>

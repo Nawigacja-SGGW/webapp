@@ -8,8 +8,111 @@
     "subheader": "Nie odnaleziono strony (kod błędu: 404)",
     "button.label": "Strona główna"
   },
+  "sideBar": {
+    "link.map": "Mapa",
+    "link.objects": "Obiekty",
+    "link.profile": "Profil",
+    "link.settings": "Ustawienia",
+    "button.logOut": "Wyloguj się"
+  },
+  "authPage": {
+    "title.signup": "Utwórz konto",
+    "title.signin": "Zaloguj się",
+    "button.signup": "Zarejestruj się",
+    "button.signin": "Zaloguj się",
+    "labels": {
+      "email": "E-mail",
+      "username": "Nazwa użytkownika",
+      "usernameOrEmail": "Nazwa użytkownika lub e-mail",
+      "password": "Hasło",
+      "confirmPassword": "Potwierdź hasło"
+    },
+    "validation": {
+      "required": "Pole jest wymagane",
+      "passwordNotMatch": "Hasła nie są identyczne",
+      "invalidEmail": "Email jest niepoprawny"
+    },
+    "forgotPassword": "Zapomniałeś hasła?",
+    "continueWith": "Lub kontynuuj z",
+    "noAccount": "Nie masz jeszcze konta?"
+  },
+  "forgotPasswordPage1": {
+    "title": "Zmiana hasła",
+    "E-mail": "E-mail",
+    "button.sendEmail": "Wyślij e-mail"
+  },
+  "forgotPasswordPage2": {
+    "title": "Zmiana hasła",
+    "newPassword": "Nowe hasło",
+    "repeatNewPassword": "Powtórz nowe hasło",
+    "button.changePassword": "Zmień hasło"
+  },
+  "mapPage": {
+    "title": "Mapa",
+    "searchbar.placeholder": "Szukaj obiektów",
+    "route": {
+      "yourLocation": "Twoja lokalizacja",
+      "destination": "Cel podróży"
+    },
+    "errors": {
+      "reconnecting": "Ponowne łączenie...",
+      "locationNotFound": "Lokalizacja nieznaleziona"
+    },
+    "detailsPanel": {
+      "button.navigate": "Nawiguj",
+      "button.details": "Szczegóły",
+      "button.cancel": "Anuluj"
+    },
+    "navigationPanel": {
+      "mode.walk": "Idź",
+      "mode.cycle": "Jedź",
+      "maneuver.then": "Potem",
+      "maneuver.depart": "wystartuj",
+      "maneuver.continue": "kontynuuj",
+      "maneuver.turn": "skręt",
+      "maneuver.endofroad": "koniec drogi",
+      "maneuver.arrive": "dotarłeś",
+      "maneuverModifier.left": "w lewo",
+      "maneuverModifier.slightleft": "lekko w lewo",
+      "maneuverModifier.sharpleft": "ostro w lewo",
+      "maneuverModifier.right": "w prawo",
+      "maneuverModifier.slightright": "lekko w prawo",
+      "maneuverModifier.sharpright": "ostro w prawo",
+      "maneuverModifier.straight": "na wprost",
+      "maneuverModifier.uturn": "zawróć",
+      "button.cancel": "Zakończ"
+    }
+  },
   "objectsOverviewPage": {
     "title": "Lista obiektów",
+    "search.placeholder": "Wyszukaj",
+    "button.navigate": "Szczegóły",
+    "sortBy": "Sortuj według:",
+    "sort.az": "Nazwa: od A do Z",
+    "sort.za": "Nazwa: od Z do A"
+  },
+  "settingsPage": {
+    "header": "Ustawienia",
+    "yourData": "Twoje dane",
+    "title": "Lista obiektów",
+    "search.placeholder": "Szukaj",
+    "button.navigate": "Szczegóły",
+    "section.routePreferences": "Preferencje tras",
+    "section.routePreferences.option.walk": "Pieszo",
+    "section.routePreferences.option.bike": "Rower",
+    "section.appLanguage": "Domyślny język aplikacji",
+    "section.appLanguage.option.polish": "Polski",
+    "section.appLanguage.option.english": "Angielski",
+    "section.changeYourPassword": "Zmień hasło",
+    "input.placeholder.newPassword": "Nowe hasło",
+    "input.placeholder.confirmPassword": "powtórz hasło",
+    "button.save": "Zapisz",
+    "input.error.passwordsNotMatch": "Podane hasła nie pasują!"
+  },
+  "profilePage": {
+    "title": "Twój profil",
+    "username": "Nazwa użytkownika",
+    "e-mail": "E-mail",
     "button.navigate": "Szczegóły",
     "search.placeholder": "Wyszukaj obiekty"
   },

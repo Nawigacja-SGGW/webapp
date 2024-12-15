@@ -8,8 +8,108 @@
     "subheader": "Page not found (error 404)",
     "button.label": "Home page"
   },
+  "sideBar": {
+    "link.map": "Map",
+    "link.objects": "Objects",
+    "link.profile": "Profile",
+    "link.settings": "Settings",
+    "button.logOut": "Log out"
+  },
+  "authPage": {
+    "title.signup": "Create account",
+    "title.signin": "Login",
+    "button.signup": "Sign up",
+    "button.signin": "Sign in",
+    "labels": {
+      "email": "E-mail",
+      "username": "Username",
+      "usernameOrEmail": "Username or e-mail",
+      "password": "Password",
+      "confirmPassword": "Confirm password"
+    },
+    "validation": {
+      "required": "This field is required",
+      "passwordNotMatch": "Password do not match",
+      "invalidEmail": "Invalid Email"
+    },
+    "forgotPassword": "Forgot password?",
+    "continueWith": "Or continue with",
+    "noAccount": "Don't have account yet?"
+  },
+  "forgotPasswordPage1": {
+    "title": "Change your password",
+    "E-mail": "E-mail",
+    "button.sendEmail": "Send e-mail"
+  },
+  "forgotPasswordPage2": {
+    "title": "Change your password",
+    "newPassword": "New password",
+    "repeatNewPassword": "Repeat new password",
+    "button.changePassword": "Change password"
+  },
+  "mapPage": {
+    "title": "Map",
+    "searchbar.placeholder": "Search for objects",
+    "route": {
+      "yourLocation": "Your location",
+      "destination": "Destination"
+    },
+    "errors": {
+      "reconnecting": "Reconnecting...",
+      "locationNotFound": "Location not found"
+    },
+    "detailsPanel": {
+      "button.navigate": "Navigate",
+      "button.details": "Details",
+      "button.cancel": "Cancel"
+    },
+    "navigationPanel": {
+      "mode.walk": "Walk",
+      "mode.cycle": "Cycle",
+      "maneuver.then": "Then",
+      "maneuver.depart": "depart",
+      "maneuver.continue": "continue",
+      "maneuver.turn": "turn",
+      "maneuver.endOfRoad": "end of road",
+      "maneuver.arrive": "arrive",
+      "maneuverModifier.left": "left",
+      "maneuverModifier.slightleft": "slightly left",
+      "maneuverModifier.sharpleft": "sharp left",
+      "maneuverModifier.right": "right",
+      "maneuverModifier.slightright": "slight right",
+      "maneuverModifier.sharpright": "sharp right",
+      "maneuverModifier.straight": "straight",
+      "maneuverModifier.uturn": "uturn",
+      "button.cancel": "Cancel"
+    }
+  },
   "objectsOverviewPage": {
     "title": "Objects list",
+    "search.placeholder": "Search",
+    "button.navigate": "Details",
+    "sortBy": "Sort by:",
+    "sort.az": "Name: from A to Z",
+    "sort.za": "Name: from Z to A"
+  },
+  "settingsPage": {
+    "header": "Settings",
+    "yourData": "Your Data",
+    "section.routePreferences": "Route preferences",
+    "section.routePreferences.option.walk": "Walk",
+    "section.routePreferences.option.bike": "Bike",
+    "section.appLanguage": "App language",
+    "section.appLanguage.option.polish": "Polish",
+    "section.appLanguage.option.english": "English",
+    "section.changeYourPassword": "Change your password",
+    "input.placeholder.newPassword": "New password",
+    "input.placeholder.confirmPassword": "Confirm password",
+    "button.save": "Save",
+    "input.error.passwordsNotMatch": "Password do not match!"
+  },
+  "profilePage": {
+    "title": "Your profile",
+    "username": "Username",
+    "e-mail": "E-mail",
     "button.navigate": "Details",
     "search.placeholder": "Search objects"
   },

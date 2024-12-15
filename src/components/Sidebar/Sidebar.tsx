@@ -1,13 +1,14 @@
 import './Sidebar.scss';
-import React, { useEffect, useState } from 'react';
 import { clsx } from 'clsx';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Map, Buildings } from '@styled-icons/boxicons-solid';
 import { PersonFill } from '@styled-icons/bootstrap/PersonFill';
 import { Settings } from '@styled-icons/evaicons-solid/Settings';
 import { LogOut } from '@styled-icons/ionicons-outline/LogOut';
 import { ChevronDoubleLeft, ChevronDoubleRight } from '@styled-icons/fluentui-system-filled/';
+import { ChangeEvent } from 'react';
+import { useAppStore, Language } from '../../store';
 
 //todo add translations
 export type SidebarProps = {
@@ -17,13 +18,18 @@ export type SidebarProps = {
 export const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
   const { t, i18n } = useTranslation();
   const location = useLocation();
+  const navigate = useNavigate();
 
-  const handleLanguageChange = (e) => {
-    console.log('change');
+  const setLanguage = useAppStore((state) => state.setLanguage);
+  const isSettingsRoute = location.pathname.includes('/settings');
+
+  const handleLanguageChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setLanguage(e.target.value as Language);
     i18n.changeLanguage(e.target.value);
   };
   const handleLogout = () => {
     console.log('logout');
+    navigate('/');
     //TODO implement handleLogout based on auth logic
   };
 
@@ -31,36 +37,40 @@ export const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
     <div className={clsx('sidebar', sidebarOpen && 'sidebar--open')}>
       <div className="sidebar__container">
         <div className="sidebar__container__language-picker">
-          <label className={clsx(i18n.language === 'pl' && 'active')} htmlFor="lang-pl">
-            PL
-          </label>
-          /
-          <input
-            type="radio"
-            id="lang-pl"
-            name="language"
-            value="pl"
-            checked={i18n.language === 'pl'}
-            onChange={handleLanguageChange}
-            hidden
-          />
-          <label className={clsx(i18n.language === 'en' && 'active')} htmlFor="lang-en">
-            EN
-          </label>
-          <input
-            type="radio"
-            id="lang-en"
-            name="language"
-            value="en"
-            checked={i18n.language === 'en'}
-            onChange={handleLanguageChange}
-            hidden
-          />
+          {!isSettingsRoute ? (
+            <>
+              <label className={clsx(i18n.language === 'pl' && 'active')} htmlFor="lang-pl">
+                PL
+              </label>
+              /
+              <input
+                type="radio"
+                id="lang-pl"
+                name="language"
+                value="pl"
+                checked={i18n.language === 'pl'}
+                onChange={handleLanguageChange}
+                hidden
+              />
+              <label className={clsx(i18n.language === 'en' && 'active')} htmlFor="lang-en">
+                EN
+              </label>
+              <input
+                type="radio"
+                id="lang-en"
+                name="language"
+                value="en"
+                checked={i18n.language === 'en'}
+                onChange={handleLanguageChange}
+                hidden
+              />{' '}
+            </>
+          ) : null}
         </div>
         <div className="sidebar__container__app-identity">
           <div className="sidebar__container__app-identity__heading">Logo/name</div>
           <div className="sidebar__container__app-identity__image">
-            <img src="../../../public/assets/logo.svg" alt="" />
+            <img src="../../../public/logo.png" alt="" />
           </div>
         </div>
         <div className="sidebar__container__links">
@@ -73,7 +83,7 @@ export const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                   location.pathname.includes('/map') && 'active'
                 )}
               >
-                Map
+                {t('sideBar.link.map')}
               </div>
             </div>
           </Link>
@@ -86,7 +96,7 @@ export const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                   location.pathname.includes('/objects') && 'active'
                 )}
               >
-                Objects
+                {t('sideBar.link.objects')}
               </div>
             </div>
           </Link>
@@ -99,7 +109,7 @@ export const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                   location.pathname.includes('/profile') && 'active'
                 )}
               >
-                Profile
+                {t('sideBar.link.profile')}
               </div>
             </div>
           </Link>
@@ -112,14 +122,14 @@ export const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                   location.pathname.includes('/settings') && 'active'
                 )}
               >
-                Settings
+                {t('sideBar.link.settings')}
               </div>
             </div>
           </Link>
         </div>
         <button className="sidebar__container__logout" onClick={handleLogout}>
           <LogOut size="40" fill="white" />
-          <div className="sidebar__container__logout__text">Log out</div>
+          <div className="sidebar__container__logout__text">{t('sideBar.button.logOut')}</div>
         </button>
       </div>
 

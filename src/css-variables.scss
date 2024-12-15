@@ -13,6 +13,9 @@
   --purple: rgb(100, 0, 70);
   --blue: rgb(80, 120, 150);
   --black: rgb(0, 0, 0);
+  --gray: #dfdfdf;
+  --dark-gray: #949494;
+  --light-gray: #d9d9d9;
 
   --input-border-radius: 8px;
   --input-border-width: 2px;
@@ -26,6 +29,7 @@
   --menu-font-size: 32px;
   --menu-font-size-sm: 20px;
   --main-font-size: 16px;
+  --small-font-size: 12px;
   --forms-label-font-size: 15px;
   --normal-font-weight: 400;
   --bold-font-weight: 700;
@@ -46,7 +50,9 @@
   --button-border__primary: 1px solid var(--dark-green);
   --button-background__primary: var(--dark-green);
   --button-background__primary--hover: var(--dark-green-2);
+  --button-background__primary--disabled: var(--gray);
   --button-color-font__primary: var(--white);
+  --button-color-font__primary--disabled: var(--dark-gray);
 
   --button-border__secondary: 1px solid var(--dark-green);
   --button-background__secondary: var(--white);
@@ -61,6 +67,7 @@
   --object-wrapper-description-height: 70px;
 
   --search-places-margin: 60px;
+  --information-panel-margin: 60px;
 
   //  spacing
   --spacing-xs: 5px;
@@ -71,4 +78,7 @@
 
   //  card
   --card-border-radius: 8px;
+
+  //margins
+  --main-content-margin: 60px 0px 0px 120px;
 }

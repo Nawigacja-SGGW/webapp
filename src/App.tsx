@@ -1,22 +1,29 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { AuthLayout } from './layouts/AuthLayout';
-import { useTranslation } from 'react-i18next';
-import { ProfilePage } from './pages/ProfilePage/ProfilePage.tsx';
 import { ObjectsOverviewPage } from './pages/ObjectsOverview/ObjectsOverviewPage.tsx';
 import { ErrorPage } from './pages/ErrorPage/ErrorPage.tsx';
+import { Settings } from './components/Settings/Settings.tsx';
 import Map from './components/Map/Map';
 import { ObjectDetails } from './pages/ObjectDetails/ObjectDetails.tsx';
+import { AuthorizationLayout } from './layouts/AuthorizationLayout/AuthorizationLayout.tsx';
+import { LoginPage } from './pages/LoginPage/LoginPage.tsx';
+import { RegisterPage } from './pages/RegisterPage/RegisterPage.tsx';
+import { ForgotPasswordPage } from './pages/ForgotPasswordPage/ForgotPasswordPage.tsx';
+import { ChangePasswordPage } from './pages/ChangePasswordPage/ChangePasswordPage.tsx';
+import { ProfilePage } from './pages/ProfilePage/ProfilePage.tsx';
 
 function App() {
-  const { t } = useTranslation();
   const router = createBrowserRouter([
     {
       path: '/',
-      element: <div>Init page, check auth and redirect</div>,
-    },
-    {
-      path: '/auth',
-      element: <div>Auth page</div>,
+      element: <AuthorizationLayout />,
+      children: [
+        { path: '/', element: <LoginPage /> },
+        { path: 'login', element: <LoginPage /> },
+        { path: 'register', element: <RegisterPage /> },
+        { path: 'forgot-password', element: <ForgotPasswordPage /> },
+        { path: 'change-password', element: <ChangePasswordPage /> },
+      ],
     },
     {
       path: '/home',
@@ -28,7 +35,7 @@ function App() {
         },
         {
           path: '/home/settings',
-          element: <div>{t('exampleTranslation')}</div>,
+          element: <Settings />,
         },
         {
           path: '/home/profile',

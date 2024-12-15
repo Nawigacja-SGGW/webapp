@@ -3,6 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "proxy": "https://sggw-nawigacja-dev-app-api.azurewebsites.net",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
@@ -35,10 +36,12 @@
     "lodash": "^4.17.21",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-hook-form": "^7.53.2",
     "react-i18next": "^15.1.0",
     "react-router-dom": "^6.27.0",
     "react-select": "^5.8.3",
-    "styled-icons": "^10.47.1"
+    "styled-icons": "^10.47.1",
+    "zustand": "^5.0.2"
   },
   "devDependencies": {
     "@eslint/js": "^9.11.1",

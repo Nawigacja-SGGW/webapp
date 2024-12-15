@@ -11,3 +11,10 @@
   display: flex;
   overflow: hidden;
 }
+
+.input-error {
+  display: block;
+  font-size: var(--small-font-size);
+  color: var(--red);
+  margin: var(--spacing-xs) 0 var(--spacing-s);
+}

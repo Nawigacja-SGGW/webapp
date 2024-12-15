@@ -9,6 +9,10 @@
   cursor: pointer;
   transition: all 0.2s ease-in;
 
+  &.disabled {
+    background-color: #ddd;
+  }
+
   &.primary {
     background-color: var(--button-background__primary);
     border: var(--button-border__primary);
@@ -16,6 +20,12 @@
 
     &:hover {
       background-color: var(--button-background__primary--hover);
+    }
+
+    &.disabled {
+      background-color: var(--button-background__primary--disabled);
+      color: var(--button-color-font__primary--disabled);
+      border-color: var(--button-background__primary--disabled);
     }
   }
 
