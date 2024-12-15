@@ -35,7 +35,9 @@ export const CampusGuide = ({
         <div className="contentContainer">
           <h1>{t('CampusGuide.title')}</h1>
           <p className="info">{t('CampusGuide.info')}</p>
-          <p className="estimate">Estimated walking time: {Math.round(totalTime / 100)} min</p>
+          <p className="estimate">
+            {t('CampusGuide.estimatedTime')} {Math.round(totalTime / 100)} min
+          </p>
           <div className="locations">
             {locations.map((location, index) => (
               <LocationItem
@@ -44,6 +46,7 @@ export const CampusGuide = ({
                 locationName={location.name}
                 time={location.time}
                 travelType={routeType}
+                isLast={index === locations.length - 1}
               />
             ))}
           </div>

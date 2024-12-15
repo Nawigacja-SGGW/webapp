@@ -7,9 +7,10 @@ interface StepProps {
   locationName: string;
   time: number;
   travelType: string;
+  isLast: boolean;
 }
 
-const LocationItem = ({ stepNumber, locationName, time, travelType }: StepProps) => (
+const LocationItem = ({ stepNumber, locationName, time, travelType, isLast }: StepProps) => (
   <div className="contentBox">
     <div className="information">
       <div className="number">{stepNumber}</div>
@@ -17,11 +18,15 @@ const LocationItem = ({ stepNumber, locationName, time, travelType }: StepProps)
     </div>
 
     <div className="detailContainer">
-      <div className="lineBox"></div>
-      <div className="travelTime">
-        {travelType === 'foot' ? <Walk size={40} /> : <DirectionsBike size={40} />}
-        <span className="time">{Math.round(time / 100)} min</span>
-      </div>
+      {!isLast && (
+        <>
+          <div className="lineBox"></div>
+          <div className="travelTime">
+            {travelType === 'foot' ? <Walk size={40} /> : <DirectionsBike size={40} />}
+            <span className="time">{Math.round(time / 100)} min</span>
+          </div>
+        </>
+      )}
     </div>
   </div>
 );

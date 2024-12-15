@@ -115,6 +115,7 @@
   },
   "CampusGuide":{
     "title": "SGGW Campus Guide",
-    "info": "Navigation available on mobile version!"
+    "info": "Navigation available on mobile version!",
+    "estimatedTime": "Estimated walking time:"
   }
 }
