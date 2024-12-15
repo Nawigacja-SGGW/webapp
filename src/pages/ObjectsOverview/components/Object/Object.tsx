@@ -9,13 +9,12 @@ export type ObjectProps = { key: string | number } & Pick<
   PlaceObject,
   'imageUrl' | 'name' | 'description' | 'address' | 'id'
 >;
-
-//@ts-ignore
 export const Object = ({
   imageUrl,
   name,
   description,
   id,
+  //@ts-ignore
   address,
   key,
 }: ObjectProps): ReactNode => {
