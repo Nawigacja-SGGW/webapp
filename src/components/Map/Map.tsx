@@ -56,7 +56,9 @@ export const Map = () => {
   // when first loading Map
   useEffect(() => {
     getObjectsList().then((data) => {
-      setAllLocations(data);
+      if (Array.isArray(data)) {
+        setAllLocations(data);
+      }
     });
   }, []);
 
