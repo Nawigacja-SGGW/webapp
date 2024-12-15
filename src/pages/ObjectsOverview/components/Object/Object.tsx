@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { ReactNode, useCallback } from 'react';
 import { PlaceObject } from '../../../../common/model.ts';
 
-export type ObjectProps = { key: string | number } & Pick<
+export type ObjectProps = { objKey: string | number } & Pick<
   PlaceObject,
   'imageUrl' | 'name' | 'description' | 'address' | 'id'
 >;
@@ -16,7 +16,7 @@ export const Object = ({
   id,
   //@ts-ignore
   address,
-  key,
+  objKey,
 }: ObjectProps): ReactNode => {
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -26,7 +26,7 @@ export const Object = ({
   }, []);
 
   return (
-    <div className="object-wrapper" key={key}>
+    <div className="object-wrapper" key={objKey}>
       <div className="object-wrapper-details">
         <div className="object-wrapper-image">
           <img src={imageUrl || ''} alt="" />
