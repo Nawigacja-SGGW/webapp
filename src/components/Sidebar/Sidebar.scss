@@ -27,6 +27,7 @@
 
     &__language-picker {
       height: 40px;
+
       input,
       label {
         cursor: pointer;
@@ -47,12 +48,14 @@
       &__heading {
         display: none;
       }
+
       &__image {
         width: 6.25rem;
         height: 6.25rem;
 
         img {
           width: 100%;
+          min-height: 100px;
         }
       }
     }
@@ -122,6 +125,7 @@
             font-size: var(--header-font-size);
             line-height: 3.75rem;
           }
+
           &__image {
             width: 10rem;
             height: 10rem;
