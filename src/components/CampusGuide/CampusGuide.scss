@@ -1,0 +1,46 @@
+.campusGuideContainer {
+  position: absolute;
+  width: 450px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  padding: var(--spacing-s);
+  max-height: 100vh;
+}
+
+.borderContainer {
+  display: flex;
+  flex-direction: column;
+  padding: var(--spacing-m) 0 var(--spacing-m) var(--spacing-m);
+  border: 1px solid var(--dark-green);
+  border-radius: 10px;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.contentContainer {
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+h1 {
+  font-size: var(--header-2-font-size);
+  color: var(--black);
+}
+
+.info {
+  font-size: var(--main-font-size);
+  color: var(--dark-green);
+}
+
+.estimate {
+  font-size: var(--main-font-size);
+  color: var(--dark-gray);
+}
+
+.locations {
+  display: flex;
+  flex-direction: column;
+  padding-top: var(--spacing-m);
+}

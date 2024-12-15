@@ -112,5 +112,9 @@
   "homePage": {
     "searchPlaces.startPoint.placeholder": "Your location",
     "searchPlaces.destination.placeholder": "Destination"
+  },
+  "CampusGuide":{
+    "title": "SGGW Campus Guide",
+    "info": "Navigation available on mobile version!"
   }
 }
