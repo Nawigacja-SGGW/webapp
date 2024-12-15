@@ -55,11 +55,11 @@ export const Map = () => {
   // Fetch all objects
   // when first loading Map
   useEffect(() => {
-    getObjectsList().then((data) => {
-      if (Array.isArray(data)) {
-        setAllLocations(data);
-      }
-    });
+    // getObjectsList().then((data) => {
+    //   if (Array.isArray(data)) {
+    //     setAllLocations(data);
+    //   }
+    // });
   }, []);
 
   // Update path (and path info)
@@ -114,17 +114,17 @@ export const Map = () => {
   //   }
   // }, []);
 
-  const PopulateWithMarkers = () => {
-    return Array.isArray(allLocations)
-      ? allLocations.map((location, i) => (
-          <CustomMarker
-            position={L.latLng(Number(location.latitude), Number(location.longitude))}
-            onClick={() => OnMarkerClick(location)}
-            key={i}
-          />
-        ))
-      : null;
-  };
+  // const PopulateWithMarkers = () => {
+  //   return Array.isArray(allLocations)
+  //     ? allLocations.map((location, i) => (
+  //         <CustomMarker
+  //           position={L.latLng(Number(location.latitude), Number(location.longitude))}
+  //           onClick={() => OnMarkerClick(location)}
+  //           key={i}
+  //         />
+  //       ))
+  //     : null;
+  // };
 
   // Setting clicked marker's object as destination
   const OnMarkerClick = (markerObject: PlaceObject) => {
@@ -183,7 +183,7 @@ export const Map = () => {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         />
 
-        {allLocations && PopulateWithMarkers()}
+        {/* {allLocations && PopulateWithMarkers()} */}
 
         {points.locationCoords && <CustomMarker position={points.locationCoords} />}
 
