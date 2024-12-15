@@ -7,6 +7,7 @@ import { PlaceObject } from '../../common/model.ts';
 import L from 'leaflet';
 
 import './ObjectDetails.scss';
+import axios from 'axios';
 
 export const ObjectDetails = () => {
   const { id } = useParams();
@@ -14,8 +15,7 @@ export const ObjectDetails = () => {
   const [coords, setCoords] = useState<L.LatLng>();
 
   async function fetchLocation(): Promise<void> {
-    const response = await fetch(`/object/${id}`);
-    const data: PlaceObject = await response.json();
+    const { data } = await axios.get<PlaceObject>(`/single-object?id=${id}`);
 
     if (!Number.isFinite(Number(id)) || !data) {
       console.log('Invalid param');
