@@ -16,20 +16,57 @@ import { useEffect, useState } from 'react';
 import { useAppStore, AppState } from '../../store/index.ts';
 import { IndexMarker } from '../../components/Map/IndexMarker.tsx';
 
+type GuideDestinationPlace = {
+  name: string;
+  position: L.LatLng;
+};
+
 export const GuidePage = () => {
   const route_type = useAppStore((state: AppState) => state.preferences.routePreference);
 
   const [pathsInfos, setPathsInfo] = useState<PathInfo[]>([]);
-  const testMakerPosition = L.latLng(52.16256, 21.04222);
 
-  const destinatonPoints: L.LatLng[] = [
-    L.latLng(52.162, 21.046319957149112),
-    L.latLng(52.1600272, 21.044767625367818),
-    L.latLng(52.16256, 21.04222),
+  const guideDestinationPlaces: GuideDestinationPlace[] = [
+    {
+      name: 'Wydział Zastosowań Informatyki i Matematyki',
+      position: L.latLng(52.162, 21.046319957149112),
+    },
+    {
+      name: 'Wydział Żywienia Człowieka',
+      position: L.latLng(52.1600272, 21.044767625367818),
+    },
+    {
+      name: 'Wydział Ekonomiczny',
+      position: L.latLng(52.164620533816475, 21.049032211303714),
+    },
+    {
+      name: 'Pomnik Juliana Ursyna Niemcewicza',
+      position: L.latLng(52.16372550707966, 21.048313379287723),
+    },
+    {
+      name: 'Centrum wodne',
+      position: L.latLng(52.15898024846712, 21.049096584320072),
+    },
+    {
+      name: 'Zwierzętarnia',
+      position: L.latLng(52.158736719466816, 21.045513153076175),
+    },
+    {
+      name: 'Biblioteka im Profesora Władysława Grabskiego',
+      position: L.latLng(52.16418289431555, 21.044751405715946),
+    },
   ];
 
   useEffect(() => {
-    getPaths(destinatonPoints, route_type).then((data) => setPathsInfo(data));
+    getPaths(
+      guideDestinationPlaces.map((x) => x.position),
+      route_type
+    ).then((data) => {
+      console.log('\n\n\n');
+      console.log(data);
+      console.log('\n\n\n');
+      setPathsInfo(data);
+    });
   }, []);
 
   return (
@@ -50,8 +87,8 @@ export const GuidePage = () => {
           <Polyline positions={pathInfo.path} />
         ))}
 
-        {destinatonPoints.map((destinationPoint, i) => (
-          <IndexMarker position={destinationPoint} index={i + 1} />
+        {guideDestinationPlaces.map((place, i) => (
+          <IndexMarker position={place.position} index={i + 1} />
         ))}
       </MapContainer>
     </div>
