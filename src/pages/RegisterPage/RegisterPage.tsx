@@ -6,15 +6,15 @@ import { SubmitHandler, useForm, useWatch } from 'react-hook-form';
 import { EMAIL_REGEXP } from '../../utils/constans.ts';
 import { useEffect } from 'react';
 
+interface RegistrationInputs {
+  email: string;
+  userName: string;
+  password: string;
+  confirmPassword: string;
+}
+
 export const RegisterPage = () => {
   const { t } = useTranslation();
-
-  type RegistrationInputs = {
-    email: string;
-    userName: string;
-    password: string;
-    confirmPassword: string;
-  };
 
   const {
     control,
@@ -43,7 +43,7 @@ export const RegisterPage = () => {
         <p className="input-label">{t('authPage.labels.email')}</p>
         <Input
           {...register('email', {
-            required: 'Email is invalid',
+            required: true,
             pattern: {
               value: EMAIL_REGEXP,
               message: t('authPage.validation.invalidEmail'),
@@ -54,7 +54,7 @@ export const RegisterPage = () => {
           errors.email.type === 'required' ? (
             <span className="input-error">{t('authPage.validation.required')}</span>
           ) : errors.email.type === 'pattern' ? (
-            <span className="input-error">{errors.email.message}</span>
+            <span className="input-error">{t('authPage.validation.invalidEmail')}</span>
           ) : null
         ) : null}
         <p className="input-label">{t('authPage.labels.username')}</p>
