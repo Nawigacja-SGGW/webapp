@@ -64,10 +64,6 @@ export const GuidePage = () => {
       guideDestinationPlaces.map((x) => x.position),
       route_type
     ).then((data) => {
-      console.log('\n\n\n');
-      console.log(data);
-      console.log('\n\n\n');
-
       const newCampusGuidLocations = data.map((x, i) => {
         return {
           id: i + 1,
