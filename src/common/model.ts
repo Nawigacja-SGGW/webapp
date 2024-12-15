@@ -93,7 +93,7 @@ export const mapObjKeys = (
   modifier: (key: string) => string
 ): { [key: string]: unknown } | unknown[] => {
   if (isArray(object)) {
-    return object?.map((item) => mapObjKeys(item, modifier));
+    return object.map((item) => mapObjKeys(item, modifier));
   } else if (isObject(object)) {
     return mapValues(
       mapKeys(object, (_, k) => modifier(k)),
