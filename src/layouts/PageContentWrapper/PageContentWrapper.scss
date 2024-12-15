@@ -1,0 +1,16 @@
+.page-content__wrapper {
+  box-sizing: border-box;
+  padding: var(--spacing-l);
+  overflow: scroll;
+  height: 100vh;
+  flex-grow: 1;
+  position: relative;
+
+  &.no-horizontal-padding {
+    padding: var(--spacing-l) 0;
+  }
+
+  &.no-padding {
+    padding: 0;
+  }
+}

@@ -1,0 +1,33 @@
+.content {
+  padding: 60px;
+}
+
+.content a {
+  color: var(--black);
+  text-decoration: none;
+}
+
+h2 {
+  font-size: var(--menu-font-size);
+  font-weight: var(--bold-font-weight);
+}
+
+.address {
+  font-size: var(--main-font-size);
+  padding: var(--spacing-s) 0px;
+}
+
+.address span {
+  display: block;
+  padding: 2px 0px;
+}
+
+hr {
+  border-top: 1px solid var(--black);
+  margin: var(--spacing-s) 0 var(--spacing-m);
+}
+
+.description {
+  font-size: var(--main-font-size);
+  line-height: 1.5;
+}
