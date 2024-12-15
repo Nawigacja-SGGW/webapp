@@ -27,6 +27,11 @@
       "password": "Password",
       "confirmPassword": "Confirm password"
     },
+    "validation": {
+      "required": "This field is required",
+      "passwordNotMatch": "Password do not match",
+      "invalidEmail": "Invalid Email"
+    },
     "forgotPassword": "Forgot password?",
     "continueWith": "Or continue with",
     "noAccount": "Don't have account yet?"

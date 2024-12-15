@@ -4,6 +4,12 @@ import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '../../components/ui/Button/Button';
 import { useTranslation } from 'react-i18next';
+import { useForm } from 'react-hook-form';
+
+interface LoginInputs {
+  userName: string;
+  password: string;
+}
 
 export const LoginPage = () => {
   const { t } = useTranslation();
@@ -11,6 +17,14 @@ export const LoginPage = () => {
   const handleNavigateToRegisterPage = useCallback(() => {
     navigate(`/register`);
   }, []);
+
+  const {
+    formState: { errors },
+    register,
+  } = useForm<LoginInputs>({
+    mode: 'onChange',
+    reValidateMode: 'onChange',
+  });
 
   const signIn = () => {
     //TODO create logic
@@ -25,9 +39,20 @@ export const LoginPage = () => {
   return (
     <FormLayout title={t('authPage.title.signin')}>
       <p className="input-label">{t('authPage.labels.usernameOrEmail')}</p>
-      <Input placeholder="sXXXXXX@sggw.edu.pl" />
+      <Input
+        {...register('userName', {
+          required: true,
+        })}
+      />
+      {errors.userName && <span className="input-error">{t('authPage.validation.required')}</span>}
       <p className="input-label">{t('authPage.labels.password')}</p>
-      <Input placeholder="••••••••" type="password" />
+      <Input
+        type="password"
+        {...register('password', {
+          required: true,
+        })}
+      />
+      {errors.password && <span className="input-error">{t('authPage.validation.required')}</span>}
       <p onClick={handleNavigateToForgotPassword} className="forgot-password">
         {t('authPage.forgotPassword')}
       </p>
