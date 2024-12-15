@@ -15,6 +15,7 @@ import {
 import { useEffect, useState } from 'react';
 import { useAppStore, AppState } from '../../store/index.ts';
 import { IndexMarker } from '../../components/Map/IndexMarker.tsx';
+import CampusGuide from '../../components/CampusGuide/CampusGuide.tsx';
 
 type GuideDestinationPlace = {
   name: string;
@@ -71,6 +72,8 @@ export const GuidePage = () => {
 
   return (
     <div className="map-container">
+      <CampusGuide />
+
       <MapContainer
         center={MAP_CENTER}
         maxBounds={L.latLngBounds(BORDER_SW, BORDER_NE)}
@@ -78,6 +81,7 @@ export const GuidePage = () => {
         zoom={MAP_ZOOM}
         minZoom={MAP_MIN_ZOOM}
         maxZoom={MAP_MAX_ZOOM}
+        zoomControl={false}
       >
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
