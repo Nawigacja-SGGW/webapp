@@ -15,7 +15,7 @@ import {
 import { useEffect, useState } from 'react';
 import { useAppStore, AppState } from '../../store/index.ts';
 import { IndexMarker } from '../../components/Map/IndexMarker.tsx';
-import CampusGuide from '../../components/CampusGuide/CampusGuide.tsx';
+import CampusGuide, { CampusGuideLocation } from '../../components/CampusGuide/CampusGuide.tsx';
 
 type GuideDestinationPlace = {
   name: string;
@@ -26,6 +26,7 @@ export const GuidePage = () => {
   const route_type = useAppStore((state: AppState) => state.preferences.routePreference);
 
   const [pathsInfos, setPathsInfo] = useState<PathInfo[]>([]);
+  const [campusGuideLocations, setCampusGuideLocations] = useState<CampusGuideLocation[]>([]);
 
   const guideDestinationPlaces: GuideDestinationPlace[] = [
     {
@@ -66,13 +67,29 @@ export const GuidePage = () => {
       console.log('\n\n\n');
       console.log(data);
       console.log('\n\n\n');
+
+      const newCampusGuidLocations = data.map((x, i) => {
+        return {
+          id: i + 1,
+          name: guideDestinationPlaces[i].name,
+          time: x.totalTime,
+        };
+      });
+
+      setCampusGuideLocations(newCampusGuidLocations);
       setPathsInfo(data);
     });
   }, []);
 
+  const PopulateWithGuideWidget = () => {
+    return campusGuideLocations.length > 0 ? (
+      <CampusGuide locations={campusGuideLocations} routeType={route_type} />
+    ) : null;
+  };
+
   return (
     <div className="map-container">
-      <CampusGuide />
+      {campusGuideLocations && PopulateWithGuideWidget()}
 
       <MapContainer
         center={MAP_CENTER}

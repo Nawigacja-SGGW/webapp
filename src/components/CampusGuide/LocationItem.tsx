@@ -5,7 +5,7 @@ import { DirectionsBike } from 'styled-icons/material-outlined';
 interface StepProps {
   stepNumber: number;
   locationName: string;
-  time: string;
+  time: number;
   travelType: string;
 }
 
@@ -19,8 +19,8 @@ const LocationItem = ({ stepNumber, locationName, time, travelType }: StepProps)
     <div className="detailContainer">
       <div className="lineBox"></div>
       <div className="travelTime">
-        {travelType === 'walk' ? <Walk size={40} /> : <DirectionsBike size={40} />}
-        <span className="time">{time}</span>
+        {travelType === 'foot' ? <Walk size={40} /> : <DirectionsBike size={40} />}
+        <span className="time">{Math.round(time / 100)} min</span>
       </div>
     </div>
   </div>
