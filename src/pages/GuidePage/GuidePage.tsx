@@ -75,7 +75,11 @@ export const GuidePage = () => {
           time: x.totalTime,
         };
       });
-
+      newCampusGuidLocations.push({
+        id: newCampusGuidLocations.length,
+        name: guideDestinationPlaces[newCampusGuidLocations.length].name,
+        time: 0,
+      });
       setCampusGuideLocations(newCampusGuidLocations);
       setPathsInfo(data);
     });
