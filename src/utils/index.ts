@@ -15,7 +15,7 @@ export const getObjectsList = async (): Promise<PlaceObject[]> => {
 };
 
 export const mapObjectsDataToSelectOption = (data: PlaceObject[]): SearchPlacesSelectOption[] => {
-  return data.length
+  return Array.isArray(data)
     ? data.map((d) => ({
         value: d,
         label: d.name,
