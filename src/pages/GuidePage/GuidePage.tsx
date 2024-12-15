@@ -50,7 +50,9 @@ export const GuidePage = () => {
           <Polyline positions={pathInfo.path} />
         ))}
 
-        <IndexMarker position={testMakerPosition} index={1} />
+        {destinatonPoints.map((destinationPoint, i) => (
+          <IndexMarker position={destinationPoint} index={i + 1} />
+        ))}
       </MapContainer>
     </div>
   );
