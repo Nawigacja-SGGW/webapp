@@ -3,16 +3,21 @@ import { Button } from '../../../../components/ui/Button/Button.tsx';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { ReactNode, useCallback } from 'react';
+import { PlaceObject } from '../../../../common/model.ts';
 
-export type ObjectProps = {
-  imageUrl: string;
-  name: string;
-  description: string;
-  addressId: number;
-  key: number;
-};
-
-export const Object = ({ imageUrl, name, description, addressId, key }: ObjectProps): ReactNode => {
+export type ObjectProps = { objKey: string | number } & Pick<
+  PlaceObject,
+  'imageUrl' | 'name' | 'description' | 'address' | 'id'
+>;
+export const Object = ({
+  imageUrl,
+  name,
+  description,
+  id,
+  //@ts-ignore
+  address,
+  objKey,
+}: ObjectProps): ReactNode => {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
@@ -23,25 +28,25 @@ export const Object = ({ imageUrl, name, description, addressId, key }: ObjectPr
       imageUrl,
       name,
       description,
-      addressId,
+      id,
     };
     const updatedHistory = [
       newObject,
-      ...searchHistory.filter((item: ObjectProps) => item.addressId !== addressId),
+      ...searchHistory.filter((item: ObjectProps) => item.id !== id),
     ];
     const maxHistoryItems = 5;
     if (updatedHistory.length > maxHistoryItems) {
       updatedHistory.pop();
     }
     localStorage.setItem('searchHistory', JSON.stringify(updatedHistory));
-    navigate(`/home/objects/${addressId}`);
+    navigate(`/home/objects/${id}`);
   }, []);
 
   return (
-    <div className="object-wrapper" key={key}>
+    <div className="object-wrapper" key={objKey}>
       <div className="object-wrapper-details">
         <div className="object-wrapper-image">
-          <img src={imageUrl} alt="" />
+          <img src={imageUrl || ''} alt="" />
         </div>
         <div className="object-wrapper-data">
           <div className="name">{name}</div>

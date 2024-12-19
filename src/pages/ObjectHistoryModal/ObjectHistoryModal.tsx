@@ -2,7 +2,7 @@ import './ObjectHistoryModal.scss';
 import { useNavigate } from 'react-router-dom';
 import { useCallback } from 'react';
 import { InfoCircle } from '@styled-icons/bootstrap/InfoCircle';
-import { Place } from '../../mocks/places.ts';
+import { PlaceObject } from '../../common/model.ts';
 import { useTranslation } from 'react-i18next';
 
 export const ObjectHistoryModal = ({
@@ -12,7 +12,7 @@ export const ObjectHistoryModal = ({
 }: {
   isVisible: boolean;
   onClose: () => void;
-  history: Place[];
+  history: PlaceObject[];
 }) => {
   if (!isVisible) return null;
   const { t } = useTranslation();
@@ -29,8 +29,6 @@ export const ObjectHistoryModal = ({
     },
     [navigate]
   );
-
-  if (!isVisible) return null;
   return (
     <div className="modal-overlay" onClick={handleOverlayClick}>
       <div className="modal-content">
@@ -40,15 +38,19 @@ export const ObjectHistoryModal = ({
           history.map((item, index) => (
             <div className="history-item" key={index}>
               <div className="history-item-data">
-                <img src={item.imageUrl} />
-                <div>
+                {item.imageUrl ? (
+                  <img src={item.imageUrl} />
+                ) : (
+                  <div className="history-item-image-placeholder"></div>
+                )}
+                <div className="history-item-info">
                   <p>
                     <strong>{item.name}</strong>
                   </p>
                   <p>{item.description}</p>
                 </div>
               </div>
-              <InfoCircle size={25} onClick={() => handleNavigateToObject(item.addressId)} />
+              <InfoCircle size={25} onClick={() => handleNavigateToObject(item.id)} />
             </div>
           ))
         )}

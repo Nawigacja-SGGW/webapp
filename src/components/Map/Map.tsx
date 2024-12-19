@@ -6,24 +6,33 @@ import { useMapEvents, Polyline } from 'react-leaflet';
 import CustomMarker from './CustomMarker';
 import InformationPanel from './InformationPanel.tsx';
 import NavigationPanel from './NavigationPanel.tsx';
-import { SearchPlaces, getObjectsList } from '../SearchPlaces/SearchPlaces.tsx';
-import { ObjectData } from '../../models';
-import { getPath, PathInfo } from './utils.ts';
+import { SearchPlaces } from '../SearchPlaces/SearchPlaces.tsx';
+import { PlaceObject } from '../../common/model.ts';
+import {
+  BORDER_NE,
+  BORDER_SW,
+  getPath,
+  MAP_CENTER,
+  MAP_MAX_BOUNDS_VISCOSITY,
+  MAP_MAX_ZOOM,
+  MAP_MIN_ZOOM,
+  MAP_ZOOM,
+  PathInfo,
+} from './utils.ts';
 import { useAppStore, AppState } from '../../store/index.ts';
 
-import './leaflet.css';
+import { getObjectsList } from '../../utils';
+
+import '../../leaflet.css';
 import './Map.scss';
 
 export type Points = {
-  startingPoint: ObjectData | null;
+  startingPoint: PlaceObject | null;
   locationCoords: L.LatLng | null;
-  destinationPoint: ObjectData | null;
+  destinationPoint: PlaceObject | null;
 };
 
 export type MapState = 'browsing' | 'navigating';
-
-const BORDER_SW = L.latLng(52.1524, 21.0354);
-const BORDER_NE = L.latLng(52.1704, 21.0554);
 
 const INITIAL_POINTS: Points = {
   startingPoint: null,
@@ -46,7 +55,7 @@ export const Map = () => {
   const [pathInfo, setPathInfo] = useState<PathInfo>(INITIAL_PATH_INFO);
 
   const [mapState, setMapState] = useState<MapState>('browsing');
-  const [allLocations, setAllLocations] = useState<ObjectData[]>([]);
+  const [allLocations, setAllLocations] = useState<PlaceObject[]>([]);
 
   const route_type = useAppStore((state: AppState) => state.preferences.routePreference);
 
@@ -54,7 +63,7 @@ export const Map = () => {
   // when first loading Map
   useEffect(() => {
     getObjectsList().then((data) => {
-      if (data != null) {
+      if (Array.isArray(data)) {
         setAllLocations(data);
       }
     });
@@ -71,14 +80,14 @@ export const Map = () => {
     } else if (points?.destinationPoint && (points.startingPoint || points.locationCoords)) {
       let startingPoint: L.LatLng | undefined;
       let destinationPoint: L.LatLng = {
-        lat: points.destinationPoint.lat,
-        lng: points.destinationPoint.lng,
+        lat: Number(points.destinationPoint.latitude),
+        lng: Number(points.destinationPoint.longitude),
       } as L.LatLng;
 
       if (points.startingPoint) {
         startingPoint = {
-          lat: points.startingPoint.lat,
-          lng: points.startingPoint.lng,
+          lat: Number(points.startingPoint.latitude),
+          lng: Number(points.startingPoint.longitude),
         } as L.LatLng;
       } else if (points.locationCoords) {
         startingPoint = points.locationCoords;
@@ -116,7 +125,7 @@ export const Map = () => {
     return Array.isArray(allLocations)
       ? allLocations.map((location, i) => (
           <CustomMarker
-            position={L.latLng(location.lat, location.lng)}
+            position={L.latLng(Number(location.latitude), Number(location.longitude))}
             onClick={() => OnMarkerClick(location)}
             key={i}
           />
@@ -125,7 +134,7 @@ export const Map = () => {
   };
 
   // Setting clicked marker's object as destination
-  const OnMarkerClick = (markerObject: ObjectData) => {
+  const OnMarkerClick = (markerObject: PlaceObject) => {
     if (mapState !== 'navigating') {
       setPoints({
         ...points,
@@ -156,7 +165,7 @@ export const Map = () => {
 
       {mapState === 'browsing' && points.destinationPoint && (
         <InformationPanel
-          data={points.destinationPoint}
+          place={points.destinationPoint}
           pathDistance={pathInfo.totalDistance}
           pathTime={pathInfo.totalTime}
           isLocationSet={points.locationCoords !== null}
@@ -169,12 +178,12 @@ export const Map = () => {
       )}
 
       <MapContainer
-        center={[52.16256, 21.04219]}
+        center={MAP_CENTER}
         maxBounds={L.latLngBounds(BORDER_SW, BORDER_NE)}
-        maxBoundsViscosity={1}
-        zoom={16}
-        minZoom={16}
-        maxZoom={18}
+        maxBoundsViscosity={MAP_MAX_BOUNDS_VISCOSITY}
+        zoom={MAP_ZOOM}
+        minZoom={MAP_MIN_ZOOM}
+        maxZoom={MAP_MAX_ZOOM}
       >
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

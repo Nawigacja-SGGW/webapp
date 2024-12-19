@@ -9,17 +9,17 @@
 }
 
 .modal-content {
-  background: white;
+  background: var(--white);
   border-radius: 8px;
   width: 100%;
   text-align: center;
-  border: 1px solid grey;
+  border: 1px solid var(--gray);
   overflow: hidden;
 }
 
 .history-item {
   width: 100%;
-  padding: 2.5% 5%;
+  padding: var(--spacing-m);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -36,12 +36,23 @@
 }
 
 .history-item-data img {
-  width: 7vw;
-  height: 7vw;
+  width: var(--object-wrapper-image-size);
+  height: var(--object-wrapper-image-size);
   margin-right: 10px;
   background: #d9d9d9;
 }
 
+.history-item-image-placeholder {
+  height: var(--object-wrapper-image-size);
+  min-width: var(--object-wrapper-image-size);
+  background-color: #235d31;
+  border-radius: var(--input-border-radius);
+}
+
 .history-item svg {
   cursor: pointer;
+}
+
+.history-item-info {
+  padding: var(--spacing-s) var(--spacing-m);
 }

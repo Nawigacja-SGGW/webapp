@@ -13,6 +13,7 @@
     "link.objects": "Objects",
     "link.profile": "Profile",
     "link.settings": "Settings",
+    "link.guide": "Guide",
     "button.logOut": "Log out"
   },
   "authPage": {
@@ -26,6 +27,11 @@
       "usernameOrEmail": "Username or e-mail",
       "password": "Password",
       "confirmPassword": "Confirm password"
+    },
+    "validation": {
+      "required": "This field is required",
+      "passwordNotMatch": "Password do not match",
+      "invalidEmail": "Invalid Email"
     },
     "forgotPassword": "Forgot password?",
     "continueWith": "Or continue with",
@@ -114,5 +120,10 @@
   },
   "objectHistoryModal": {
     "noHistory": "No search history"
+  },
+  "CampusGuide": {
+    "title": "SGGW Campus Guide",
+    "info": "Navigation available on mobile version!",
+    "estimatedTime": "Estimated walking time:"
   }
 }

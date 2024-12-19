@@ -10,6 +10,8 @@ import { LoginPage } from './pages/LoginPage/LoginPage.tsx';
 import { RegisterPage } from './pages/RegisterPage/RegisterPage.tsx';
 import { ForgotPasswordPage } from './pages/ForgotPasswordPage/ForgotPasswordPage.tsx';
 import { ChangePasswordPage } from './pages/ChangePasswordPage/ChangePasswordPage.tsx';
+import { GuidePage } from './pages/GuidePage/GuidePage.tsx';
+import { ProfilePage } from './pages/ProfilePage/ProfilePage.tsx';
 
 function App() {
   const router = createBrowserRouter([
@@ -33,12 +35,16 @@ function App() {
           element: <Map />,
         },
         {
+          path: '/home/guide',
+          element: <GuidePage />,
+        },
+        {
           path: '/home/settings',
           element: <Settings />,
         },
         {
           path: '/home/profile',
-          element: <div>Profile component</div>,
+          element: <ProfilePage />,
         },
         // TODO: Add a route for specific object like /object/id
         {

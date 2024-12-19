@@ -13,6 +13,7 @@
     "link.objects": "Obiekty",
     "link.profile": "Profil",
     "link.settings": "Ustawienia",
+    "link.guide": "Przewodnik",
     "button.logOut": "Wyloguj się"
   },
   "authPage": {
@@ -26,6 +27,11 @@
       "usernameOrEmail": "Nazwa użytkownika lub e-mail",
       "password": "Hasło",
       "confirmPassword": "Potwierdź hasło"
+    },
+    "validation": {
+      "required": "Pole jest wymagane",
+      "passwordNotMatch": "Hasła nie są identyczne",
+      "invalidEmail": "Email jest niepoprawny"
     },
     "forgotPassword": "Zapomniałeś hasła?",
     "continueWith": "Lub kontynuuj z",
@@ -117,5 +123,10 @@
   },
   "objectHistoryModal": {
     "noHistory": "Brak historii wyszukiwania"
+  },
+  "CampusGuide": {
+    "title": "Przewodnik po kampusie SGGW",
+    "info": "Nawigacja dostępna na wersji moblinej!",
+    "estimatedTime": "Szacowany czas spaceru:"
   }
 }

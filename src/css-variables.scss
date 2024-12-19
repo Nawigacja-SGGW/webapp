@@ -3,7 +3,7 @@
 :root {
   --green: rgb(110, 200, 80);
   --light-green: rgb(200, 240, 180);
-  --light-gray: #f9f9f9;
+  --light-gray: rgb(217, 217, 217);
   --yellow: rgb(240, 220, 140);
   --light-blue: rgb(190, 220, 240);
   --white: rgb(255, 255, 255);
@@ -81,4 +81,12 @@
 
   //margins
   --main-content-margin: 60px 0px 0px 120px;
+
+  //index marker
+  --index-marker-size: 50px;
+  --index-marker-font-size: 24px;
+  --index-marker-font-weight: 800;
+  --index-marker-color: grey;
+  --index-marker-border: 5px solid;
+  --index-marker-fill-color: rgb(255, 255, 255, 0.5);
 }
