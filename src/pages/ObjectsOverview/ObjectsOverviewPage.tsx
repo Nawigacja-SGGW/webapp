@@ -5,9 +5,13 @@ import { Object as ObjectComponent } from './components/Object/Object.tsx';
 import { Input } from '../../components/ui/Input/Input.tsx';
 import { CheckboxIcon } from './components/icons.tsx';
 import { Sliders } from '@styled-icons/bootstrap/Sliders';
+
+import { ClockHistory } from '@styled-icons/bootstrap/ClockHistory';
+import { ObjectHistoryModal } from '../ObjectHistoryModal/ObjectHistoryModal.tsx';
 import { camelCase, debounce, flatten } from 'lodash';
 import axios from 'axios';
 import { mapObjKeys, ObjectsResponse, PlaceObject } from '../../common/model.ts';
+
 import './ObjectsOverviewPage.scss';
 
 export const ObjectsOverviewPage = () => {
@@ -18,11 +22,18 @@ export const ObjectsOverviewPage = () => {
   const [isSectionVisible, setIsSectionVisible] = useState(false);
   const [sortOrder, setSortOrder] = useState<'az' | 'za'>('az');
   const [searchQuery, setSearchQuery] = useState<string>('');
+  const [isHistoryModalVisible, setIsHistoryModalVisible] = useState(false);
+  const [searchHistory, setSearchHistory] = useState<PlaceObject[]>([]);
 
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   const toggleSectionVisibility = () => {
     setIsSectionVisible((prev) => !prev);
+  };
+  const toggleHistorySearchSectionVisibility = () => {
+    const history = JSON.parse(localStorage.getItem('searchHistory') || '[]');
+    setSearchHistory(history);
+    setIsHistoryModalVisible((prev) => !prev);
   };
 
   useEffect(() => {
@@ -81,12 +92,20 @@ export const ObjectsOverviewPage = () => {
             onChange={debounceFilterPlaces}
             ref={inputRef}
           />
-          <Sliders
-            className="search-icon"
-            size="20"
-            onClick={toggleSectionVisibility}
-            style={{ cursor: 'pointer' }}
-          />
+          <div className="search-icons">
+            <ClockHistory
+              className="search-icon"
+              size="20"
+              onClick={toggleHistorySearchSectionVisibility}
+              style={{ cursor: 'pointer' }}
+            />
+            <Sliders
+              className="search-icon"
+              size="20"
+              onClick={toggleSectionVisibility}
+              style={{ cursor: 'pointer' }}
+            />
+          </div>
         </div>
       </div>
       {isSectionVisible && (
@@ -119,6 +138,11 @@ export const ObjectsOverviewPage = () => {
           />
         ))}
       </section>
+      <ObjectHistoryModal
+        isVisible={isHistoryModalVisible}
+        onClose={() => setIsHistoryModalVisible(false)}
+        history={searchHistory}
+      />
     </PageContentWrapper>
   );
 };

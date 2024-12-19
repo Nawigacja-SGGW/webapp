@@ -118,7 +118,10 @@
     "searchPlaces.startPoint.placeholder": "Your location",
     "searchPlaces.destination.placeholder": "Destination"
   },
-  "CampusGuide":{
+  "objectHistoryModal": {
+    "noHistory": "No search history"
+  },
+  "CampusGuide": {
     "title": "SGGW Campus Guide",
     "info": "Navigation available on mobile version!",
     "estimatedTime": "Estimated walking time:"

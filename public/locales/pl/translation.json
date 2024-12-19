@@ -121,7 +121,10 @@
     "searchPlaces.startPoint.placeholder": "Twoja lokalizacja",
     "searchPlaces.destination.placeholder": "Kierunek"
   },
-  "CampusGuide":{
+  "objectHistoryModal": {
+    "noHistory": "Brak historii wyszukiwania"
+  },
+  "CampusGuide": {
     "title": "Przewodnik po kampusie SGGW",
     "info": "Nawigacja dostępna na wersji moblinej!",
     "estimatedTime": "Szacowany czas spaceru:"

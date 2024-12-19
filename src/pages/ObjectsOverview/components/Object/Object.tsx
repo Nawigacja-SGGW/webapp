@@ -22,6 +22,23 @@ export const Object = ({
   const navigate = useNavigate();
 
   const handleNavigateToObject = useCallback(() => {
+    const rawSearchHistory = localStorage.getItem('searchHistory');
+    const searchHistory = rawSearchHistory ? JSON.parse(rawSearchHistory) : [];
+    const newObject = {
+      imageUrl,
+      name,
+      description,
+      id,
+    };
+    const updatedHistory = [
+      newObject,
+      ...searchHistory.filter((item: ObjectProps) => item.id !== id),
+    ];
+    const maxHistoryItems = 5;
+    if (updatedHistory.length > maxHistoryItems) {
+      updatedHistory.pop();
+    }
+    localStorage.setItem('searchHistory', JSON.stringify(updatedHistory));
     navigate(`/home/objects/${id}`);
   }, []);
 
