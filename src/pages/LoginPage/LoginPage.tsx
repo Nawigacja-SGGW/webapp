@@ -29,7 +29,7 @@ export const LoginPage = () => {
   const signIn = () => {
     //TODO create logic
     setTimeout(() => {
-      navigate('/home/objects');
+      navigate('/home/map');
     }, 1000);
   };
   const handleNavigateToForgotPassword = useCallback(() => {
