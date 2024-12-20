@@ -122,10 +122,13 @@ export const Map = () => {
   // }, []);
 
   const PopulateWithMarkers = () => {
-    return Array.isArray(allLocations)
+    return Array.isArray(allLocations) && allLocations.length > 0
       ? allLocations.map((location, i) => (
           <CustomMarker
-            position={L.latLng(Number(location.latitude), Number(location.longitude))}
+            position={L.latLng(
+              parseFloat(location.latitude) || BORDER_SW.lat,
+              parseFloat(location.longitude) || BORDER_SW.lng
+            )}
             onClick={() => OnMarkerClick(location)}
             key={i}
           />
