@@ -41,7 +41,7 @@ export const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
           {!isSettingsRoute ? (
             <>
               <label className={clsx(i18n.language === 'pl' && 'active')} htmlFor="lang-pl">
-                PL
+                test PL
               </label>
               /
               <input
@@ -54,7 +54,7 @@ export const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                 hidden
               />
               <label className={clsx(i18n.language === 'en' && 'active')} htmlFor="lang-en">
-                EN
+                test EN
               </label>
               <input
                 type="radio"
