@@ -4,7 +4,7 @@ import L from 'leaflet';
 export const BORDER_SW = L.latLng(52.1524, 21.0354);
 export const BORDER_NE = L.latLng(52.1704, 21.0554);
 
-export const MAP_CENTER: L.LatLngExpression = [52.16256, 21.04219];
+export const MAP_CENTER: L.LatLngExpression = L.latLng(52.16256, 21.04219);
 export const MAP_MAX_BOUNDS_VISCOSITY: number = 1;
 export const MAP_ZOOM: number = 16;
 export const MAP_MIN_ZOOM: number = 16;
