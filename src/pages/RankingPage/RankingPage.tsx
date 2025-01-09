@@ -1,5 +1,6 @@
 import { RankingComponent } from './components/RankingComponent';
 import './RankingPage.scss';
+import { Podium } from '@styled-icons/ionicons-outline/Podium';
 
 // Dane wejściowe
 const topUsers = [
@@ -14,8 +15,13 @@ const userPosition = 8; // Pozycja aktualnego użytkownika
 
 export function RankingPage() {
   return (
-    <div>
+    <div className="Main">
+      <div className="Icon">
+        <Podium size={80} />
+      </div>
       <div className="RankingComponent">
+        <RankingComponent topUsers={topUsers} userPosition={userPosition} />
+        <RankingComponent topUsers={topUsers} userPosition={userPosition} />
         <RankingComponent topUsers={topUsers} userPosition={userPosition} />
       </div>
     </div>
