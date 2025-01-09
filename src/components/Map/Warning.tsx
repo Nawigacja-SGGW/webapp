@@ -18,7 +18,7 @@ export const Warning = ({ type }: WarningSelectProps) => {
         </>
       ) : type == 'location' ? (
         <>
-          <LocationOff size="22" /> Location not found!
+          <LocationOff size="22" /> Location not shared!
         </>
       ) : type == 'distance' ? (
         <>

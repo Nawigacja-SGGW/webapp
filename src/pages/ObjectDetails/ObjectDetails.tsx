@@ -1,5 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 import { TextObject } from './components/TextObject.tsx';
 import { MapContainer, TileLayer } from 'react-leaflet';
 import CustomMarker from '../../components/Map/CustomMarker.tsx';
@@ -8,11 +10,18 @@ import L from 'leaflet';
 
 import './ObjectDetails.scss';
 import axios from 'axios';
+import { Button } from '../../components/ui/Button/Button.tsx';
 
 export const ObjectDetails = () => {
   const { id } = useParams();
   const [placeData, setPlaceData] = useState<PlaceObject>();
   const [coords, setCoords] = useState<L.LatLng>();
+
+  const { t } = useTranslation();
+  const navigate = useNavigate();
+  const handleNavigateToMap = () => {
+    navigate(`/home/map`, { state: placeData });
+  };
 
   async function fetchLocation(): Promise<void> {
     const { data } = await axios.get<PlaceObject>(`/single-object?id=${id}`);
@@ -63,6 +72,13 @@ export const ObjectDetails = () => {
               <CustomMarker position={coords} />
             </MapContainer>
           )}
+          <Button
+            className="navigate-button"
+            label="Nawiguj"
+            size="lg"
+            primary={true}
+            onClick={handleNavigateToMap}
+          />
         </div>
       </div>
     </div>

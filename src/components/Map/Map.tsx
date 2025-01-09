@@ -1,7 +1,8 @@
-import L from 'leaflet';
+import L, { LatLng } from 'leaflet';
 import { useEffect, useState } from 'react';
 import { MapContainer, TileLayer } from 'react-leaflet';
-import { useMapEvents, Polyline } from 'react-leaflet';
+import { useMap, useMapEvents, Polyline } from 'react-leaflet';
+import { useLocation } from 'react-router-dom';
 
 import CustomMarker from './CustomMarker';
 import InformationPanel from './InformationPanel.tsx';
@@ -72,6 +73,9 @@ const INITIAL_PATH_INFO: PathInfo = {
 };
 
 export const Map = () => {
+  const location = useLocation();
+  const locationData = location.state as PlaceObject;
+
   const [warningType, setWarningType] = useState<WarningType>(null);
   const [warningInfo, setWarningInfo] = useState<WarningInfo>(INITIAL_WARNING_INFO);
 
@@ -93,6 +97,21 @@ export const Map = () => {
         setAllLocations(data);
       }
     });
+
+    if (locationData && points.locationPoint) {
+      setPoints({
+        ...points,
+        startingPoint: new L.LatLng(points.locationPoint.lat, points.locationPoint.lng),
+        destinationPoint: new L.LatLng(
+          Number(locationData.latitude),
+          Number(locationData.longitude)
+        ),
+      });
+      setPlaces({
+        startingPlace: null,
+        destinationPlace: locationData,
+      });
+    }
 
     const interval = setInterval(() => {
       updateWarningConditions();
@@ -166,20 +185,22 @@ export const Map = () => {
 
   const updateWarningConditions = async () => {
     var newInfo: WarningInfo = {
-      isOnline: true,
-      isUserLocation: true,
-      isOnCampus: true,
+      isOnline: false,
+      isUserLocation: false,
+      isOnCampus: false,
     };
 
-    try {
-      await fetch('https://www.google.com/generate_204', {
-        mode: 'no-cors',
-        cache: 'no-store',
-      }).then(() => {
-        newInfo.isOnline = true;
-      });
-    } catch (error) {
-      newInfo.isOnline = false;
+    if (navigator.onLine) {
+      try {
+        await fetch('https://www.google.com/generate_204', {
+          mode: 'no-cors',
+          cache: 'no-store',
+        }).then(() => {
+          newInfo.isOnline = true;
+        });
+      } catch (error) {
+        newInfo.isOnline = false;
+      }
     }
 
     if (navigator.geolocation) {
@@ -195,9 +216,6 @@ export const Map = () => {
         newInfo.isUserLocation = false;
         newInfo.isOnCampus = false;
       }
-    } else {
-      newInfo.isUserLocation = false;
-      newInfo.isOnCampus = false;
     }
 
     if (
@@ -253,17 +271,23 @@ export const Map = () => {
     }
   };
 
-  // Setting location when clicked on map (not marker)
+  // Setting destination when starting is set, otherwise set starting
   function OnMapClick() {
     useMapEvents({
       click: (event) => {
-        setPoints({
-          ...points,
-          locationPoint: event.latlng,
-          startingPoint: null,
-        });
+        if (points.locationPoint) {
+          setPoints({ ...points, destinationPoint: event.latlng });
+          setPlaces({ ...places, destinationPlace: null });
+        } else {
+          setPoints({ ...points, startingPoint: event.latlng });
+          setPlaces({ ...places, startingPlace: null });
+        }
+
+        const map = useMap();
+        map.panTo(event.latlng);
       },
     });
+
     return null;
   }
 
