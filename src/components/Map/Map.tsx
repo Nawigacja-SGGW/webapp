@@ -91,7 +91,10 @@ export const Map = () => {
   // Fetch all objects when first loading Map
   // Set interval for checking warning conditions
   useEffect(() => {
-    updateWarningConditions();
+    // updateWarningConditions();
+
+    setPoints({ ...points, locationPoint: L.latLng(MAP_CENTER) });
+
     getObjectsList().then((data) => {
       if (Array.isArray(data)) {
         setAllLocations(data);
@@ -113,11 +116,11 @@ export const Map = () => {
       });
     }
 
-    const interval = setInterval(() => {
-      updateWarningConditions();
-    }, 1000);
+    // const interval = setInterval(() => {
+    //   updateWarningConditions();
+    // }, 1000);
 
-    return () => clearInterval(interval);
+    // return () => clearInterval(interval);
   }, []);
 
   // Update warning on page bottom
