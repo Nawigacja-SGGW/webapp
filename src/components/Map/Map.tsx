@@ -311,6 +311,8 @@ export const Map = () => {
         <NavigationPanel pathInfo={pathInfo} setMapState={setMapState} />
       )}
 
+      {warningType && <Warning type={warningType} />}
+
       <MapContainer
         center={MAP_CENTER}
         maxBounds={L.latLngBounds(BORDER_SW, BORDER_NE)}
@@ -327,8 +329,6 @@ export const Map = () => {
         {allLocations && populateWithMarkers()}
 
         {points.locationPoint && <CustomMarker position={points.locationPoint} />}
-
-        {warningType && <Warning type={warningType} />}
 
         <Polyline positions={pathInfo.path} />
 
