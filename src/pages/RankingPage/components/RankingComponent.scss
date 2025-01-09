@@ -1,83 +1,36 @@
 .ranking-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  padding: 40px;
-  width: 400px;
-  height: 500px;
-  //background-color: pink;
-}
+  gap: 1rem;
 
-.ranking-top {
-  text-align: center;
-  background-color: #ffffff;
-  width: 100%;
-  height: 80%;
-  border-radius: 20px;
-  box-shadow: 0 4px 2px -2px #333;
-}
+  .top-users {
+    align-items: center;
+    justify-content: center;
+  }
 
-.ranking-top2 {
-  padding: 5px 15px 0px 15px;
-}
+  .user {
+    display: flex;
+    width: 100%;
+    min-height: 50px;
+    align-items: center;
+    padding-left: var(--spacing-s);
 
-hr {
-  border: 1px solid #ccc;
-  margin-bottom: 0;
-  margin-top: 0;
-}
+    .user-position {
+      width: 5%;
+      font-weight: bold;
+    }
 
-.ranking-top h2 {
-  font-size: 20px;
-  font-weight: bold;
-}
+    .user-name {
+      width: 95%;
+    }
+  }
 
-.topUsers {
-  align-content: center;
-  justify-content: center;
-}
-
-.user {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  min-height: 55px;
-  align-items: center;
-  padding-left: 10px;
-}
-
-.user-position {
-  width: 5%;
-  font-weight: bold;
-}
-
-.user-name {
-  width: 95%;
-}
-
-.ranking-user {
-  text-align: center;
-  background-color: #ffffff;
-  width: 100%;
-  border-radius: 20px;
-  height: 20%;
-  display: flex;
-  flex-direction: column;
-  box-shadow: 0 4px 2px -2px #333;
-}
-
-.ranking-user h3 {
-  font-size: 16px;
-  margin-bottom: 5px;
-  padding-top: 10px;
-}
-
-.user-ranking {
-  font-size: 26px;
-  font-weight: bold;
-  color: #333;
-  border-top: 1px solid #ccc;
-  padding-top: 10px;
-  width: 100%;
-  text-align: center;
+  .user-ranking {
+    font-size: var(--header-font-size);
+    font-weight: bold;
+    color: #000;
+    padding-top: 10px;
+    width: 100%;
+    text-align: center;
+  }
 }

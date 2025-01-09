@@ -15,11 +15,11 @@ const userPosition = 8; // Pozycja aktualnego użytkownika
 
 export function RankingPage() {
   return (
-    <div className="Main">
-      <div className="Icon">
+    <div className="main">
+      <div className="topbar">
         <Podium size={80} />
       </div>
-      <div className="RankingComponent">
+      <div className="rankings">
         <RankingComponent topUsers={topUsers} userPosition={userPosition} />
         <RankingComponent topUsers={topUsers} userPosition={userPosition} />
         <RankingComponent topUsers={topUsers} userPosition={userPosition} />

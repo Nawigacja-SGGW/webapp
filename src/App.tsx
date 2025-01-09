@@ -1,17 +1,21 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { AuthLayout } from './layouts/AuthLayout';
-import { ObjectsOverviewPage } from './pages/ObjectsOverview/ObjectsOverviewPage.tsx';
-import { ErrorPage } from './pages/ErrorPage/ErrorPage.tsx';
-import { Settings } from './components/Settings/Settings.tsx';
+import {
+  ObjectsOverviewPage,
+  ErrorPage,
+  ObjectDetails,
+  LoginPage,
+  RegisterPage,
+  ForgotPasswordPage,
+  ChangePasswordPage,
+  ProfilePage,
+  StatsPage,
+  GuidePage,
+  RankingPage,
+  Settings,
+} from './pages';
 import Map from './components/Map/Map';
-import { ObjectDetails } from './pages/ObjectDetails/ObjectDetails.tsx';
 import { AuthorizationLayout } from './layouts/AuthorizationLayout/AuthorizationLayout.tsx';
-import { LoginPage } from './pages/LoginPage/LoginPage.tsx';
-import { RegisterPage } from './pages/RegisterPage/RegisterPage.tsx';
-import { ForgotPasswordPage } from './pages/ForgotPasswordPage/ForgotPasswordPage.tsx';
-import { ChangePasswordPage } from './pages/ChangePasswordPage/ChangePasswordPage.tsx';
-import { GuidePage } from './pages/GuidePage/GuidePage.tsx';
-import { ProfilePage } from './pages/ProfilePage/ProfilePage.tsx';
 
 function App() {
   const router = createBrowserRouter([
@@ -54,6 +58,14 @@ function App() {
         {
           path: '/home/objects/:id',
           element: <ObjectDetails />,
+        },
+        {
+          path: '/home/rank',
+          element: <RankingPage />,
+        },
+        {
+          path: '/home/stats',
+          element: <StatsPage />,
         },
       ],
     },

@@ -8,6 +8,7 @@
   color: var(--dark-green);
   cursor: pointer;
   transition: all 0.2s ease-in;
+  flex-grow: 0;
 
   &.disabled {
     background-color: #ddd;

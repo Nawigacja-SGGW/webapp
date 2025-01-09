@@ -1,12 +1,12 @@
-import './Settings.scss';
 import { useTranslation } from 'react-i18next';
 import { FormLayout } from '../../layouts/AuthorizationFormLayout/AuthorizationFormLayout';
-import { Input } from '../ui/Input/Input.tsx';
-import { Button } from '../ui/Button/Button.tsx';
+import { Input } from '../../components/ui/Input/Input.tsx';
+import { Button } from '../../components/ui/Button/Button.tsx';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { RadioInputAttributes, RadioInputs } from '../ui/RadioInputs/RadioInputs';
+import { RadioInputAttributes, RadioInputs } from '../../components/ui/RadioInputs/RadioInputs';
 import { useAppStore } from '../../store';
 import i18n from 'i18next';
+import './Settings.scss';
 
 export const Settings = () => {
   const { t } = useTranslation();
