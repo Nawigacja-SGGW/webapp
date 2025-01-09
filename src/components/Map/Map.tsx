@@ -35,20 +35,28 @@ type WarningInfo = {
   isOnCampus: boolean;
 };
 const INITIAL_WARNING_INFO: WarningInfo = {
-  isOnline: false,
-  isUserLocation: false,
-  isOnCampus: false,
+  isOnline: true,
+  isUserLocation: true,
+  isOnCampus: true,
 };
 
 export type Points = {
   startingPoint: L.LatLng | null;
-  locationCoords: L.LatLng | null;
+  locationPoint: L.LatLng | null;
   destinationPoint: L.LatLng | null;
 };
 const INITIAL_POINTS: Points = {
   startingPoint: null,
-  locationCoords: null,
+  locationPoint: null,
   destinationPoint: null,
+};
+export type Places = {
+  startingPlace: PlaceObject | null;
+  destinationPlace: PlaceObject | null;
+};
+const INITIAL_PLACES: Places = {
+  startingPlace: null,
+  destinationPlace: null,
 };
 
 export type MapState = 'browsing' | 'navigating';
@@ -68,8 +76,7 @@ export const Map = () => {
   const [warningInfo, setWarningInfo] = useState<WarningInfo>(INITIAL_WARNING_INFO);
 
   const [points, setPoints] = useState<Points>(INITIAL_POINTS);
-  const [startingPlace, setStartingPlace] = useState<PlaceObject | null>(null);
-  const [destinationPlace, setDestinationPlace] = useState<PlaceObject | null>(null);
+  const [places, setPlaces] = useState<Places>(INITIAL_PLACES);
   const [pathInfo, setPathInfo] = useState<PathInfo>(INITIAL_PATH_INFO);
 
   const [mapState, setMapState] = useState<MapState>('browsing');
@@ -77,17 +84,21 @@ export const Map = () => {
 
   const route_type = useAppStore((state: AppState) => state.preferences.routePreference);
 
-  // Fetch all objects
-  // when first loading Map
+  // Fetch all objects when first loading Map
+  // Set interval for checking warning conditions
   useEffect(() => {
+    updateWarningConditions();
     getObjectsList().then((data) => {
       if (Array.isArray(data)) {
         setAllLocations(data);
       }
     });
 
-    setWarningInfo({ ...warningInfo, isOnline: navigator.onLine });
-    getUserLocation();
+    const interval = setInterval(() => {
+      updateWarningConditions();
+    }, 1000);
+
+    return () => clearInterval(interval);
   }, []);
 
   // Update warning on page bottom
@@ -99,7 +110,7 @@ export const Map = () => {
     } else if (!warningInfo.isOnCampus) {
       setWarningType('distance');
     }
-  }, [setWarningInfo]);
+  }, [warningInfo]);
 
   // Update path (and path info)
   // when points changes
@@ -109,7 +120,7 @@ export const Map = () => {
       setMapState('browsing');
       setPoints(INITIAL_POINTS);
       setPathInfo(INITIAL_PATH_INFO);
-    } else if (points?.destinationPoint && (points.startingPoint || points.locationCoords)) {
+    } else if (points?.destinationPoint && (points.startingPoint || points.locationPoint)) {
       let startingPoint: L.LatLng | undefined;
       let destinationPoint: L.LatLng = {
         lat: Number(points.destinationPoint.lat),
@@ -121,8 +132,8 @@ export const Map = () => {
           lat: Number(points.startingPoint.lat),
           lng: Number(points.startingPoint.lng),
         } as L.LatLng;
-      } else if (points.locationCoords) {
-        startingPoint = points.locationCoords;
+      } else if (points.locationPoint) {
+        startingPoint = points.locationPoint;
       }
 
       if (startingPoint) {
@@ -153,6 +164,56 @@ export const Map = () => {
   //   }
   // }, []);
 
+  const updateWarningConditions = async () => {
+    var newInfo: WarningInfo = {
+      isOnline: true,
+      isUserLocation: true,
+      isOnCampus: true,
+    };
+
+    try {
+      await fetch('https://www.google.com/generate_204', {
+        mode: 'no-cors',
+        cache: 'no-store',
+      }).then(() => {
+        newInfo.isOnline = true;
+      });
+    } catch (error) {
+      newInfo.isOnline = false;
+    }
+
+    if (navigator.geolocation) {
+      try {
+        const position = await new Promise<GeolocationPosition>((resolve, reject) => {
+          navigator.geolocation.getCurrentPosition(resolve, reject);
+        });
+        var newLocationPoint = new L.LatLng(position.coords.latitude, position.coords.longitude);
+        newInfo.isUserLocation = true;
+        newInfo.isOnCampus = checkIfOnCampus(newLocationPoint);
+        setPoints({ ...points, locationPoint: newLocationPoint });
+      } catch (error) {
+        newInfo.isUserLocation = false;
+        newInfo.isOnCampus = false;
+      }
+    } else {
+      newInfo.isUserLocation = false;
+      newInfo.isOnCampus = false;
+    }
+
+    if (
+      newInfo.isOnline !== warningInfo.isOnline ||
+      newInfo.isUserLocation !== warningInfo.isUserLocation ||
+      newInfo.isOnCampus !== warningInfo.isOnCampus
+    ) {
+      setWarningInfo({
+        isOnline: newInfo.isOnline,
+        isUserLocation: newInfo.isUserLocation,
+        isOnCampus: newInfo.isOnCampus,
+      });
+    }
+  };
+
+  // Check if user location is within campus
   const checkIfOnCampus = (point: L.LatLng | null) => {
     if (!point || point.lat < 0 || point.lng < 0) {
       return false;
@@ -162,26 +223,6 @@ export const Map = () => {
     var lngOnCampus = point.lng >= BORDER_SW.lng && point.lat <= BORDER_NE.lng;
 
     return latOnCampus && lngOnCampus;
-  };
-
-  const getUserLocation = () => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          setWarningInfo({ ...warningInfo, isUserLocation: true });
-          setPoints({
-            ...points,
-            locationCoords: new L.LatLng(position.coords.latitude, position.coords.longitude),
-          });
-          setWarningInfo({ ...warningInfo, isOnCampus: checkIfOnCampus(points.locationCoords) });
-        },
-        (_error) => {
-          setWarningInfo({ ...warningInfo, isUserLocation: false });
-        }
-      );
-    } else {
-      setWarningInfo({ ...warningInfo, isUserLocation: false });
-    }
   };
 
   const populateWithMarkers = () => {
@@ -218,7 +259,7 @@ export const Map = () => {
       click: (event) => {
         setPoints({
           ...points,
-          locationCoords: event.latlng,
+          locationPoint: event.latlng,
           startingPoint: null,
         });
       },
@@ -232,12 +273,12 @@ export const Map = () => {
         <SearchPlaces points={points} onSetPoints={setPoints} allLocations={allLocations} />
       )}
 
-      {mapState === 'browsing' && destinationPlace && (
+      {mapState === 'browsing' && places.destinationPlace && (
         <InformationPanel
-          place={destinationPlace}
+          place={places.destinationPlace}
           pathDistance={pathInfo.totalDistance}
           pathTime={pathInfo.totalTime}
-          isLocationSet={points.locationCoords !== null}
+          isLocationSet={points.locationPoint !== null}
           setMapState={setMapState}
         />
       )}
@@ -261,7 +302,7 @@ export const Map = () => {
 
         {allLocations && populateWithMarkers()}
 
-        {points.locationCoords && <CustomMarker position={points.locationCoords} />}
+        {points.locationPoint && <CustomMarker position={points.locationPoint} />}
 
         {warningType && <Warning type={warningType} />}
 

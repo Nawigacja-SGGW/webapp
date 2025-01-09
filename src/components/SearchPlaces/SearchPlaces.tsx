@@ -107,7 +107,7 @@ export const SearchPlaces = ({ points, onSetPoints, allLocations }: SearchPlaces
     if (points.startingPoint !== state.startingPoint?.value) {
       onSetPoints({
         ...points,
-        locationCoords: state.startingPoint ? null : points.locationCoords,
+        locationPoint: state.startingPoint ? null : points.locationPoint,
         startingPoint: state.startingPoint ? state.startingPoint.value : null,
       });
     }
@@ -132,7 +132,7 @@ export const SearchPlaces = ({ points, onSetPoints, allLocations }: SearchPlaces
           payload: null,
         });
       }
-    } else if (points.locationCoords) {
+    } else if (points.locationPoint) {
       dispatch({
         type: 'changeStartingPoint',
         payload: null,
