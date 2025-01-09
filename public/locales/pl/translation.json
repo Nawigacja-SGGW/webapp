@@ -92,6 +92,9 @@
     "sort.az": "Nazwa: od A do Z",
     "sort.za": "Nazwa: od Z do A"
   },
+  "objectDetailsPage": {
+    "button.navigate": "Nawiguj"
+  },
   "settingsPage": {
     "header": "Ustawienia",
     "yourData": "Twoje dane",

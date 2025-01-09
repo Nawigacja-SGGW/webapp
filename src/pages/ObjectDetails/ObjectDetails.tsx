@@ -74,7 +74,7 @@ export const ObjectDetails = () => {
           )}
           <Button
             className="navigate-button"
-            label="Nawiguj"
+            label={t('objectDetailsPage.button.navigate')}
             size="lg"
             primary={true}
             onClick={handleNavigateToMap}
