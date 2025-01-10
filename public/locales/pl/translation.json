@@ -60,6 +60,9 @@
       "locationNotFound": "Lokalizacja nieznaleziona"
     },
     "detailsPanel": {
+      "title.point": "Niestandardowy punkt",
+      "nonApplicable": "Nie dotyczy",
+      "street.prefix": "ul.",
       "button.navigate": "Nawiguj",
       "button.details": "Szczegóły",
       "button.cancel": "Anuluj"
@@ -71,6 +74,7 @@
       "maneuver.depart": "wystartuj",
       "maneuver.continue": "kontynuuj",
       "maneuver.turn": "skręt",
+      "maneuver.fork": "widły",
       "maneuver.endofroad": "koniec drogi",
       "maneuver.arrive": "dotarłeś",
       "maneuverModifier.left": "w lewo",

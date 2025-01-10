@@ -18,8 +18,12 @@ import {
   MAP_MAX_BOUNDS_VISCOSITY,
   MAP_MAX_ZOOM,
   MAP_MIN_ZOOM,
+  MAP_NAV_ZOOM,
   MAP_ZOOM,
   PathInfo,
+  checkNetworkConnection,
+  getCurrentLocation,
+  checkIfOnCampus,
 } from './utils.ts';
 import { useAppStore, AppState } from '../../store/index.ts';
 
@@ -76,12 +80,12 @@ const INITIAL_PATH_INFO: PathInfo = {
 
 export const Map = () => {
   // Passed via state when navigating (optional, for choosing locations)
-  const state = useLocation().state;
-  const stateDestination: PlaceObject | null = state?.placeData;
-  const statePathEndChosen: PathEndChosen | null = state?.pathEndChosen;
-  const statePoints: Points | null = state?.points;
-  const statePlaces: Places | null = state?.places;
-  const statePlaceId: Number | null = state?.placeId;
+  let state = useLocation().state;
+  let stateDestination: PlaceObject | null = state?.placeData;
+  let statePathEndChosen: PathEndChosen | null = state?.pathEndChosen;
+  let statePoints: Points | null = state?.points;
+  let statePlaces: Places | null = state?.places;
+  let statePlaceId: Number | null = state?.placeId;
 
   // Warnings for: no network, no location shared, not on campus
   const [warningType, setWarningType] = useState<WarningType>(null);
@@ -90,80 +94,39 @@ export const Map = () => {
   // Path information, points on map and chosen places
   const [allLocations, setAllLocations] = useState<PlaceObject[]>([]);
   const [points, setPoints] = useState<Points>(INITIAL_POINTS);
-  const pointsRef = useRef(points);
+  const pointsRef = useRef<Points>(points);
   const [places, setPlaces] = useState<Places>(INITIAL_PLACES);
   const [pathInfo, setPathInfo] = useState<PathInfo>(INITIAL_PATH_INFO);
   const route_type = useAppStore((state: AppState) => state.preferences.routePreference);
 
   // State of map, whether we are choosing path or navigating one
   const [mapState, setMapState] = useState<MapState>('browsing');
+  const mapStateRef = useRef<MapState>(mapState);
 
   // Fetch all locations when first loading Map
   useEffect(() => {
-    console.log('Map loaded');
-    initialUpdateToWarningsLocationAndAllLocations();
+    console.log('Fetch allLocations');
+
+    getObjectsList().then((data) => {
+      if (Array.isArray(data)) {
+        setAllLocations(data);
+      }
+      useAllPassedState();
+    });
   }, []);
 
-  // Interval for checking the state (warnings)
+  // Set Interval for updating location
   useEffect(() => {
     const interval = setInterval(() => {
-      updateLocationAndWarnings();
-    }, 10000); // For now set as every 10 seconds (possibly temporary, idk)
-
+      updateCurrentLocation();
+    }, 3000);
     return () => clearInterval(interval);
-  }, [warningInfo]);
+  }, [points, places, pathInfo, mapState, warningInfo]);
 
-  // After all locations set, get all state variables
+  // Update Path when Points change
   useEffect(() => {
-    // If came from ObjectDetails, set object as destination
-    if (stateDestination && statePoints && points.locationPoint) {
-      console.log('Came from ObjectDetails');
-      setPoints({
-        ...statePoints,
-        startingPoint: new L.LatLng(points.locationPoint.lat, points.locationPoint.lng),
-        destinationPoint: new L.LatLng(
-          Number(stateDestination.latitude),
-          Number(stateDestination.longitude)
-        ),
-      });
-      setPlaces({ startingPlace: null, destinationPlace: stateDestination });
-    }
-    // If came from ObjectsOverview (there from SearchPlaces), set start or destination
-    else if (statePathEndChosen && statePoints && statePlaces && statePlaceId) {
-      console.log('Came from ObjectsOverview');
-      let chosenPlace: PlaceObject | undefined = allLocations.find(
-        (place) => place.id === statePlaceId
-      );
-
-      if (chosenPlace) {
-        if (statePathEndChosen == 'starting') {
-          setPlaces({ ...statePlaces, startingPlace: chosenPlace });
-          setPoints({
-            ...statePoints,
-            startingPoint: new L.LatLng(
-              Number(chosenPlace.latitude),
-              Number(chosenPlace.longitude)
-            ),
-          });
-        } else if (statePathEndChosen == 'destination') {
-          setPlaces({ ...statePlaces, destinationPlace: chosenPlace });
-          setPoints({
-            ...statePoints,
-            destinationPoint: new L.LatLng(
-              Number(chosenPlace.latitude),
-              Number(chosenPlace.longitude)
-            ),
-          });
-        }
-      }
-    }
-    // If came here other way
-    else {
-      console.log('Came from other location');
-      setPlaces({ startingPlace: null, destinationPlace: null });
-      setPoints({ ...points, startingPoint: points.locationPoint, destinationPoint: null });
-    }
-  }, [allLocations]);
+    updatePath();
+  }, [points]);
 
   // Update warning on page bottom
   useEffect(() => {
@@ -178,122 +141,125 @@ export const Map = () => {
     }
   }, [warningInfo]);
 
-  // Update pointsRef when points change
+  // Update pointsRef and mapStateRef when their state vars change
   useEffect(() => {
-    console.log('Update pointsRef');
     pointsRef.current = points;
-    console.log(pointsRef.current.startingPoint);
-    console.log(pointsRef.current.locationPoint);
-    console.log(pointsRef.current.destinationPoint);
   }, [points]);
-
-  // Update path (and path info) when points changes
   useEffect(() => {
-    console.log('Update path');
+    mapStateRef.current = mapState;
+  }, [mapState]);
 
-    // Canceling navigation when too close to destination
-    if (mapState === 'navigating' && pathInfo.totalDistance < 5) {
-      setMapState('browsing');
-      setPoints(INITIAL_POINTS);
-      setPathInfo(INITIAL_PATH_INFO);
-    } else if (points?.destinationPoint && points.startingPoint && points.locationPoint) {
-      getPath(points.startingPoint, points.destinationPoint, route_type).then((data) =>
-        setPathInfo(data)
-      );
-    } else {
-      setPathInfo(INITIAL_PATH_INFO);
-    }
-  }, [points]);
-
-  const initialUpdateToWarningsLocationAndAllLocations = async () => {
-    await updateLocationAndWarnings();
-
-    getObjectsList().then((data) => {
-      if (Array.isArray(data)) {
-        setAllLocations(data);
-      }
-    });
-  };
-
-  const updateLocationAndWarnings = async () => {
-    console.log('Perform check');
+  const updateCurrentLocation = async () => {
+    console.log('Updating Location');
     let newInfo: WarningInfo = {
       isOnline: false,
       isUserLocation: false,
       isOnCampus: false,
     };
+    let newLocationPoint: L.LatLng | null;
 
-    if (navigator.onLine) {
-      try {
-        await fetch('https://www.google.com/generate_204', {
-          mode: 'no-cors',
-          cache: 'no-store',
-        }).then(() => {
-          newInfo.isOnline = true;
-        });
-      } catch (error) {
-        newInfo.isOnline = false;
-      }
-    }
-
-    if (navigator.geolocation) {
-      try {
-        const position = await new Promise<GeolocationPosition>((resolve, reject) => {
-          navigator.geolocation.getCurrentPosition(resolve, reject);
-        });
-        // This check is only for testing (mapState check)
-        // When in production, it should update with correct current location, no matter which state we're in
-        // But for testing purposes, when in browsing, we set Location as in center of the map (see comments above)
-        // Also when in Navigating, clicking on map changes location, but in production it won't do anything
-        // It's so that testing without walking around campus can be performed, and showing it to chief when she'll be checking it
-        if (mapState === 'browsing') {
-          let newLocationPoint = L.latLng(MAP_CENTER); // Temporary only, for production swap with commented line below
-          // let newLocationPoint = new L.LatLng(position.coords.latitude, position.coords.longitude);
-
-          newInfo.isUserLocation = true;
-          newInfo.isOnCampus = checkIfOnCampus(newLocationPoint);
-
-          // Moved to pointsRef, as points didn't have correct value in interval
-          if (!pointsRef.current.locationPoint?.equals(newLocationPoint)) {
-            console.log('- location changed');
-            setPoints({ ...points, locationPoint: newLocationPoint });
-          }
+    newInfo.isOnline = await checkNetworkConnection();
+    if (newInfo.isOnline) {
+      if ((newInfo.isUserLocation = (newLocationPoint = await getCurrentLocation()) !== null)) {
+        // For testing, set location in map center when browsing, onMapClick sets it in navigating
+        if (mapStateRef.current === 'browsing') {
+          newLocationPoint = L.latLng(MAP_CENTER);
+        } else if (mapStateRef.current === 'navigating' && pointsRef.current.locationPoint) {
+          newLocationPoint = pointsRef.current.locationPoint;
         } else {
-          // This also just for testing, when in navigating, treat location always as correct
-          newInfo.isUserLocation = true;
-          newInfo.isOnCampus = true;
+          newLocationPoint = L.latLng(MAP_CENTER);
         }
-      } catch (error) {
-        newInfo.isUserLocation = false;
-        newInfo.isOnCampus = false;
+
+        if ((newInfo.isOnCampus = checkIfOnCampus(newLocationPoint))) {
+          if (
+            !pointsRef.current.locationPoint ||
+            newLocationPoint.equals(pointsRef.current.locationPoint)
+          ) {
+            setPoints((prevPoints) => ({ ...prevPoints, locationPoint: newLocationPoint }));
+          }
+        }
       }
     }
 
-    // Only update when something changed
     if (
       newInfo.isOnline !== warningInfo.isOnline ||
       newInfo.isUserLocation !== warningInfo.isUserLocation ||
       newInfo.isOnCampus !== warningInfo.isOnCampus
     ) {
-      setWarningInfo({
-        isOnline: newInfo.isOnline,
-        isUserLocation: newInfo.isUserLocation,
-        isOnCampus: newInfo.isOnCampus,
-      });
+      setWarningInfo({ ...newInfo });
     }
   };
 
-  // Function to check if user location is within campus
-  // It's just checking whether they're inside boundaries
-  const checkIfOnCampus = (location: L.LatLng | null) => {
-    if (!location || location.lat < 0 || location.lng < 0) {
-      return false;
+  const updatePath = () => {
+    console.log('Update path');
+
+    if (mapStateRef.current === 'navigating' && pathInfo.totalDistance < 5) {
+      setMapState('browsing');
+      setPoints({
+        ...INITIAL_POINTS,
+        startingPoint: points.locationPoint,
+        locationPoint: points.locationPoint,
+      });
+      setPlaces({ ...INITIAL_PLACES });
+      setPathInfo(INITIAL_PATH_INFO);
+    } else if (points.destinationPoint && points.startingPoint && points.locationPoint) {
+      getPath(
+        mapStateRef.current === 'navigating' ? points.locationPoint : points.startingPoint,
+        points.destinationPoint,
+        route_type
+      ).then((data) => setPathInfo(data));
+    } else {
+      setPathInfo(INITIAL_PATH_INFO);
+    }
+  };
+
+  // After all locations fetched and set, get all passed state variables
+  const useAllPassedState = () => {
+    console.log('Get state variables');
+    if (stateDestination && statePoints && points.locationPoint) {
+      let startingPoint = new L.LatLng(points.locationPoint.lat, points.locationPoint.lng);
+      let destinationPoint = new L.LatLng(
+        Number(stateDestination.latitude),
+        Number(stateDestination.longitude)
+      );
+
+      setPoints({
+        ...statePoints,
+        startingPoint: startingPoint,
+        destinationPoint: destinationPoint,
+      });
+      setPlaces({ startingPlace: null, destinationPlace: stateDestination });
+    } else if (statePathEndChosen && statePoints && statePlaces && statePlaceId) {
+      let chosenPlace: PlaceObject | undefined;
+
+      if ((chosenPlace = allLocations.find((place) => place.id === statePlaceId))) {
+        let chosenPoint = new L.LatLng(Number(chosenPlace.latitude), Number(chosenPlace.longitude));
+
+        setPlaces({
+          ...statePlaces,
+          [statePathEndChosen === 'starting' ? 'startingPlace' : 'destinationPlace']: chosenPlace,
+        });
+        setPoints({
+          ...statePoints,
+          [statePathEndChosen === 'starting' ? 'startingPoint' : 'destinationPoint']: chosenPoint,
+        });
+      }
+    } else {
+      setPlaces({ startingPlace: null, destinationPlace: null });
+      setPoints({
+        startingPoint: L.latLng(MAP_CENTER),
+        locationPoint: L.latLng(MAP_CENTER),
+        destinationPoint: null,
+      }); // for testing
+      // setPoints({ ...pointsRef.current, startingPoint: pointsRef.current.locationPoint, destinationPoint: null });
     }
 
-    let latOnCampus = location.lat >= BORDER_SW.lat && location.lat <= BORDER_NE.lat;
-    let lngOnCampus = location.lng >= BORDER_SW.lng && location.lng <= BORDER_NE.lng;
-
-    return latOnCampus && lngOnCampus;
+    state = null;
+    stateDestination = null;
+    statePathEndChosen = null;
+    statePoints = null;
+    statePlaces = null;
+    statePlaceId = null;
   };
 
   const populateWithMarkers = () => {
@@ -311,9 +277,8 @@ export const Map = () => {
       : null;
   };
 
-  // Setting clicked marker's object as destination
   function onMarkerClick(markerObject: PlaceObject) {
-    if (mapState !== 'navigating') {
+    if (mapStateRef.current !== 'navigating') {
       setPoints({
         ...points,
         destinationPoint: new L.LatLng(
@@ -330,18 +295,18 @@ export const Map = () => {
     return null;
   }
 
-  // Setting destination when starting is set, otherwise set starting
   function OnMapClick() {
-    const map = useMapEvents({
+    const map_ = useMapEvents({
       click: (event) => {
-        if (mapState === 'browsing') {
-          if (points.locationPoint) {
-            setPoints({ ...points, destinationPoint: event.latlng });
-            setPlaces({ ...places, destinationPlace: null });
-          } else {
-            setPoints({ ...points, startingPoint: event.latlng });
-            setPlaces({ ...places, startingPlace: null });
-          }
+        if (mapStateRef.current === 'browsing') {
+          setPoints({
+            ...points,
+            [points.locationPoint ? 'destinationPoint' : 'startingPoint']: event.latlng,
+          });
+          setPlaces({
+            ...places,
+            [points.locationPoint ? 'destinationPlace' : 'startingPlace']: null,
+          });
         }
         // Below part of the function is only for testing, as a measure to see whether navigation works
         // without the need to walk around the campus
@@ -349,7 +314,7 @@ export const Map = () => {
           setPoints({ ...points, locationPoint: event.latlng });
         }
 
-        map.panTo(event.latlng);
+        map_.panTo(event.latlng);
       },
     });
 
@@ -365,6 +330,16 @@ export const Map = () => {
       {mapState === 'browsing' && places.destinationPlace && (
         <InformationPanel
           place={places.destinationPlace}
+          pathDistance={pathInfo.totalDistance}
+          pathTime={pathInfo.totalTime}
+          isLocationSet={points.locationPoint !== null}
+          setMapState={setMapState}
+        />
+      )}
+
+      {mapState === 'browsing' && !places.destinationPlace && points.destinationPoint && (
+        <InformationPanel
+          place={null}
           pathDistance={pathInfo.totalDistance}
           pathTime={pathInfo.totalTime}
           isLocationSet={points.locationPoint !== null}
@@ -393,7 +368,7 @@ export const Map = () => {
 
         {allLocations && populateWithMarkers()}
 
-        {points.locationPoint && <CustomMarker position={points.locationPoint} />}
+        {points.locationPoint && <CustomMarker position={points.locationPoint} isLocation={true} />}
         {points.destinationPoint && <CustomMarker position={points.destinationPoint} />}
 
         <Polyline positions={pathInfo.path} />

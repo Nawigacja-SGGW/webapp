@@ -9,6 +9,7 @@ export const MAP_MAX_BOUNDS_VISCOSITY: number = 1;
 export const MAP_ZOOM: number = 16;
 export const MAP_MIN_ZOOM: number = 16;
 export const MAP_MAX_ZOOM: number = 18;
+export const MAP_NAV_ZOOM: number = 18;
 
 type mode = '' | 'Walk' | 'Cycle';
 type maneuver =
@@ -48,7 +49,7 @@ export type PathInfo = {
   totalDistance: number;
   transportationMode: mode;
   nextManeuver: maneuver;
-  nextManeuverModifier: maneuverModifier;
+  nextManeuverModifier: maneuverModifier | undefined;
   distanceUntillNextDirection: number;
 };
 
@@ -153,3 +154,48 @@ export async function getPaths(
       throw new Error(error);
     });
 }
+
+// Checks for map warnings
+
+export const checkNetworkConnection = async (): Promise<boolean> => {
+  if (navigator.onLine) {
+    try {
+      await fetch('https://www.google.com/generate_204', { mode: 'no-cors', cache: 'no-store' });
+      return true;
+    } catch (error) {
+      return false;
+    }
+  }
+  return false;
+};
+
+export const getCurrentLocation = async (): Promise<L.LatLng | null> => {
+  if (!navigator.geolocation) {
+    return null;
+  }
+
+  try {
+    const position = await new Promise<GeolocationPosition>((resolve, reject) => {
+      navigator.geolocation.getCurrentPosition(resolve, reject);
+    });
+    return new L.LatLng(position.coords.latitude, position.coords.longitude);
+  } catch (error) {
+    return null;
+  }
+};
+
+export const checkIfLocationShared = async (): Promise<boolean> => {
+  if (navigator.geolocation) {
+  }
+  return false;
+};
+
+export const checkIfOnCampus = (location: L.LatLng): boolean => {
+  if (!location || location.lat < 0 || location.lng < 0) {
+    return false;
+  }
+  let latOnCampus = location.lat >= BORDER_SW.lat && location.lat <= BORDER_NE.lat;
+  let lngOnCampus = location.lng >= BORDER_SW.lng && location.lng <= BORDER_NE.lng;
+
+  return latOnCampus && lngOnCampus;
+};

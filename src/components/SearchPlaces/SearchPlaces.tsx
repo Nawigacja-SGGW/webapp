@@ -98,28 +98,11 @@ export const SearchPlaces = ({ points, places, setPoints, setPlaces }: SearchPla
       startingPlace: places.destinationPlace,
       destinationPlace: places.startingPlace,
     });
-    if (
-      points.startingPoint?.lat === points.locationPoint?.lat &&
-      points.startingPoint?.lng === points.locationPoint?.lng
-    ) {
-      setPoints({
-        ...points,
-        startingPoint: points.destinationPoint,
-        destinationPoint: null,
-      });
-    } else if (!points.destinationPoint) {
-      setPoints({
-        ...points,
-        startingPoint: points.locationPoint,
-        destinationPoint: points.startingPoint,
-      });
-    } else {
-      setPoints({
-        ...points,
-        startingPoint: points.destinationPoint,
-        destinationPoint: points.startingPoint,
-      });
-    }
+    setPoints({
+      ...points,
+      startingPoint: points.destinationPoint,
+      destinationPoint: points.startingPoint,
+    });
   };
 
   return (
@@ -129,7 +112,9 @@ export const SearchPlaces = ({ points, places, setPoints, setPlaces }: SearchPla
           <div className="search-places__input" onClick={() => handleNavigateToList('starting')}>
             {places.startingPlace
               ? places.startingPlace.name
-              : t('homePage.searchPlaces.startPoint.placeholder')}
+              : points.locationPoint && points.startingPoint?.equals(points.locationPoint)
+                ? t('homePage.searchPlaces.startPoint.placeholder')
+                : t('mapPage.detailsPanel.title.point')}
           </div>
           <Button label="X" size="sm" onClick={() => handleRemovePlace('starting')} />
         </div>
@@ -138,7 +123,9 @@ export const SearchPlaces = ({ points, places, setPoints, setPlaces }: SearchPla
           <div className="search-places__input" onClick={() => handleNavigateToList('destination')}>
             {places.destinationPlace
               ? places.destinationPlace.name
-              : t('homePage.searchPlaces.destination.placeholder')}
+              : points.destinationPoint
+                ? t('mapPage.detailsPanel.title.point')
+                : t('homePage.searchPlaces.destination.placeholder')}
           </div>
           <Button label="X" size="sm" onClick={() => handleRemovePlace('destination')} />
           {/*//@ts-ignore*/}

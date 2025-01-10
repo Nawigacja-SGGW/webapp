@@ -4,7 +4,7 @@ import { Button } from '../ui/Button/Button.tsx';
 import { PathInfo } from './utils.ts';
 import './NavigationPanel.scss';
 
-import { Arrow90degLeft, Arrow90degRight, ArrowUp } from '@styled-icons/bootstrap';
+import { Arrow90degLeft, Arrow90degRight, ArrowUp, Dot } from '@styled-icons/bootstrap';
 import { Walk } from '@styled-icons/boxicons-regular';
 import { DirectionsBike } from '@styled-icons/material-outlined';
 import { useTranslation } from 'react-i18next';
@@ -36,7 +36,7 @@ export const NavigationPanel = ({ pathInfo, setMapState }: NavigationPanelProps)
             return <Arrow90degRight size="40" />;
         }
     }
-    return 2;
+    return <Dot size="40" />;
   };
 
   const GetCurrentManeuverTranslation = () => {
@@ -68,8 +68,10 @@ export const NavigationPanel = ({ pathInfo, setMapState }: NavigationPanelProps)
       }
     }
 
-    let modifier = pathInfo.nextManeuverModifier.replace(' ', '');
-    let maneuverModifier = t(`mapPage.navigationPanel.maneuverModifier.${modifier}`);
+    let modifier = pathInfo.nextManeuverModifier?.replace(' ', '');
+    let maneuverModifier = modifier
+      ? t(`mapPage.navigationPanel.maneuverModifier.${modifier}`)
+      : '';
 
     return `${then} ${maneuver} ${maneuverModifier}`;
   };
@@ -88,7 +90,7 @@ export const NavigationPanel = ({ pathInfo, setMapState }: NavigationPanelProps)
       <div className="direction-container">
         <div className="direction-symbol-container">{GetManeuverSymbol()}</div>
         <div className="direction-text-container">
-          <h1> {GetCurrentManeuverTranslation()} </h1>
+          <h2> {GetCurrentManeuverTranslation()} </h2>
           <h2> {GetNextManeuverTranslation()} </h2>
         </div>
       </div>

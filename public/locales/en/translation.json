@@ -60,6 +60,9 @@
       "locationNotFound": "Location not found"
     },
     "detailsPanel": {
+      "title.point": "Custom point",
+      "nonApplicable": "Non Applicable",
+      "street.prefix": "st.",
       "button.navigate": "Navigate",
       "button.details": "Details",
       "button.cancel": "Cancel"
@@ -71,6 +74,7 @@
       "maneuver.depart": "depart",
       "maneuver.continue": "continue",
       "maneuver.turn": "turn",
+      "maneuver.fork": "fork",
       "maneuver.endOfRoad": "end of road",
       "maneuver.arrive": "arrive",
       "maneuverModifier.left": "left",
