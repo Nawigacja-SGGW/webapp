@@ -5,17 +5,23 @@ import { Object as ObjectComponent } from './components/Object/Object.tsx';
 import { Input } from '../../components/ui/Input/Input.tsx';
 import { CheckboxIcon } from './components/icons.tsx';
 import { Sliders } from '@styled-icons/bootstrap/Sliders';
+import { useLocation } from 'react-router-dom';
 
 import { ClockHistory } from '@styled-icons/bootstrap/ClockHistory';
 import { ObjectHistoryModal } from '../ObjectHistoryModal/ObjectHistoryModal.tsx';
 import { camelCase, debounce, flatten } from 'lodash';
 import axios from 'axios';
 import { mapObjKeys, ObjectsResponse, PlaceObject } from '../../common/model.ts';
+import { PathEndChosen } from '../../components/SearchPlaces/SearchPlaces.tsx';
 
 import './ObjectsOverviewPage.scss';
 
 export const ObjectsOverviewPage = () => {
   const { t } = useTranslation();
+  const state = useLocation().state;
+  const statePathEndChosen = state?.pathEndChosen;
+  const statePoints = state?.points;
+  const statePlaces = state?.places;
 
   const [places, setPlaces] = useState<PlaceObject[]>([]);
   const [initialPlaces, setInitialPlaces] = useState<PlaceObject[]>([]);
@@ -135,6 +141,9 @@ export const ObjectsOverviewPage = () => {
             description={place.description}
             id={place.id}
             address={place.address}
+            statePathEndChosen={statePathEndChosen}
+            statePoints={statePoints}
+            statePlaces={statePlaces}
           />
         ))}
       </section>

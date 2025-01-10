@@ -87,6 +87,7 @@
   "objectsOverviewPage": {
     "title": "Objects list",
     "search.placeholder": "Search",
+    "button.choose": "Choose",
     "button.navigate": "Details",
     "sortBy": "Sort by:",
     "sort.az": "Name: from A to Z",

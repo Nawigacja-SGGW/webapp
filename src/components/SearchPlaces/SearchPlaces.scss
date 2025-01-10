@@ -10,11 +10,18 @@
   background-color: var(--white);
   z-index: 500;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: var(--spacing-m);
+  flex-direction: row;
 
+  .search-places-fields__wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
   .search-places-field__wrapper {
+    display: flex;
+    margin-bottom: 8px;
+
     &:nth-of-type(1) {
       .search-places__input::before {
         background-color: var(--light-green);
@@ -45,7 +52,26 @@
         height: 15px;
         border-radius: 50px;
         background-color: blue;
+        margin-right: 15px;
       }
     }
+    .search-places__input:hover {
+      cursor: pointer;
+    }
+  }
+
+  .search-places-swap {
+    border-color: var(--black);
+    border-radius: 10px;
+    border-style: solid;
+    border-width: 1px;
+    margin: auto;
+    margin-left: 32px;
+    transition: all 0.2s ease-in;
+  }
+  .search-places-swap:hover {
+    cursor: pointer;
+    background-color: var(--button-background__primary);
+    color: var(--white);
   }
 }

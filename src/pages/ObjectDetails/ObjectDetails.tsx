@@ -20,7 +20,7 @@ export const ObjectDetails = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const handleNavigateToMap = () => {
-    navigate(`/home/map`, { state: placeData });
+    navigate(`/home/map`, { state: { placeData: placeData } });
   };
 
   async function fetchLocation(): Promise<void> {

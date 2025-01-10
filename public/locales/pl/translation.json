@@ -86,6 +86,7 @@
   },
   "objectsOverviewPage": {
     "title": "Lista obiektów",
+    "button.choose": "Wybierz",
     "search.placeholder": "Wyszukaj",
     "button.navigate": "Szczegóły",
     "sortBy": "Sortuj według:",
