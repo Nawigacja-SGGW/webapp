@@ -10,7 +10,7 @@ export const StatsPage = () => {
       <div className={styles.header}>
         <StackedLineChart size={50} />
         <div className={styles.distanceInfo}>
-          <h2>Your distance covered</h2>
+          <h2>{t('statisticsPage.distanceCovered')}</h2>
           <p>0 km</p>
         </div>
       </div>

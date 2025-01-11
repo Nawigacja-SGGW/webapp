@@ -126,7 +126,8 @@
   },
   "statisticsPage": {
     "top5": "Top 5",
-    "numberOfVisitedLocations": "Number of visited locations"
+    "numberOfVisitedLocations": "Number of visited locations",
+    "distanceCovered": "Your distance covered"
   },
   "objectHistoryModal": {
     "noHistory": "No search history"

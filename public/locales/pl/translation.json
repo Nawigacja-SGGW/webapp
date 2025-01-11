@@ -129,7 +129,8 @@
   },
   "statisticsPage": {
     "top5": "Top 5",
-    "numberOfVisitedLocations": "Liczba odwiedzonych miejsc"
+    "numberOfVisitedLocations": "Liczba odwiedzonych miejsc",
+    "distanceCovered": "Przebyty dystans"
   },
   "objectHistoryModal": {
     "noHistory": "Brak historii wyszukiwania"
