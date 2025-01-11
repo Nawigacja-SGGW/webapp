@@ -104,3 +104,48 @@ export const mapObjKeys = (
     return object;
   }
 };
+
+export interface UserObjectSearchDTO {
+  object_latitude: string;
+  object_longitude: string;
+  timestamp: string;
+  route_created_count: string;
+}
+
+export interface UserObjectSearch {
+  objectLatitude: string;
+  objectLongitude: string;
+  timestamp: string;
+  routeCreatedCount: string;
+}
+
+export interface UserResponseDTO {
+  id: number;
+  email: string;
+  distance_sum: number;
+  user_object_search: UserObjectSearchDTO[];
+}
+
+export interface User {
+  id: number;
+  email: string;
+  distanceSum: number;
+  userObjectSearch: UserObjectSearch[];
+}
+
+export interface TopVisitedPlaceDTO {
+  objectID: string;
+  count: string;
+}
+
+export interface UserStatisticsDTO {
+  distance_sum: string;
+  unique_places_visited_count: string;
+  top_five_visited_places: TopVisitedPlaceDTO[];
+}
+
+export interface UserStatsResponseDTO {
+  user_id: string;
+  user_email: string;
+  statistics: UserStatisticsDTO;
+}
