@@ -9,7 +9,7 @@ export const ErrorPage = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const handleRedirectHome = useCallback(() => {
-    navigate('/home');
+    navigate('/home/map');
   }, []);
 
   return (
