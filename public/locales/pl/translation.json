@@ -127,6 +127,10 @@
     "component.longestDistanceCovered": "Największy pokonany dystans",
     "component.placeInTheRanking": "Miejsce w rankingu"
   },
+  "statisticsPage": {
+    "top5": "Top 5",
+    "numberOfVisitedLocations": "Liczba odwiedzonych miejsc"
+  },
   "objectHistoryModal": {
     "noHistory": "Brak historii wyszukiwania"
   },
