@@ -124,6 +124,10 @@
     "component.longestDistanceCovered": "Longest distance covered",
     "component.placeInTheRanking": "Your place in the ranking"
   },
+  "statisticsPage": {
+    "top5": "Top 5",
+    "numberOfVisitedLocations": "Number of visited locations"
+  },
   "objectHistoryModal": {
     "noHistory": "No search history"
   },
