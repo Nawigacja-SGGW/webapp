@@ -1,5 +1,10 @@
 import { http, HttpResponse } from 'msw';
-import { ObjectsResponseDTO, PlaceObjectDTO } from '../common/model.ts';
+import {
+  ObjectsResponseDTO,
+  PlaceObjectDTO,
+  UserStatsResponseDTO,
+  UserResponseDTO,
+} from '../common/model.ts';
 import { flatten } from 'lodash';
 
 const objects: ObjectsResponseDTO = {
@@ -314,6 +319,280 @@ const objects: ObjectsResponseDTO = {
   ],
 };
 
+const usersResponse: UserResponseDTO[] = [
+  {
+    id: 1,
+    email: 'john.doe@example.com',
+    distance_sum: 150.5,
+    user_object_search: [
+      {
+        object_latitude: '51.5074',
+        object_longitude: '-0.1278',
+        timestamp: '2024-02-20T10:30:00Z',
+        route_created_count: '5',
+      },
+    ],
+  },
+  {
+    id: 2,
+    email: 'emma.smith@example.com',
+    distance_sum: 275.3,
+    user_object_search: [
+      {
+        object_latitude: '48.8566',
+        object_longitude: '2.3522',
+        timestamp: '2024-02-20T11:15:00Z',
+        route_created_count: '3',
+      },
+    ],
+  },
+  {
+    id: 3,
+    email: 'michael.brown@example.com',
+    distance_sum: 423.8,
+    user_object_search: [
+      {
+        object_latitude: '40.7128',
+        object_longitude: '-74.0060',
+        timestamp: '2024-02-20T09:45:00Z',
+        route_created_count: '7',
+      },
+    ],
+  },
+  {
+    id: 4,
+    email: 'sarah.wilson@example.com',
+    distance_sum: 189.2,
+    user_object_search: [
+      {
+        object_latitude: '52.5200',
+        object_longitude: '13.4050',
+        timestamp: '2024-02-20T14:20:00Z',
+        route_created_count: '4',
+      },
+    ],
+  },
+  {
+    id: 5,
+    email: 'david.jones@example.com',
+    distance_sum: 312.7,
+    user_object_search: [
+      {
+        object_latitude: '35.6762',
+        object_longitude: '139.6503',
+        timestamp: '2024-02-20T08:10:00Z',
+        route_created_count: '6',
+      },
+    ],
+  },
+  {
+    id: 6,
+    email: 'lisa.taylor@example.com',
+    distance_sum: 198.4,
+    user_object_search: [
+      {
+        object_latitude: '41.9028',
+        object_longitude: '12.4964',
+        timestamp: '2024-02-20T13:25:00Z',
+        route_created_count: '2',
+      },
+    ],
+  },
+  {
+    id: 7,
+    email: 'james.anderson@example.com',
+    distance_sum: 567.1,
+    user_object_search: [
+      {
+        object_latitude: '55.7558',
+        object_longitude: '37.6173',
+        timestamp: '2024-02-20T15:40:00Z',
+        route_created_count: '8',
+      },
+    ],
+  },
+  {
+    id: 8,
+    email: 'emily.martin@example.com',
+    distance_sum: 234.6,
+    user_object_search: [
+      {
+        object_latitude: '59.9139',
+        object_longitude: '10.7522',
+        timestamp: '2024-02-20T12:50:00Z',
+        route_created_count: '3',
+      },
+    ],
+  },
+  {
+    id: 9,
+    email: 'robert.white@example.com',
+    distance_sum: 445.9,
+    user_object_search: [
+      {
+        object_latitude: '48.2082',
+        object_longitude: '16.3738',
+        timestamp: '2024-02-20T16:15:00Z',
+        route_created_count: '5',
+      },
+    ],
+  },
+  {
+    id: 10,
+    email: 'olivia.clark@example.com',
+    distance_sum: 289.3,
+    user_object_search: [
+      {
+        object_latitude: '45.4642',
+        object_longitude: '9.1900',
+        timestamp: '2024-02-20T10:05:00Z',
+        route_created_count: '4',
+      },
+    ],
+  },
+];
+
+const rankingResponse = [
+  {
+    user_id: '1',
+    user_email: 'john.doe@sggw.edu.pl',
+    statistics: {
+      distance_sum: '128',
+      unique_places_visited_count: '6',
+      top_five_visited_places: [
+        {
+          objectID: '1',
+          count: '8',
+        },
+        {
+          objectID: '3',
+          count: '6',
+        },
+        {
+          objectID: '2',
+          count: '5',
+        },
+        {
+          objectID: '4',
+          count: '3',
+        },
+        {
+          objectID: '5',
+          count: '2',
+        },
+      ],
+    },
+  },
+  {
+    user_id: '2',
+    user_email: 's@sggw.edu.pl',
+    statistics: {
+      distance_sum: '46',
+      unique_places_visited_count: '4',
+      top_five_visited_places: [
+        {
+          objectID: '1',
+          count: '5',
+        },
+        {
+          objectID: '2',
+          count: '3',
+        },
+        {
+          objectID: '4',
+          count: '2',
+        },
+        {
+          objectID: '3',
+          count: '1',
+        },
+      ],
+    },
+  },
+  {
+    user_id: '3',
+    user_email: 'emma.smith@sggw.edu.pl',
+    statistics: {
+      distance_sum: '235',
+      unique_places_visited_count: '8',
+      top_five_visited_places: [
+        {
+          objectID: '2',
+          count: '10',
+        },
+        {
+          objectID: '1',
+          count: '7',
+        },
+        {
+          objectID: '5',
+          count: '5',
+        },
+        {
+          objectID: '3',
+          count: '4',
+        },
+        {
+          objectID: '4',
+          count: '3',
+        },
+      ],
+    },
+  },
+  {
+    user_id: '4',
+    user_email: 'mike.wilson@sggw.edu.pl',
+    statistics: {
+      distance_sum: '89',
+      unique_places_visited_count: '3',
+      top_five_visited_places: [
+        {
+          objectID: '3',
+          count: '7',
+        },
+        {
+          objectID: '1',
+          count: '4',
+        },
+        {
+          objectID: '2',
+          count: '2',
+        },
+      ],
+    },
+  },
+  {
+    user_id: '5',
+    user_email: 'sarah.brown@sggw.edu.pl',
+    statistics: {
+      distance_sum: '167',
+      unique_places_visited_count: '5',
+      top_five_visited_places: [
+        {
+          objectID: '1',
+          count: '9',
+        },
+        {
+          objectID: '4',
+          count: '6',
+        },
+        {
+          objectID: '2',
+          count: '4',
+        },
+        {
+          objectID: '5',
+          count: '3',
+        },
+        {
+          objectID: '3',
+          count: '2',
+        },
+      ],
+    },
+  },
+];
+
 export const handlers = [
   http.get('/objects', () => {
     return HttpResponse.json<ObjectsResponseDTO>(objects);
@@ -330,5 +609,28 @@ export const handlers = [
     if (response) {
       return HttpResponse.json<PlaceObjectDTO>(response);
     }
+  }),
+  http.get('/all-users', () => {
+    return HttpResponse.json<UserResponseDTO[]>(usersResponse);
+  }),
+  // http.get('/user-statistics', ({ request }) => {
+  //   const url = new URL(request.url);
+  //   const userId = url.searchParams.get('user_id');
+  //   const response = userId
+  //     ? usersResponse.find((user) => user.id === parseInt(userId))
+  //     : undefined;
+
+  //   if (response) {
+  //     return HttpResponse.json({
+  //       statistics: {
+  //         distanceSum: response.distance_sum,
+  //         uniquePlacesVisitedCount: response.user_object_search.length,
+  //         topFiveVisitedPlaces: [],
+  //       },
+  //     });
+  //   }
+  // }),
+  http.get('/user-rankings', () => {
+    return HttpResponse.json<UserStatsResponseDTO[]>(rankingResponse);
   }),
 ];

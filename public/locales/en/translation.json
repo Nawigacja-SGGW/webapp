@@ -118,6 +118,12 @@
     "searchPlaces.startPoint.placeholder": "Your location",
     "searchPlaces.destination.placeholder": "Destination"
   },
+  "rankingPage": {
+    "component.mostVisitsInOnePlace": "Most visits in one place",
+    "component.withTheHighestNumberOfVisitedPlaces": "Highest number of visited places",
+    "component.longestDistanceCovered": "Longest distance covered",
+    "component.placeInTheRanking": "Your place in the ranking"
+  },
   "objectHistoryModal": {
     "noHistory": "No search history"
   },
