@@ -1,7 +1,7 @@
 import L from 'leaflet';
 import { useEffect, useState, useRef } from 'react';
 import { MapContainer, TileLayer } from 'react-leaflet';
-import { useMap, useMapEvents, Polyline } from 'react-leaflet';
+import { useMapEvents, Polyline } from 'react-leaflet';
 import { useLocation } from 'react-router-dom';
 
 import CustomMarker from './CustomMarker';
@@ -18,7 +18,6 @@ import {
   MAP_MAX_BOUNDS_VISCOSITY,
   MAP_MAX_ZOOM,
   MAP_MIN_ZOOM,
-  MAP_NAV_ZOOM,
   MAP_ZOOM,
   PathInfo,
   checkNetworkConnection,
@@ -105,15 +104,78 @@ export const Map = () => {
 
   // Fetch all locations when first loading Map
   useEffect(() => {
-    console.log('Fetch allLocations');
-
-    getObjectsList().then((data) => {
-      if (Array.isArray(data)) {
-        setAllLocations(data);
-      }
-      useAllPassedState();
-    });
+    initialRender();
   }, []);
+
+  const initialRender = async () => {
+    const allLocations_ = await fetchAllLocations();
+    const [places_, points_] = await setInitialConditions(allLocations_);
+
+    console.log(points_);
+    console.log(places_);
+
+    setAllLocations(allLocations_);
+    setPlaces(places_);
+    setPoints(points_);
+  };
+
+  const fetchAllLocations = async () => {
+    const data = await getObjectsList();
+
+    if (Array.isArray(data)) {
+      return data;
+    }
+    return [];
+  };
+
+  const setInitialConditions = async (allLocations_: PlaceObject[]): Promise<[Places, Points]> => {
+    console.log(statePathEndChosen);
+    if (stateDestination) {
+      console.log('came from Details');
+      let startingPoint = L.latLng(MAP_CENTER);
+      let locationPoint = L.latLng(MAP_CENTER);
+      let destinationPoint = new L.LatLng(
+        Number(stateDestination.latitude),
+        Number(stateDestination.longitude)
+      );
+
+      return [
+        { startingPlace: null, destinationPlace: stateDestination } as Places,
+        {
+          startingPoint: startingPoint,
+          locationPoint: locationPoint,
+          destinationPoint: destinationPoint,
+        } as Points,
+      ];
+    } else if (statePathEndChosen && statePoints && statePlaces && statePlaceId) {
+      console.log('came from SearchPlaces');
+      let chosenPlace = allLocations_.find((place) => place.id === statePlaceId);
+
+      if (chosenPlace) {
+        let chosenPoint = new L.LatLng(Number(chosenPlace.latitude), Number(chosenPlace.longitude));
+
+        return [
+          {
+            ...statePlaces,
+            [statePathEndChosen === 'starting' ? 'startingPlace' : 'destinationPlace']: chosenPlace,
+          } as Places,
+          {
+            ...statePoints,
+            [statePathEndChosen === 'starting' ? 'startingPoint' : 'destinationPoint']: chosenPoint,
+          } as Points,
+        ];
+      }
+    }
+
+    return [
+      { startingPlace: null, destinationPlace: null } as Places,
+      {
+        startingPoint: L.latLng(MAP_CENTER),
+        locationPoint: L.latLng(MAP_CENTER),
+        destinationPoint: null,
+      } as Points,
+    ];
+  };
 
   // Set Interval for updating location
   useEffect(() => {
@@ -143,7 +205,7 @@ export const Map = () => {
 
   // Update pointsRef and mapStateRef when their state vars change
   useEffect(() => {
-    pointsRef.current = points;
+    pointsRef.current = { ...points };
   }, [points]);
   useEffect(() => {
     mapStateRef.current = mapState;
@@ -173,8 +235,10 @@ export const Map = () => {
         if ((newInfo.isOnCampus = checkIfOnCampus(newLocationPoint))) {
           if (
             !pointsRef.current.locationPoint ||
-            newLocationPoint.equals(pointsRef.current.locationPoint)
+            (newLocationPoint.lat === pointsRef.current.locationPoint.lat &&
+              newLocationPoint.lng === pointsRef.current.locationPoint.lng)
           ) {
+            pointsRef.current.locationPoint = newLocationPoint;
             setPoints((prevPoints) => ({ ...prevPoints, locationPoint: newLocationPoint }));
           }
         }
@@ -191,8 +255,6 @@ export const Map = () => {
   };
 
   const updatePath = () => {
-    console.log('Update path');
-
     if (mapStateRef.current === 'navigating' && pathInfo.totalDistance < 5) {
       setMapState('browsing');
       setPoints({
@@ -211,55 +273,6 @@ export const Map = () => {
     } else {
       setPathInfo(INITIAL_PATH_INFO);
     }
-  };
-
-  // After all locations fetched and set, get all passed state variables
-  const useAllPassedState = () => {
-    console.log('Get state variables');
-    if (stateDestination && statePoints && points.locationPoint) {
-      let startingPoint = new L.LatLng(points.locationPoint.lat, points.locationPoint.lng);
-      let destinationPoint = new L.LatLng(
-        Number(stateDestination.latitude),
-        Number(stateDestination.longitude)
-      );
-
-      setPoints({
-        ...statePoints,
-        startingPoint: startingPoint,
-        destinationPoint: destinationPoint,
-      });
-      setPlaces({ startingPlace: null, destinationPlace: stateDestination });
-    } else if (statePathEndChosen && statePoints && statePlaces && statePlaceId) {
-      let chosenPlace: PlaceObject | undefined;
-
-      if ((chosenPlace = allLocations.find((place) => place.id === statePlaceId))) {
-        let chosenPoint = new L.LatLng(Number(chosenPlace.latitude), Number(chosenPlace.longitude));
-
-        setPlaces({
-          ...statePlaces,
-          [statePathEndChosen === 'starting' ? 'startingPlace' : 'destinationPlace']: chosenPlace,
-        });
-        setPoints({
-          ...statePoints,
-          [statePathEndChosen === 'starting' ? 'startingPoint' : 'destinationPoint']: chosenPoint,
-        });
-      }
-    } else {
-      setPlaces({ startingPlace: null, destinationPlace: null });
-      setPoints({
-        startingPoint: L.latLng(MAP_CENTER),
-        locationPoint: L.latLng(MAP_CENTER),
-        destinationPoint: null,
-      }); // for testing
-      // setPoints({ ...pointsRef.current, startingPoint: pointsRef.current.locationPoint, destinationPoint: null });
-    }
-
-    state = null;
-    stateDestination = null;
-    statePathEndChosen = null;
-    statePoints = null;
-    statePlaces = null;
-    statePlaceId = null;
   };
 
   const populateWithMarkers = () => {
@@ -369,7 +382,16 @@ export const Map = () => {
         {allLocations && populateWithMarkers()}
 
         {points.locationPoint && <CustomMarker position={points.locationPoint} isLocation={true} />}
-        {points.destinationPoint && <CustomMarker position={points.destinationPoint} />}
+
+        {points.startingPoint !== null &&
+          (!points.locationPoint ||
+            points.startingPoint?.lat !== points.locationPoint.lat ||
+            points.startingPoint?.lng !== points.locationPoint.lng) && (
+            <CustomMarker position={points.startingPoint} />
+          )}
+        {points.destinationPoint && places.destinationPlace === null && (
+          <CustomMarker position={points.destinationPoint} />
+        )}
 
         <Polyline positions={pathInfo.path} />
 

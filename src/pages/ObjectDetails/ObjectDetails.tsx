@@ -20,6 +20,7 @@ export const ObjectDetails = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const handleNavigateToMap = () => {
+    console.log(`placeData: ${placeData}`);
     navigate(`/home/map`, { state: { placeData: placeData } });
   };
 

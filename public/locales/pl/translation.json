@@ -127,7 +127,7 @@
   },
   "homePage": {
     "searchPlaces.startPoint.placeholder": "Twoja lokalizacja",
-    "searchPlaces.destination.placeholder": "Kierunek"
+    "searchPlaces.destination.placeholder": "Wybierz kierunek"
   },
   "objectHistoryModal": {
     "noHistory": "Brak historii wyszukiwania"

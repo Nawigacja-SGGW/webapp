@@ -18,9 +18,8 @@ async function enableMocking() {
 
 enableMocking().then(() => {
   createRoot(document.getElementById('root')!).render(
-    <App />
-    // <StrictMode>
-    //   <App />
-    // </StrictMode>
+    <StrictMode>
+      <App />
+    </StrictMode>
   );
 });

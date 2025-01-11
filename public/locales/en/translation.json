@@ -124,7 +124,7 @@
   },
   "homePage": {
     "searchPlaces.startPoint.placeholder": "Your location",
-    "searchPlaces.destination.placeholder": "Destination"
+    "searchPlaces.destination.placeholder": "Choose Destination"
   },
   "objectHistoryModal": {
     "noHistory": "No search history"

@@ -12,7 +12,6 @@ import { ObjectHistoryModal } from '../ObjectHistoryModal/ObjectHistoryModal.tsx
 import { camelCase, debounce, flatten } from 'lodash';
 import axios from 'axios';
 import { mapObjKeys, ObjectsResponse, PlaceObject } from '../../common/model.ts';
-import { PathEndChosen } from '../../components/SearchPlaces/SearchPlaces.tsx';
 
 import './ObjectsOverviewPage.scss';
 
