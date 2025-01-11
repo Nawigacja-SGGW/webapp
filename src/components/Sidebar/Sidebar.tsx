@@ -76,7 +76,7 @@ export const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
         <div className="sidebar__container__app-identity">
           <div className="sidebar__container__app-identity__heading">Logo/name</div>
           <div className="sidebar__container__app-identity__image">
-            <img src="../../../public/logo.png" alt="" />
+            <img src="/logo.png" alt="" />
           </div>
         </div>
         <div className="sidebar__container__links">
