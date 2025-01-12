@@ -37,6 +37,9 @@
     .description {
       font-size: var(--main-font-size);
       text-align: justify;
+      height: 70px;
+      overflow-y: hidden;
+      text-overflow: ellipsis;
     }
   }
 
