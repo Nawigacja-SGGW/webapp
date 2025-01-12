@@ -20,7 +20,7 @@ export const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
   const { t, i18n } = useTranslation();
   const location = useLocation();
   const navigate = useNavigate();
-
+  const setAuthData = useAppStore((state) => state.setAuthData);
   const setLanguage = useAppStore((state) => state.setLanguage);
   const isSettingsRoute = location.pathname.includes('/settings');
 
@@ -28,10 +28,10 @@ export const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
     setLanguage(e.target.value as Language);
     i18n.changeLanguage(e.target.value);
   };
+
   const handleLogout = () => {
-    console.log('logout');
+    setAuthData(null);
     navigate('/');
-    //TODO implement handleLogout based on auth logic
   };
 
   return (

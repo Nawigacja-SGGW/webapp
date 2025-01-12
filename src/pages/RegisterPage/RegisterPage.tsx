@@ -5,16 +5,22 @@ import { useTranslation } from 'react-i18next';
 import { SubmitHandler, useForm, useWatch } from 'react-hook-form';
 import { EMAIL_REGEXP } from '../../utils/constans.ts';
 import { useEffect } from 'react';
+import { signInRequest, signUpRequest } from '../../auth.ts';
+import { useNavigate } from 'react-router-dom';
+import { useAppStore } from '../../store';
 
+//todo: api nie przyjmuje username, tymczasowo usuwam input
 interface RegistrationInputs {
   email: string;
-  userName: string;
+  //userName: string;
   password: string;
   confirmPassword: string;
 }
 
 export const RegisterPage = () => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
+  const setAuthData = useAppStore((state) => state.setAuthData);
 
   const {
     control,
@@ -26,8 +32,26 @@ export const RegisterPage = () => {
     mode: 'onChange',
   });
 
-  const onSubmit: SubmitHandler<RegistrationInputs> = (data) => {
-    console.log(data);
+  const onSubmit: SubmitHandler<RegistrationInputs> = async (data) => {
+    if (data && data.password && data.email) {
+      try {
+        const response = await signUpRequest(data.email, data.password);
+        if (response && response.data.code === 201) {
+          const signInResponse = await signInRequest(data.email, data.password);
+          if (signInResponse) {
+            setAuthData({
+              token: response.data.token,
+              id: response.data.id,
+              email: data.email,
+            });
+            navigate('/home/map');
+            ``;
+          }
+        }
+      } catch (e) {
+        alert(t('authPage.failed'));
+      }
+    }
   };
 
   // testing purposes
@@ -57,11 +81,11 @@ export const RegisterPage = () => {
             <span className="input-error">{t('authPage.validation.invalidEmail')}</span>
           ) : null
         ) : null}
-        <p className="input-label">{t('authPage.labels.username')}</p>
+        {/*        <p className="input-label">{t('authPage.labels.username')}</p>
         <Input {...register('userName', { required: true })} />
         {errors.userName?.type === 'required' && (
           <span className="input-error">{t('authPage.validation.required')}</span>
-        )}
+        )}*/}
         <p className="input-label">{t('authPage.labels.password')}</p>
         <Input type="password" {...register('password', { required: true })} />
         {errors.password?.type === 'required' && (

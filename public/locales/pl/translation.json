@@ -35,12 +35,15 @@
     },
     "forgotPassword": "Zapomniałeś hasła?",
     "continueWith": "Lub kontynuuj z",
-    "noAccount": "Nie masz jeszcze konta?"
+    "noAccount": "Nie masz jeszcze konta?",
+    "failed": "Wystapil bład, spróbuj ponownie"
   },
   "forgotPasswordPage1": {
     "title": "Zmiana hasła",
     "E-mail": "E-mail",
-    "button.sendEmail": "Wyślij e-mail"
+    "button.sendEmail": "Wyślij e-mail",
+    "success": "E-mail został wysłany",
+    "failed": "Wprowadzono niepoprawny e-mail"
   },
   "forgotPasswordPage2": {
     "title": "Zmiana hasła",

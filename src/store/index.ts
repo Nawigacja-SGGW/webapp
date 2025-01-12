@@ -7,13 +7,21 @@ interface Preferences {
   language: Language;
 }
 
+interface AuthData {
+  email: string;
+  id: number;
+  token: string;
+}
+
 export interface AppState {
   preferences: Preferences;
+  authData: AuthData | null;
 }
 
 interface Action {
   setRoutePreference: (tripPreference: AppState['preferences']['routePreference']) => void;
   setLanguage: (language: AppState['preferences']['language']) => void;
+  setAuthData: (authData: AppState['authData']) => void;
 }
 
 export const useAppStore = create<AppState & Action>((set) => ({
@@ -21,6 +29,7 @@ export const useAppStore = create<AppState & Action>((set) => ({
     routePreference: 'foot',
     language: 'pl',
   },
+  authData: null,
   setRoutePreference: (routePreference: AppState['preferences']['routePreference']) =>
     set((prev) => ({
       preferences: {
@@ -35,4 +44,5 @@ export const useAppStore = create<AppState & Action>((set) => ({
         language: language,
       },
     })),
+  setAuthData: (authData: AppState['authData']) => set({ authData }),
 }));
