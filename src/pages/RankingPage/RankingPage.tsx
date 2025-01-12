@@ -25,6 +25,11 @@ export interface UserStatsResponse {
   statistics: UserStatistics;
 }
 
+export interface UsersStatsResponseDTO {
+  code: number;
+  users: UserStatsResponseDTO[];
+}
+
 export interface RankingData {
   withTheHighestNumberOfVisitedPlaces: UserStatsResponse[];
   longestDistanceCovered: UserStatsResponse[];
@@ -35,9 +40,9 @@ export function RankingPage() {
   const [userRankingsData, setUserRankingsData] = useState<RankingData>();
 
   useEffect(() => {
-    const fetchTopUsers = async (): Promise<UserStatsResponseDTO[]> => {
+    const fetchTopUsers = async (): Promise<UsersStatsResponseDTO> => {
       try {
-        const { data } = await axios.get('/user-rankings');
+        const { data } = await axios.get(`${import.meta.env.VITE_MAIN_API_URL}/users-rankings`);
         return data;
       } catch (e) {
         throw e;
@@ -45,7 +50,7 @@ export function RankingPage() {
     };
 
     fetchTopUsers()
-      .then((data) => data && data.map((obj) => mapObjKeys(obj, camelCase)))
+      .then((data) => data && data.users.map((obj) => mapObjKeys(obj, camelCase)))
       .then((data) => getRankingStatisticsMappedObj(data as unknown as UserStatsResponse[]))
       .then((data) => setUserRankingsData(data));
   }, []);

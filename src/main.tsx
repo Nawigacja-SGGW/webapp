@@ -4,8 +4,8 @@ import App from './App.tsx';
 import './i18n';
 import './index.css';
 
-async function enableMocking() {
-  if (process.env.NODE_ENV !== 'development') {
+async function enableMocking(skipMocking = false) {
+  if (skipMocking && process.env.NODE_ENV !== 'development') {
     return;
   }
   //@ts-ignore
@@ -16,10 +16,10 @@ async function enableMocking() {
   return worker.start();
 }
 
-enableMocking().then(() => {
-  createRoot(document.getElementById('root')!).render(
-    <StrictMode>
-      <App />
-    </StrictMode>
-  );
-});
+// enableMocking(true).then(() => {
+createRoot(document.getElementById('root')!).render(
+  <StrictMode>
+    <App />
+  </StrictMode>
+);
+// });

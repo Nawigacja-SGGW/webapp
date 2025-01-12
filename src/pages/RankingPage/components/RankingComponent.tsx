@@ -22,7 +22,7 @@ export function RankingComponent({ data, title }: RankingProps) {
               </div>
             ))
           ) : (
-            <h1>Loading...</h1>
+            <h1>{t('component.loading')}</h1>
           )}
         </div>
       </Card>
