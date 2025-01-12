@@ -36,12 +36,15 @@
     },
     "forgotPassword": "Zapomniałeś hasła?",
     "continueWith": "Lub kontynuuj z",
-    "noAccount": "Nie masz jeszcze konta?"
+    "noAccount": "Nie masz jeszcze konta?",
+    "failed": "Wystapil bład, spróbuj ponownie"
   },
   "forgotPasswordPage1": {
     "title": "Zmiana hasła",
     "E-mail": "E-mail",
-    "button.sendEmail": "Wyślij e-mail"
+    "button.sendEmail": "Wyślij e-mail",
+    "success": "E-mail został wysłany",
+    "failed": "Wprowadzono niepoprawny e-mail"
   },
   "forgotPasswordPage2": {
     "title": "Zmiana hasła",
@@ -61,6 +64,9 @@
       "locationNotFound": "Lokalizacja nieznaleziona"
     },
     "detailsPanel": {
+      "title.point": "Niestandardowy punkt",
+      "nonApplicable": "Nie dotyczy",
+      "street.prefix": "ul.",
       "button.navigate": "Nawiguj",
       "button.details": "Szczegóły",
       "button.cancel": "Anuluj"
@@ -72,6 +78,7 @@
       "maneuver.depart": "wystartuj",
       "maneuver.continue": "kontynuuj",
       "maneuver.turn": "skręt",
+      "maneuver.fork": "widły",
       "maneuver.endofroad": "koniec drogi",
       "maneuver.arrive": "dotarłeś",
       "maneuverModifier.left": "w lewo",
@@ -87,11 +94,15 @@
   },
   "objectsOverviewPage": {
     "title": "Lista obiektów",
+    "button.choose": "Wybierz",
     "search.placeholder": "Wyszukaj",
     "button.navigate": "Szczegóły",
     "sortBy": "Sortuj według:",
     "sort.az": "Nazwa: od A do Z",
     "sort.za": "Nazwa: od Z do A"
+  },
+  "objectDetailsPage": {
+    "button.navigate": "Nawiguj"
   },
   "settingsPage": {
     "header": "Ustawienia",
@@ -120,7 +131,7 @@
   },
   "homePage": {
     "searchPlaces.startPoint.placeholder": "Twoja lokalizacja",
-    "searchPlaces.destination.placeholder": "Kierunek"
+    "searchPlaces.destination.placeholder": "Wybierz kierunek"
   },
   "rankingPage": {
     "component.mostVisitsInOnePlace": "Najwięcej odwiedzin w jednym miejscu",

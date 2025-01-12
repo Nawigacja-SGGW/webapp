@@ -34,7 +34,9 @@ export const TextObject = ({
       <p className="address">
         <span>{address.street}</span>
         <span>
-          {address.postal_code}, {language === 'en' ? address.city_eng : address.city}
+          {address.city
+            ? `${address.postal_code} ${language === 'en' ? address.city_eng : address.city}`
+            : ''}
         </span>
         <span>{buildingInfo}</span>
       </p>
