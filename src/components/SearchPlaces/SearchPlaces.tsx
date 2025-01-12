@@ -2,7 +2,7 @@ import { Dispatch, SetStateAction } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Points, Places } from '../Map/Map.tsx';
-import { Button } from '../../components/ui/Button/Button.tsx';
+import { Button } from '../ui/Button/Button.tsx';
 
 import { SwapVert } from '@styled-icons/material';
 import './SearchPlaces.scss';
