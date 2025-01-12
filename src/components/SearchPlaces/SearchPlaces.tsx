@@ -16,11 +16,6 @@ interface SearchPlacesSelectProps {
   setPlaces: Dispatch<SetStateAction<Places>>;
 }
 
-export type SearchPlacesActionType =
-  | 'changeDestinationPoint'
-  | 'changeStartingPoint'
-  | 'loadObjects';
-
 export const SearchPlaces = ({ points, places, setPoints, setPlaces }: SearchPlacesSelectProps) => {
   const { t } = useTranslation<string>();
   const navigate = useNavigate();

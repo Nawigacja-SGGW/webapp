@@ -1,7 +1,7 @@
 import './RankingComponent.scss';
 import { Card } from '../../../components/ui/Card/Card.tsx';
 import { useTranslation } from 'react-i18next';
-import { UserStatsResponse } from '../RankingPage.tsx';
+import { UserStatsResponse } from '../../../common/model.ts';
 
 interface RankingProps {
   data: UserStatsResponse[] | undefined;

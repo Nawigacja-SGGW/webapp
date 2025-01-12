@@ -143,7 +143,8 @@
   "statisticsPage": {
     "top5": "Top 5",
     "numberOfVisitedLocations": "Liczba odwiedzonych miejsc",
-    "distanceCovered": "Przebyty dystans"
+    "distanceCovered": "Przebyty dystans",
+    "emptyRanking": "Nie udało się wczytać rankingu"
   },
   "objectHistoryModal": {
     "noHistory": "Brak historii wyszukiwania"

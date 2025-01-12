@@ -140,7 +140,8 @@
   "statisticsPage": {
     "top5": "Top 5",
     "numberOfVisitedLocations": "Number of visited locations",
-    "distanceCovered": "Your distance covered"
+    "distanceCovered": "Your distance covered",
+    "emptyRanking": "Ranking load failed"
   },
   "objectHistoryModal": {
     "noHistory": "No search history"

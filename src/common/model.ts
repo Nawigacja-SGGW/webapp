@@ -155,3 +155,20 @@ export interface UserStatsResponseDTO {
   user_email: string;
   statistics: UserStatisticsDTO;
 }
+
+export interface TopVisitedPlace {
+  objectId: string;
+  count: string;
+}
+
+export interface UserStatistics {
+  distanceSum: string;
+  uniquePlacesVisitedCount: string;
+  topFiveVisitedPlaces: TopVisitedPlace[];
+}
+
+export interface UserStatsResponse {
+  userId: string;
+  userEmail: string;
+  statistics: UserStatistics;
+}

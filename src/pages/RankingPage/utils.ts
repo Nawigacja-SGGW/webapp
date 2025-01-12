@@ -1,4 +1,5 @@
-import { RankingData, UserStatsResponse } from './RankingPage';
+import { RankingData } from './RankingPage';
+import { UserStatsResponse } from '../../common/model.ts';
 
 export const getRankingStatisticsMappedObj = (
   data: UserStatsResponse[],

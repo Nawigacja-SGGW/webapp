@@ -3,27 +3,10 @@ import './RankingPage.scss';
 import { Podium } from '@styled-icons/ionicons-outline/Podium';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { mapObjKeys, UserStatsResponseDTO } from '../../common/model';
+import { mapObjKeys, UserStatsResponse, UserStatsResponseDTO } from '../../common/model';
 import { camelCase } from 'lodash';
 import { getRankingStatisticsMappedObj } from './utils';
 import { t } from 'i18next';
-
-interface TopVisitedPlace {
-  objectId: string;
-  count: string;
-}
-
-interface UserStatistics {
-  distanceSum: string;
-  uniquePlacesVisitedCount: string;
-  topFiveVisitedPlaces: TopVisitedPlace[];
-}
-
-export interface UserStatsResponse {
-  userId: string;
-  userEmail: string;
-  statistics: UserStatistics;
-}
 
 export interface UsersStatsResponseDTO {
   code: number;
