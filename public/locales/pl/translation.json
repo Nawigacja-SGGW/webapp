@@ -99,7 +99,8 @@
     "button.navigate": "Szczegóły",
     "sortBy": "Sortuj według:",
     "sort.az": "Nazwa: od A do Z",
-    "sort.za": "Nazwa: od Z do A"
+    "sort.za": "Nazwa: od Z do A",
+    "sort.num": "Numer"
   },
   "objectDetailsPage": {
     "button.navigate": "Nawiguj"
