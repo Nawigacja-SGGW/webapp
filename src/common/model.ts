@@ -3,6 +3,12 @@ import { isArray, isObject, mapKeys, mapValues } from 'lodash';
 export type PlaceObject = PointObject | AreaObject;
 export type PlaceObjectDTO = { code: number; object: Object };
 
+export interface ObjectsOverviewResponseDTO {
+  code: number;
+  point_objects: PlaceObject[];
+  area_objects: AreaObject[];
+}
+
 export interface AddressDTO {
   id: number;
   street: string;
