@@ -99,7 +99,8 @@
     "button.navigate": "Details",
     "sortBy": "Sort by:",
     "sort.az": "Name: from A to Z",
-    "sort.za": "Name: from Z to A"
+    "sort.za": "Name: from Z to A",
+    "sort.num": "Number"
   },
   "objectDetailsPage": {
     "button.navigate": "Navigate"
