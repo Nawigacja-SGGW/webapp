@@ -10,7 +10,7 @@ import { ClockHistory } from '@styled-icons/bootstrap/ClockHistory';
 import { ObjectHistoryModal } from '../ObjectHistoryModal/ObjectHistoryModal.tsx';
 import { camelCase, debounce, flatten } from 'lodash';
 import axios from 'axios';
-import { mapObjKeys, ObjectsResponse, PlaceObject } from '../../common/model.ts';
+import { mapObjKeys, ObjectsResponse, PlaceObject, AreaObject } from '../../common/model.ts';
 
 import './ObjectsOverviewPage.scss';
 
@@ -20,7 +20,7 @@ export const ObjectsOverviewPage = () => {
   const [places, setPlaces] = useState<PlaceObject[]>([]);
   const [initialPlaces, setInitialPlaces] = useState<PlaceObject[]>([]);
   const [isSectionVisible, setIsSectionVisible] = useState(false);
-  const [sortOrder, setSortOrder] = useState<'az' | 'za'>('az');
+  const [sortOrder, setSortOrder] = useState<'az' | 'za' | 'num'>('az');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [isHistoryModalVisible, setIsHistoryModalVisible] = useState(false);
   const [searchHistory, setSearchHistory] = useState<PlaceObject[]>([]);
@@ -47,12 +47,13 @@ export const ObjectsOverviewPage = () => {
       }
     };
     fetchObjects().then((data) => {
-      setPlaces(data);
+      setPlaces(sortPlaces(data, 'az', searchQuery));
       setInitialPlaces(data);
+      console.log(data);
     });
   }, []);
 
-  const sortPlaces = (data: PlaceObject[], sortOrder: 'az' | 'za', searchQuery: string) => {
+  const sortPlaces = (data: PlaceObject[], sortOrder: 'az' | 'za' | 'num', searchQuery: string) => {
     const filteredData = data.filter((place) =>
       place.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
@@ -60,9 +61,14 @@ export const ObjectsOverviewPage = () => {
     return filteredData.sort((a, b) => {
       if (sortOrder === 'az') {
         return a.name.localeCompare(b.name);
-      } else {
+      } else if (sortOrder === 'za') {
         return b.name.localeCompare(a.name);
+      } else if (sortOrder === 'num') {
+        const numberA = (a as AreaObject).number ?? Number.MAX_VALUE;
+        const numberB = (b as AreaObject).number ?? Number.MAX_VALUE;
+        return numberA - numberB;
       }
+      return 0;
     });
   };
 
@@ -78,7 +84,7 @@ export const ObjectsOverviewPage = () => {
     return () => debounceFilterPlaces.cancel();
   }, [debounceFilterPlaces]);
 
-  const handleSortToggle = (type: 'az' | 'za') => {
+  const handleSortToggle = (type: 'az' | 'za' | 'num') => {
     setSortOrder(type);
     setPlaces(sortPlaces(initialPlaces, type, searchQuery));
   };
@@ -120,6 +126,10 @@ export const ObjectsOverviewPage = () => {
               <label onClick={() => handleSortToggle('za')}>
                 <CheckboxIcon checked={sortOrder === 'za'} />
                 {t('objectsOverviewPage.sort.za')}
+              </label>
+              <label onClick={() => handleSortToggle('num')}>
+                <CheckboxIcon checked={sortOrder === 'num'} />
+                {t('objectsOverviewPage.sort.num')}
               </label>
             </div>
           </div>
