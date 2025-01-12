@@ -14,7 +14,7 @@ import { Telephone } from '@styled-icons/bootstrap';
 import { InfoOutline } from '@styled-icons/evaicons-outline';
 
 interface InformationPanelProps {
-  place: PlaceObject;
+  place: PlaceObject | null;
   pathDistance: number;
   pathTime: number;
   isLocationSet: boolean;
@@ -34,7 +34,7 @@ export const InformationPanel = ({
 
   const navigate = useNavigate();
   const handleNavigateToObject = () => {
-    navigate(`/home/objects/${place.id}`); // temporary, as there is no id for objects yet
+    navigate(`/home/objects/${place?.id}`); // temporary, as there is no id for objects yet
   };
 
   const [panelState, setPanelState] = useState<PanelState>('details');
@@ -54,22 +54,28 @@ export const InformationPanel = ({
     <div className="container">
       <div className="photo" />
       <div className="column-container">
-        <div className="title">{place.name}</div>
+        <div className="title">{place ? place.name : t('mapPage.detailsPanel.title.point')}</div>
         <div className="information-container">
           {/* those fields later updates from address via addressid, unless packaged inside object */}
           <div className="field">
-            <Location size="22" /> Budynek nr _{' '}
+            <Location size="22" />
+            {place ? `${place.name}` : t('mapPage.detailsPanel.nonApplicable')}
           </div>
           <div className="field">
-            <BuildingOffice size="22" /> ul. Nowoursynowska ___/__, 02-787 Warszawa
+            <BuildingOffice size="22" />
+            {place?.address
+              ? `${t('mapPage.detailsPanel.street.prefix')} ${place.address?.street}, ${place.address?.postal_code} ${place.address?.city}`
+              : t('mapPage.detailsPanel.nonApplicable')}
           </div>
           {panelState === 'details' ? (
             <>
               <div className="field">
-                <EmailOutline size="18" /> _@sggw.edu.pl
+                <EmailOutline size="18" />
+                {place?.website ? `${place.website}` : t('mapPage.detailsPanel.nonApplicable')}
               </div>
               <div className="field">
-                <Telephone size="18" /> __ ___ __ __
+                <Telephone size="18" />
+                {t('mapPage.detailsPanel.nonApplicable')}
               </div>
             </>
           ) : (
@@ -92,7 +98,9 @@ export const InformationPanel = ({
               <Button
                 label={t('mapPage.detailsPanel.button.details')}
                 size="sm"
-                onClick={handleNavigateToObject}
+                onClick={place ? handleNavigateToObject : () => {}}
+                primary={place ? false : true}
+                disabled={place ? false : true}
               ></Button>
             </>
           ) : (

@@ -63,6 +63,9 @@
       "locationNotFound": "Location not found"
     },
     "detailsPanel": {
+      "title.point": "Custom point",
+      "nonApplicable": "Non Applicable",
+      "street.prefix": "st.",
       "button.navigate": "Navigate",
       "button.details": "Details",
       "button.cancel": "Cancel"
@@ -74,6 +77,7 @@
       "maneuver.depart": "depart",
       "maneuver.continue": "continue",
       "maneuver.turn": "turn",
+      "maneuver.fork": "fork",
       "maneuver.endOfRoad": "end of road",
       "maneuver.arrive": "arrive",
       "maneuverModifier.left": "left",
@@ -90,10 +94,14 @@
   "objectsOverviewPage": {
     "title": "Objects list",
     "search.placeholder": "Search",
+    "button.choose": "Choose",
     "button.navigate": "Details",
     "sortBy": "Sort by:",
     "sort.az": "Name: from A to Z",
     "sort.za": "Name: from Z to A"
+  },
+  "objectDetailsPage": {
+    "button.navigate": "Navigate"
   },
   "settingsPage": {
     "header": "Settings",
@@ -119,7 +127,7 @@
   },
   "homePage": {
     "searchPlaces.startPoint.placeholder": "Your location",
-    "searchPlaces.destination.placeholder": "Destination"
+    "searchPlaces.destination.placeholder": "Choose Destination"
   },
   "rankingPage": {
     "component.mostVisitsInOnePlace": "Most visits in one place",

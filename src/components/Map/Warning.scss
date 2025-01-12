@@ -1,0 +1,16 @@
+.warning-container {
+  position: absolute;
+  z-index: 499;
+  bottom: 30px;
+  left: 50%;
+  transform: translate(-50%, 0%);
+
+  background-color: var(--red);
+  border-radius: 16px;
+  color: var(--white);
+  margin: auto;
+  padding: 16px 32px;
+
+  display: flex;
+  column-gap: 20px;
+}

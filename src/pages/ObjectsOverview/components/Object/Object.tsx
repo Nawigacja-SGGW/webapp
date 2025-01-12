@@ -4,11 +4,15 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { ReactNode, useCallback } from 'react';
 import { PlaceObject } from '../../../../common/model.ts';
+import { Points, Places } from '../../../../components/Map/Map.tsx';
+import { PathEndChosen } from '../../../../components/SearchPlaces/SearchPlaces.tsx';
 
-export type ObjectProps = { objKey: string | number } & Pick<
-  PlaceObject,
-  'imageUrl' | 'name' | 'description' | 'address' | 'id'
->;
+export type ObjectProps = {
+  objKey: string | number;
+  statePathEndChosen: PathEndChosen | null;
+  statePoints: Points | null;
+  statePlaces: Places | null;
+} & Pick<PlaceObject, 'imageUrl' | 'name' | 'description' | 'address' | 'id'>;
 export const Object = ({
   imageUrl,
   name,
@@ -17,6 +21,9 @@ export const Object = ({
   //@ts-ignore
   address,
   objKey,
+  statePathEndChosen,
+  statePoints,
+  statePlaces,
 }: ObjectProps): ReactNode => {
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -42,6 +49,17 @@ export const Object = ({
     navigate(`/home/objects/${id}`);
   }, []);
 
+  const handleChooseObject = () => {
+    navigate('/home/map', {
+      state: {
+        pathEndChosen: statePathEndChosen,
+        points: statePoints,
+        places: statePlaces,
+        placeId: id,
+      },
+    });
+  };
+
   return (
     <div className="object-wrapper" key={objKey}>
       <div className="object-wrapper-details">
@@ -54,6 +72,9 @@ export const Object = ({
         </div>
       </div>
       <div className="actions">
+        {statePathEndChosen && (
+          <Button label={t('objectsOverviewPage.button.choose')} onClick={handleChooseObject} />
+        )}
         <Button label={t('objectsOverviewPage.button.navigate')} onClick={handleNavigateToObject} />
       </div>
     </div>
