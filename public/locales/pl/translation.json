@@ -128,5 +128,12 @@
     "title": "Przewodnik po kampusie SGGW",
     "info": "Nawigacja dostępna na wersji moblinej!",
     "estimatedTime": "Szacowany czas spaceru:"
+  },
+  "RankingPage":{
+    "user.onePlace": "Użytkownicy z największą liczbą wizyt w jednym miejscu:",
+    "user.mostPlaces": "Użytkownicy z najczęściej odwiedzanymi miejscami:",
+    "user.longestDistance": "Użytkownicy, którzy przebyli najdłuższy dystans:",
+    "campus.mostPlaces": "Najczęściej odwiedzane miejsca na terenie kampusu:",
+    "rankingPlace": "Twoje miejsce w rankingu:"
   }
 }

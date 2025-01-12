@@ -1,5 +1,13 @@
 .main {
   width: 100%;
+  overflow: auto;
+}
+
+@media screen and (max-width: 767px) {
+  .main {
+    overflow: hidden;
+    height: fit-content;
+  }
 }
 
 .topbar {
@@ -10,15 +18,34 @@
   justify-content: center;
 }
 
+.icon {
+  color: var(--dark-green);
+  width: 80px;
+  height: 80px;
+}
+
 .rankings {
-  display: grid;
-  padding: var(--spacing-m);
-  justify-items: center;
-  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
-  gap: 1rem;
+  display: flex;
+  flex-direction: column;
   background-color: var(--light-gray);
   width: 100%;
   align-items: center;
   justify-content: center;
   min-height: calc(100vh - 100px);
+}
+
+.rankings-top {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5rem;
+  width: 100%;
+  justify-content: center;
+  padding: var(--spacing-m);
+}
+
+.rankings-bot {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  padding: var(--spacing-m);
 }

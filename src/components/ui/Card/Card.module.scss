@@ -3,13 +3,16 @@
   flex-direction: column;
   border-radius: var(--spacing-l);
   background-color: var(--white);
-  max-width: 420px;
   box-sizing: border-box;
 
   .heading {
     padding: var(--spacing-s) var(--spacing-m);
     border-bottom: 1px solid var(--gray);
     text-align: center;
+    height: 65px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     h2 {
       font-size: var(--header-2-font-size);

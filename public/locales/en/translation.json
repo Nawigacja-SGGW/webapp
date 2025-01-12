@@ -125,5 +125,12 @@
     "title": "SGGW Campus Guide",
     "info": "Navigation available on mobile version!",
     "estimatedTime": "Estimated walking time:"
+  },
+  "RankingPage":{
+    "user.onePlace": "Users with most visits in one place:",
+    "user.mostPlaces": "Users with the most visited places:",
+    "user.longestDistance": "Users with the longest distance covered:",
+    "campus.mostPlaces": "Most visited places on campus:",
+    "rankingPlace": "Your place in the ranking:"
   }
 }
