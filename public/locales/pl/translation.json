@@ -1,4 +1,5 @@
 {
+  "component.loading": "Ładowanie...",
   "exampleTranslation": "Przykład translacji",
   "exampleTranslationStructure": {
     "example": "Przykład"

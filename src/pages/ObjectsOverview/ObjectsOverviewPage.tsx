@@ -9,9 +9,14 @@ import { useLocation } from 'react-router-dom';
 
 import { ClockHistory } from '@styled-icons/bootstrap/ClockHistory';
 import { ObjectHistoryModal } from '../ObjectHistoryModal/ObjectHistoryModal.tsx';
-import { camelCase, debounce, flatten } from 'lodash';
+import { camelCase, debounce } from 'lodash';
 import axios from 'axios';
-import { mapObjKeys, ObjectsResponse, PlaceObject, AreaObject } from '../../common/model.ts';
+import {
+  AreaObject,
+  mapObjKeys,
+  ObjectsOverviewResponseDTO,
+  PlaceObject,
+} from '../../common/model.ts';
 
 import './ObjectsOverviewPage.scss';
 
@@ -44,9 +49,13 @@ export const ObjectsOverviewPage = () => {
   useEffect(() => {
     const fetchObjects = async (): Promise<PlaceObject[]> => {
       try {
-        const { data } = await axios.get<ObjectsResponse>('/objects');
-        const mappedObject = mapObjKeys(data, camelCase);
-        return flatten(Object.values(mappedObject)) as PlaceObject[];
+        const { data } = await axios.get<ObjectsOverviewResponseDTO>(
+          `${import.meta.env.VITE_MAIN_API_URL}/objects`
+        );
+        return mapObjKeys(
+          [...data.point_objects, ...data.area_objects],
+          camelCase
+        ) as PlaceObject[];
       } catch (e) {
         throw e as Error;
       }
@@ -54,7 +63,6 @@ export const ObjectsOverviewPage = () => {
     fetchObjects().then((data) => {
       setPlaces(sortPlaces(data, 'az', searchQuery));
       setInitialPlaces(data);
-      console.log(data);
     });
   }, []);
 
