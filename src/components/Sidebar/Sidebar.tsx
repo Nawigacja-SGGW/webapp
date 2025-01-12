@@ -7,9 +7,11 @@ import { PersonFill } from '@styled-icons/bootstrap/PersonFill';
 import { Settings } from '@styled-icons/evaicons-solid/Settings';
 import { LogOut } from '@styled-icons/ionicons-outline/LogOut';
 import { ChevronDoubleLeft, ChevronDoubleRight } from '@styled-icons/fluentui-system-filled/';
-import { ChangeEvent } from 'react';
+import { ChangeEvent, useCallback } from 'react';
 import { useAppStore, Language } from '../../store';
 import { Guide } from '@styled-icons/remix-line/Guide';
+import { Podium } from '@styled-icons/ionicons-outline/Podium';
+import { StackedLineChart } from '@styled-icons/material';
 
 //todo add translations
 export type SidebarProps = {
@@ -33,6 +35,9 @@ export const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
     setAuthData(null);
     navigate('/');
   };
+
+  const handleNavigateToRanking = useCallback(() => navigate('/home/rank'), [navigate]);
+  const handleNavigateToStats = useCallback(() => navigate('/home/stats'), [navigate]);
 
   return (
     <div className={clsx('sidebar', sidebarOpen && 'sidebar--open')}>
@@ -71,7 +76,7 @@ export const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
         <div className="sidebar__container__app-identity">
           <div className="sidebar__container__app-identity__heading">Logo/name</div>
           <div className="sidebar__container__app-identity__image">
-            <img src="../../../public/logo.png" alt="" />
+            <img src="/logo.png" alt="" />
           </div>
         </div>
         <div className="sidebar__container__links">
@@ -146,14 +151,21 @@ export const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
           <div className="sidebar__container__logout__text">{t('sideBar.button.logOut')}</div>
         </button>
       </div>
-
-      <button className="sidebar__toggle" onClick={() => setSidebarOpen(!sidebarOpen)}>
-        {sidebarOpen ? (
-          <ChevronDoubleLeft size="40" fill="white" />
-        ) : (
-          <ChevronDoubleRight size="40" fill="white" />
-        )}
-      </button>
+      <div className="sidebar__container__footer__buttons">
+        <button className="sidebar__container__button__link" onClick={handleNavigateToRanking}>
+          <Podium size={30} />
+        </button>
+        <button className="sidebar__container__button__link" onClick={handleNavigateToStats}>
+          <StackedLineChart size={30} />
+        </button>
+        <button className="sidebar__toggle" onClick={() => setSidebarOpen(!sidebarOpen)}>
+          {sidebarOpen ? (
+            <ChevronDoubleLeft size="30" fill="white" />
+          ) : (
+            <ChevronDoubleRight size="30" fill="white" />
+          )}
+        </button>
+      </div>
     </div>
   );
 };

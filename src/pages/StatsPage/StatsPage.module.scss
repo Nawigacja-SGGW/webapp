@@ -1,0 +1,66 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100vh;
+  width: 100%;
+
+  .statisticsSection {
+    display: flex;
+    gap: var(--spacing-l);
+    justify-content: center;
+    align-items: center;
+
+    .top5list {
+      width: 300px;
+      padding: var(--spacing-m);
+
+      li {
+        height: 50px;
+        font-size: var(--main-font-size);
+      }
+    }
+
+    .visitedLocations {
+      padding: var(--spacing-s) var(--spacing-l);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: var(--header-font-size);
+    }
+  }
+
+  background: var(--gray);
+  .header {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    height: 150px;
+    padding: 0 var(--spacing-l);
+    background-color: var(--white);
+
+    .distanceInfo {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      margin-left: var(--spacing-l);
+      h1 {
+        font-size: var(--header-2-font-size);
+        font-weight: var(--bold-font-weight);
+        color: var(--black);
+      }
+      p {
+        font-size: var(--header-font-size);
+        font-weight: var(--normal-font-weight);
+        color: var(--black);
+      }
+    }
+  }
+
+  .footer {
+    height: 150px;
+    padding: 0 var(--spacing-l);
+    background-color: var(--white);
+  }
+}

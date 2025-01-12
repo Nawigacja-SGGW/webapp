@@ -41,17 +41,17 @@ export const AuthorizationLayout = () => {
           />
         </div>
         <div className="authorization-layout__logo-container">
-          <img src="../../../public/logo.png" alt="logo" />
+          <img src="/logo.png" alt="logo" />
         </div>
       </div>
       <div className="authorization-layout__content">
         <div className="authorization-layout__logos">
           <div className="authorization-layout__logo-wrapper">
-            <img src="../../../public/logo.png" alt="logo" />
+            <img src="/logo.png" alt="logo" />
           </div>
           <div className="authorization-layout__divider" />
           <div className="authorization-layout__logo-wrapper">
-            <img src="../../../public/logo-sggw.png" alt="sggw" />
+            <img src="/logo-sggw.png" alt="sggw" />
           </div>
         </div>
         <Outlet />

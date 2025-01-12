@@ -124,6 +124,17 @@
     "searchPlaces.startPoint.placeholder": "Twoja lokalizacja",
     "searchPlaces.destination.placeholder": "Kierunek"
   },
+  "rankingPage": {
+    "component.mostVisitsInOnePlace": "Najwięcej odwiedzin w jednym miejscu",
+    "component.withTheHighestNumberOfVisitedPlaces": "Z największą ilością odwiedzonych miejsc",
+    "component.longestDistanceCovered": "Największy pokonany dystans",
+    "component.placeInTheRanking": "Miejsce w rankingu"
+  },
+  "statisticsPage": {
+    "top5": "Top 5",
+    "numberOfVisitedLocations": "Liczba odwiedzonych miejsc",
+    "distanceCovered": "Przebyty dystans"
+  },
   "objectHistoryModal": {
     "noHistory": "Brak historii wyszukiwania"
   },
