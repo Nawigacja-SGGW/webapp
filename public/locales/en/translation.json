@@ -35,12 +35,15 @@
     },
     "forgotPassword": "Forgot password?",
     "continueWith": "Or continue with",
-    "noAccount": "Don't have account yet?"
+    "noAccount": "Don't have account yet?",
+    "failed": "Something went wrong, try again"
   },
   "forgotPasswordPage1": {
     "title": "Change your password",
     "E-mail": "E-mail",
-    "button.sendEmail": "Send e-mail"
+    "button.sendEmail": "Send e-mail",
+    "success": "Email sent successfully",
+    "failed": "Wrong e-mail"
   },
   "forgotPasswordPage2": {
     "title": "Change your password",

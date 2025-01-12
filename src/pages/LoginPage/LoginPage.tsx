@@ -4,7 +4,9 @@ import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '../../components/ui/Button/Button';
 import { useTranslation } from 'react-i18next';
-import { useForm } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { signInRequest } from '../../auth.ts';
+import { useAppStore } from '../../store';
 
 interface LoginInputs {
   userName: string;
@@ -17,53 +19,74 @@ export const LoginPage = () => {
   const handleNavigateToRegisterPage = useCallback(() => {
     navigate(`/register`);
   }, []);
+  const setAuthData = useAppStore((state) => state.setAuthData);
 
   const {
     formState: { errors },
     register,
+    handleSubmit,
   } = useForm<LoginInputs>({
     mode: 'onChange',
     reValidateMode: 'onChange',
   });
 
-  const signIn = () => {
-    //TODO create logic
-    setTimeout(() => {
-      navigate('/home/map');
-    }, 1000);
+  const onSubmit: SubmitHandler<LoginInputs> = async (data) => {
+    if (data && data.password && data.userName) {
+      try {
+        const response = await signInRequest(data.userName, data.password);
+        if (response && response.data.code === 200) {
+          setAuthData({
+            token: response.data.token,
+            id: response.data.id,
+            email: data.userName,
+          });
+          navigate('/home/map');
+          ``;
+        }
+      } catch (e) {
+        alert(t('authPage.failed'));
+      }
+    }
   };
+
   const handleNavigateToForgotPassword = useCallback(() => {
     navigate(`/forgot-password`);
   }, []);
 
   return (
     <FormLayout title={t('authPage.title.signin')}>
-      <p className="input-label">{t('authPage.labels.usernameOrEmail')}</p>
-      <Input
-        {...register('userName', {
-          required: true,
-        })}
-      />
-      {errors.userName && <span className="input-error">{t('authPage.validation.required')}</span>}
-      <p className="input-label">{t('authPage.labels.password')}</p>
-      <Input
-        type="password"
-        {...register('password', {
-          required: true,
-        })}
-      />
-      {errors.password && <span className="input-error">{t('authPage.validation.required')}</span>}
-      <p onClick={handleNavigateToForgotPassword} className="forgot-password">
-        {t('authPage.forgotPassword')}
-      </p>
-      <Button className="green-button" label={t('authPage.button.signin')} onClick={signIn} />
-      <p className="dont-have-account-yet">{t('authPage.noAccount')}</p>
-      <Button
-        className="black-button"
-        label={t('authPage.button.signup')}
-        onClick={handleNavigateToRegisterPage}
-      />
-      <hr className="login-line"></hr>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <p className="input-label">{t('authPage.labels.usernameOrEmail')}</p>
+        <Input
+          {...register('userName', {
+            required: true,
+          })}
+        />
+        {errors.userName && (
+          <span className="input-error">{t('authPage.validation.required')}</span>
+        )}
+        <p className="input-label">{t('authPage.labels.password')}</p>
+        <Input
+          type="password"
+          {...register('password', {
+            required: true,
+          })}
+        />
+        {errors.password && (
+          <span className="input-error">{t('authPage.validation.required')}</span>
+        )}
+        <p onClick={handleNavigateToForgotPassword} className="forgot-password">
+          {t('authPage.forgotPassword')}
+        </p>
+        <Button type="submit" className="green-button" label={t('authPage.button.signin')} />
+        <p className="dont-have-account-yet">{t('authPage.noAccount')}</p>
+        <Button
+          className="black-button"
+          label={t('authPage.button.signup')}
+          onClick={handleNavigateToRegisterPage}
+        />
+        <hr className="login-line"></hr>
+      </form>
     </FormLayout>
   );
 };

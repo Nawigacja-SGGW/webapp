@@ -1,5 +1,5 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { AuthLayout } from './layouts/AuthLayout';
+import { AuthorizedLayout } from './layouts/AuthLayout';
 import {
   ObjectsOverviewPage,
   ErrorPage,
@@ -32,7 +32,7 @@ function App() {
     },
     {
       path: '/home',
-      element: <AuthLayout />,
+      element: <AuthorizedLayout />,
       children: [
         {
           path: '/home/map',
