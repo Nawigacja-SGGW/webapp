@@ -39,7 +39,9 @@ export const ObjectsOverviewPage = () => {
   useEffect(() => {
     const fetchObjects = async (): Promise<PlaceObject[]> => {
       try {
-        const { data } = await axios.get<ObjectsResponse>('/objects');
+        const { data } = await axios.get<ObjectsResponse>(
+          `${import.meta.env.VITE_MAIN_API_URL}/objects`
+        );
         const mappedObject = mapObjKeys(data, camelCase);
         return flatten(Object.values(mappedObject)) as PlaceObject[];
       } catch (e) {

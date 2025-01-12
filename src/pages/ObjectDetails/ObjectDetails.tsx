@@ -1,9 +1,9 @@
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { TextObject } from './components/TextObject.tsx';
+import { Address, TextObject } from './components/TextObject.tsx';
 import { MapContainer, TileLayer } from 'react-leaflet';
 import CustomMarker from '../../components/Map/CustomMarker.tsx';
-import { PlaceObject } from '../../common/model.ts';
+import { PlaceObject, PlaceObjectDTO } from '../../common/model.ts';
 import L from 'leaflet';
 
 import './ObjectDetails.scss';
@@ -15,13 +15,15 @@ export const ObjectDetails = () => {
   const [coords, setCoords] = useState<L.LatLng>();
 
   async function fetchLocation(): Promise<void> {
-    const { data } = await axios.get<PlaceObject>(`/single-object?id=${id}`);
+    const { data } = await axios.get<PlaceObjectDTO>(
+      `${import.meta.env.VITE_MAIN_API_URL}/single-object?id=${id}`
+    );
 
     if (!Number.isFinite(Number(id)) || !data) {
-      console.log('Invalid param');
+      throw new Error('Invalid param');
     } else {
-      setPlaceData(data);
-      setCoords(L.latLng(parseFloat(data.latitude), parseFloat(data.longitude)));
+      setPlaceData(data.object as PlaceObject);
+      setCoords(L.latLng(parseFloat(data.object.latitude), parseFloat(data.object.longitude)));
     }
   }
 
@@ -40,8 +42,7 @@ export const ObjectDetails = () => {
           <TextObject
             title={placeData?.name || ''}
             link={placeData?.website || ''}
-            address={placeData?.latitude || ''}
-            city={placeData?.longitude || ''}
+            address={placeData?.address || ({} as Address)}
             buildingInfo={placeData?.type || ''}
             description={placeData?.description || ''}
           />

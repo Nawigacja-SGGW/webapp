@@ -1,7 +1,7 @@
 import { isArray, isObject, mapKeys, mapValues } from 'lodash';
 
 export type PlaceObject = PointObject | AreaObject;
-export type PlaceObjectDTO = PointObjectDTO | AreaObjectDTO;
+export type PlaceObjectDTO = { code: number; object: Object };
 
 export interface AddressDTO {
   id: number;
