@@ -12,9 +12,9 @@ const markerIcon = new L.Icon({
 });
 
 const locationIcon = new L.Icon({
-  iconUrl: '../../../public/location-icon.png',
-  iconRetinaUrl: '../../../public/location-icon-2x.png',
-  shadowUrl: '../../../public/marker-shadow.png',
+  iconUrl: '/location-icon.png',
+  iconRetinaUrl: '/location-icon-2x.png',
+  shadowUrl: '/marker-shadow.png',
   iconSize: [25, 41],
   iconAnchor: [12, 41],
   popupAnchor: [1, -24],
