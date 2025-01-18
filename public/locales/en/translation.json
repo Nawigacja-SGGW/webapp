@@ -32,7 +32,9 @@
     "validation": {
       "required": "This field is required",
       "passwordNotMatch": "Password do not match",
-      "invalidEmail": "Invalid Email"
+      "invalidEmail": "Invalid Email",
+      "emailTaken": "Email is already taken",
+      "invalidCredentials": "Invalid email or password"
     },
     "forgotPassword": "Forgot password?",
     "continueWith": "Or continue with",

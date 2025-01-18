@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { signInRequest } from '../../auth.ts';
 import { useAppStore } from '../../store';
+import { AxiosError } from 'axios';
 
 interface LoginInputs {
   userName: string;
@@ -25,12 +26,15 @@ export const LoginPage = () => {
     formState: { errors },
     register,
     handleSubmit,
+    setError,
+    clearErrors,
   } = useForm<LoginInputs>({
     mode: 'onChange',
     reValidateMode: 'onChange',
   });
 
   const onSubmit: SubmitHandler<LoginInputs> = async (data) => {
+    clearErrors();
     if (data && data.password && data.userName) {
       try {
         const response = await signInRequest(data.userName, data.password);
@@ -44,7 +48,12 @@ export const LoginPage = () => {
           ``;
         }
       } catch (e) {
-        alert(t('authPage.failed'));
+        if ((e as AxiosError).status === 400) {
+          setError('root.invalidCredentials', {
+            type: 'custom',
+            message: t('authPage.validation.invalidCredentials'),
+          });
+        } else alert(t('authPage.failed'));
       }
     }
   };
@@ -74,6 +83,9 @@ export const LoginPage = () => {
         />
         {errors.password && (
           <span className="input-error">{t('authPage.validation.required')}</span>
+        )}
+        {errors.root?.invalidCredentials && (
+          <span className="input-error">{t('authPage.validation.invalidCredentials')}</span>
         )}
         <p onClick={handleNavigateToForgotPassword} className="forgot-password">
           {t('authPage.forgotPassword')}
