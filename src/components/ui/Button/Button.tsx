@@ -1,4 +1,4 @@
-import { ButtonHTMLAttributes } from 'react';
+import { ButtonHTMLAttributes, ReactNode } from 'react';
 import clsx from 'clsx';
 import './Button.scss';
 
@@ -9,10 +9,19 @@ export type ButtonProps = {
   type?: 'button' | 'submit';
   size?: ButtonSize;
   primary?: boolean;
+  children?: ReactNode;
 } & ButtonHTMLAttributes<HTMLButtonElement>;
 
 export const Button = (props: ButtonProps) => {
-  const { label, primary = false, size = 'md', className, type = 'button', disabled } = props;
+  const {
+    label,
+    primary = false,
+    size = 'md',
+    className,
+    type = 'button',
+    disabled,
+    children,
+  } = props;
 
   const buttonClassName: string = clsx('button', className, {
     ['primary']: primary,
@@ -24,7 +33,7 @@ export const Button = (props: ButtonProps) => {
 
   return (
     <button className={buttonClassName} onClick={props.onClick} type={type} disabled={disabled}>
-      {label}
+      {label} {children}
     </button>
   );
 };
