@@ -32,7 +32,9 @@
     "validation": {
       "required": "Pole jest wymagane",
       "passwordNotMatch": "Hasła nie są identyczne",
-      "invalidEmail": "Email jest niepoprawny"
+      "invalidEmail": "Email jest niepoprawny",
+      "emailTaken": "Konto na podanym adresie e-mail już istnieje",
+      "invalidCredentials": "Podano niepoprawny adres email lub hasło"
     },
     "forgotPassword": "Zapomniałeś hasła?",
     "continueWith": "Lub kontynuuj z",

@@ -4,10 +4,10 @@ import { Button } from '../../components/ui/Button/Button';
 import { useTranslation } from 'react-i18next';
 import { SubmitHandler, useForm, useWatch } from 'react-hook-form';
 import { EMAIL_REGEXP } from '../../utils/constans.ts';
-import { useEffect } from 'react';
 import { signInRequest, signUpRequest } from '../../auth.ts';
 import { useNavigate } from 'react-router-dom';
 import { useAppStore } from '../../store';
+import { AxiosError } from 'axios';
 
 //todo: api nie przyjmuje username, tymczasowo usuwam input
 interface RegistrationInputs {
@@ -27,12 +27,15 @@ export const RegisterPage = () => {
     formState: { errors, isValid, isSubmitting },
     register,
     handleSubmit,
+    setError,
+    clearErrors,
   } = useForm<RegistrationInputs>({
     reValidateMode: 'onChange',
     mode: 'onChange',
   });
 
   const onSubmit: SubmitHandler<RegistrationInputs> = async (data) => {
+    clearErrors();
     if (data && data.password && data.email) {
       try {
         const response = await signUpRequest(data.email, data.password);
@@ -49,15 +52,15 @@ export const RegisterPage = () => {
           }
         }
       } catch (e) {
-        alert(t('authPage.failed'));
+        if ((e as AxiosError).status === 400) {
+          setError('root.emailTaken', {
+            type: 'custom',
+            message: t('authPage.validation.emailTaken'),
+          });
+        } else alert(t('authPage.failed'));
       }
     }
   };
-
-  // testing purposes
-  useEffect(() => {
-    console.log(errors);
-  });
 
   const passwordField = useWatch({ control, name: 'password' });
 
@@ -107,6 +110,9 @@ export const RegisterPage = () => {
         )}
         {errors.confirmPassword?.type === 'validate' && (
           <span className="input-error">{errors.confirmPassword.message}</span>
+        )}
+        {errors.root?.emailTaken && (
+          <span className="input-error">{errors.root.emailTaken.message}</span>
         )}
         <Button
           className="green-button"

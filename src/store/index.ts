@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
 
 export type Language = 'en' | 'pl';
 
@@ -24,25 +25,32 @@ interface Action {
   setAuthData: (authData: AppState['authData']) => void;
 }
 
-export const useAppStore = create<AppState & Action>((set) => ({
-  preferences: {
-    routePreference: 'foot',
-    language: 'pl',
-  },
-  authData: null,
-  setRoutePreference: (routePreference: AppState['preferences']['routePreference']) =>
-    set((prev) => ({
+export const useAppStore = create<AppState & Action>()(
+  persist(
+    (set) => ({
       preferences: {
-        ...prev.preferences,
-        routePreference: routePreference,
+        routePreference: 'foot',
+        language: 'pl',
       },
-    })),
-  setLanguage: (language: AppState['preferences']['language']) =>
-    set((prev) => ({
-      preferences: {
-        ...prev.preferences,
-        language: language,
-      },
-    })),
-  setAuthData: (authData: AppState['authData']) => set({ authData }),
-}));
+      authData: null,
+      setRoutePreference: (routePreference: AppState['preferences']['routePreference']) =>
+        set((prev) => ({
+          preferences: {
+            ...prev.preferences,
+            routePreference: routePreference,
+          },
+        })),
+      setLanguage: (language: AppState['preferences']['language']) =>
+        set((prev) => ({
+          preferences: {
+            ...prev.preferences,
+            language: language,
+          },
+        })),
+      setAuthData: (authData: AppState['authData']) => set({ authData }),
+    }),
+    {
+      name: 'app-state', // Key to store data in localStorage
+    }
+  )
+);
