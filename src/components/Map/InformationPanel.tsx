@@ -125,8 +125,7 @@ export const InformationPanel = ({
               ></Button>
 
               <Button
-                // label={t('mapPage.detailsPanel.button.details')}
-                label="Zmień na"
+                label={t('mapPage.detailsPanel.button.toggleRoute')}
                 className="change-route-button"
                 size="sm"
                 onClick={place ? handleTogglingRoute : () => {}}
