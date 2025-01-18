@@ -17,10 +17,25 @@
 .photo {
   height: 180px;
   width: 200px;
-  background-color: var(--dark-green-2);
+  background-color: var(--white);
   border-radius: 20px;
+  overflow: hidden;
 
   flex-grow: 1;
+}
+.photo img {
+  height: 100%;
+  width: 100%;
+  object-fit: fill;
+}
+.photo-marker {
+  @extend .photo;
+  text-align: center;
+}
+.photo-marker img {
+  height: 26%;
+  width: 6%;
+  margin-top: 60px;
 }
 
 .column-container {

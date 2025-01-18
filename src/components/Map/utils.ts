@@ -184,12 +184,6 @@ export const getCurrentLocation = async (): Promise<L.LatLng | null> => {
   }
 };
 
-export const checkIfLocationShared = async (): Promise<boolean> => {
-  if (navigator.geolocation) {
-  }
-  return false;
-};
-
 export const checkIfOnCampus = (location: L.LatLng): boolean => {
   if (!location || location.lat < 0 || location.lng < 0) {
     return false;

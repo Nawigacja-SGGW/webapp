@@ -64,7 +64,7 @@
       "locationNotFound": "Location not found"
     },
     "detailsPanel": {
-      "title.point": "Custom point",
+      "title.point": "Selected point on the map",
       "nonApplicable": "Non Applicable",
       "street.prefix": "st.",
       "button.navigate": "Navigate",
@@ -128,7 +128,8 @@
     "search.placeholder": "Search objects"
   },
   "homePage": {
-    "searchPlaces.startPoint.placeholder": "Your location",
+    "searchPlaces.startPoint.placeholder": "No location",
+    "searchPlaces.startPoint.location": "Your location",
     "searchPlaces.destination.placeholder": "Choose Destination"
   },
   "rankingPage": {

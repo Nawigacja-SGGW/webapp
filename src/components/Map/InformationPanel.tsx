@@ -2,7 +2,7 @@ import { Dispatch, SetStateAction, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
-import { MapState } from './Map.tsx';
+import { MapState, Points, WarningInfo } from './Map.tsx';
 import { PlaceObject } from '../../common/model.ts';
 import { Button } from '../ui/Button/Button.tsx';
 import './InformationPanel.scss';
@@ -10,14 +10,15 @@ import './InformationPanel.scss';
 import { Location } from '@styled-icons/evil';
 import { BuildingOffice } from '@styled-icons/heroicons-outline';
 import { EmailOutline } from '@styled-icons/evaicons-outline';
-import { Telephone } from '@styled-icons/bootstrap';
+// import { Telephone } from '@styled-icons/bootstrap';
 import { InfoOutline } from '@styled-icons/evaicons-outline';
 
 interface InformationPanelProps {
   place: PlaceObject | null;
   pathDistance: number;
   pathTime: number;
-  isLocationSet: boolean;
+  points: Points;
+  warningInfo: WarningInfo;
   setMapState: Dispatch<SetStateAction<MapState>>;
 }
 
@@ -27,7 +28,8 @@ export const InformationPanel = ({
   place,
   pathDistance,
   pathTime,
-  isLocationSet,
+  points,
+  warningInfo,
   setMapState,
 }: InformationPanelProps) => {
   const { t } = useTranslation();
@@ -39,11 +41,9 @@ export const InformationPanel = ({
 
   const [panelState, setPanelState] = useState<PanelState>('details');
   const tryStartNavigating = () => {
-    if (isLocationSet) {
+    if (points.startingPoint) {
       startNavigation();
     }
-    // if (newState === 'details' || (newState === 'navigation' && isLocationSet))
-    //   setPanelState(newState);
   };
 
   const startNavigation = () => {
@@ -52,30 +52,36 @@ export const InformationPanel = ({
 
   return (
     <div className="container">
-      <div className="photo" />
+      <div className={place ? 'photo' : 'photo-marker'}>
+        {place ? <img src={place.imageUrl ?? ''} /> : <img src="/marker-icon.png" />}
+      </div>
       <div className="column-container">
         <div className="title">{place ? place.name : t('mapPage.detailsPanel.title.point')}</div>
         <div className="information-container">
           {/* those fields later updates from address via addressid, unless packaged inside object */}
           <div className="field">
-            <Location size="22" />
-            {place ? `${place.name}` : t('mapPage.detailsPanel.nonApplicable')}
+            <BuildingOffice size="22" />
+            {place ? `${place.name ?? ' -'}` : ' -'}
           </div>
           <div className="field">
-            <BuildingOffice size="22" />
-            {place?.address
-              ? `${t('mapPage.detailsPanel.street.prefix')} ${place.address?.street}, ${place.address?.postal_code} ${place.address?.city}`
-              : t('mapPage.detailsPanel.nonApplicable')}
+            <Location size="22" />
+            {place
+              ? place.address
+                ? `${t('mapPage.detailsPanel.street.prefix')} ${place.address?.street ?? '-'}, ${place.address?.postal_code ?? '-'} ${place.address?.city ?? '-'}`
+                : '-'
+              : `${t('mapPage.detailsPanel.street.prefix')} Nowoursynowska 161, 02-787 Warszawa`}
           </div>
           {panelState === 'details' ? (
             <>
               <div className="field">
                 <EmailOutline size="18" />
-                {place?.website ? `${place.website}` : t('mapPage.detailsPanel.nonApplicable')}
+                {place?.website ? ` ${place.website}` : ' -'}
               </div>
               <div className="field">
+                {/* PlaceObject lacks phone field, so always null, so field unnecessary
                 <Telephone size="18" />
-                {t('mapPage.detailsPanel.nonApplicable')}
+                {" -"}
+                */}
               </div>
             </>
           ) : (
@@ -94,23 +100,25 @@ export const InformationPanel = ({
                 label={t('mapPage.detailsPanel.button.navigate')}
                 size="sm"
                 onClick={() => setPanelState('navigation')}
+                primary={!points.startingPoint}
+                disabled={!points.startingPoint}
               ></Button>
               <Button
                 label={t('mapPage.detailsPanel.button.details')}
                 size="sm"
                 onClick={place ? handleNavigateToObject : () => {}}
-                primary={place ? false : true}
-                disabled={place ? false : true}
+                primary={!place}
+                disabled={!place}
               ></Button>
             </>
           ) : (
             <>
               <Button
-                className={!isLocationSet ? 'button primary' : ''}
                 label={`Start - ${Math.round(pathTime / 60)} min`}
                 size="sm"
                 onClick={tryStartNavigating}
-                disabled={!isLocationSet}
+                primary={!warningInfo.isOnCampus}
+                disabled={!warningInfo.isOnCampus}
               ></Button>
               <Button
                 label={t('mapPage.detailsPanel.button.cancel')}

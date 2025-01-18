@@ -74,4 +74,15 @@
     background-color: var(--button-background__primary);
     color: var(--white);
   }
+
+  .search-places-swap-disabled {
+    border-color: var(--gray);
+    border-radius: 10px;
+    border-style: solid;
+    border-width: 1px;
+    color: var(--gray);
+    margin: auto;
+    margin-left: 32px;
+    transition: none;
+  }
 }
