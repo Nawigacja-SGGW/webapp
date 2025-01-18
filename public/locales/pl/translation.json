@@ -66,7 +66,7 @@
       "locationNotFound": "Lokalizacja nieznaleziona"
     },
     "detailsPanel": {
-      "title.point": "Niestandardowy punkt",
+      "title.point": "Wybrany punkt na mapie",
       "nonApplicable": "Nie dotyczy",
       "street.prefix": "ul.",
       "button.navigate": "Nawiguj",
@@ -79,17 +79,17 @@
       "maneuver.then": "Potem",
       "maneuver.depart": "wystartuj",
       "maneuver.continue": "kontynuuj",
-      "maneuver.turn": "skręt",
+      "maneuver.turn": "skręć",
       "maneuver.fork": "widły",
-      "maneuver.endofroad": "koniec drogi",
-      "maneuver.arrive": "dotarłeś",
+      "maneuver.endOfRoad": "koniec drogi",
+      "maneuver.arrive": "dotarł(e/a)ś",
       "maneuverModifier.left": "w lewo",
       "maneuverModifier.slightleft": "lekko w lewo",
       "maneuverModifier.sharpleft": "ostro w lewo",
       "maneuverModifier.right": "w prawo",
       "maneuverModifier.slightright": "lekko w prawo",
       "maneuverModifier.sharpright": "ostro w prawo",
-      "maneuverModifier.straight": "na wprost",
+      "maneuverModifier.straight": "prosto",
       "maneuverModifier.uturn": "zawróć",
       "button.cancel": "Zakończ"
     }
@@ -133,7 +133,8 @@
     "search.placeholder": "Wyszukaj obiekty"
   },
   "homePage": {
-    "searchPlaces.startPoint.placeholder": "Twoja lokalizacja",
+    "searchPlaces.startPoint.placeholder": "Nie udostępniono lokalizacji",
+    "searchPlaces.startPoint.location": "Twoja lokalizacja",
     "searchPlaces.destination.placeholder": "Wybierz kierunek"
   },
   "rankingPage": {

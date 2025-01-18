@@ -26,35 +26,42 @@ export const SearchPlaces = ({ points, places, setPoints, setPlaces }: SearchPla
   };
   const handleRemovePlace = (pathEndChosen: PathEndChosen) => {
     if (pathEndChosen === 'starting') {
-      setPlaces({ ...places, startingPlace: null });
-      setPoints({ ...points, startingPoint: points.locationPoint });
+      setPlaces((prevPlaces) => ({ ...prevPlaces, startingPlace: null }));
+      setPoints((prevPoints) => ({
+        ...prevPoints,
+        startingPoint: prevPoints.locationPoint?.clone() ?? null,
+      }));
     } else if (pathEndChosen === 'destination') {
-      setPlaces({ ...places, destinationPlace: null });
-      setPoints({ ...points, destinationPoint: null });
+      setPlaces((prevPlaces) => ({ ...prevPlaces, destinationPlace: null }));
+      setPoints((prevPoints) => ({ ...prevPoints, destinationPoint: null }));
     }
   };
   const handleSwapPlaces = () => {
-    setPlaces({
-      startingPlace: places.destinationPlace,
-      destinationPlace: places.startingPlace,
-    });
-    setPoints({
-      ...points,
-      startingPoint: points.destinationPoint,
-      destinationPoint: points.startingPoint,
-    });
+    setPlaces((prevPlaces) => ({
+      startingPlace: prevPlaces.destinationPlace,
+      destinationPlace: prevPlaces.startingPlace,
+    }));
+    setPoints((prevPoints) => ({
+      ...prevPoints,
+      startingPoint: prevPoints.destinationPoint,
+      destinationPoint: prevPoints.startingPoint,
+    }));
   };
 
   const getStartingLabel = (): string => {
     if (places.startingPlace) {
       return places.startingPlace.name;
     }
-    console.log(`startingPoint: ${points.startingPoint?.lat}`);
-    return points.locationPoint &&
-      points.startingPoint?.lat === points.locationPoint.lat &&
-      points.startingPoint?.lng === points.locationPoint.lng
-      ? t('homePage.searchPlaces.startPoint.placeholder')
-      : t('mapPage.detailsPanel.title.point');
+    // console.log(`locationPoint: ${points.locationPoint?.lat}`);
+    // console.log(`startingPoint: ${points.startingPoint?.lat}`);
+    return points.locationPoint
+      ? points.startingPoint?.lat === points.locationPoint.lat &&
+        points.startingPoint?.lng === points.locationPoint.lng
+        ? t('homePage.searchPlaces.startPoint.location')
+        : t('mapPage.detailsPanel.title.point')
+      : points.startingPoint
+        ? t('mapPage.detailsPanel.title.point')
+        : t('homePage.searchPlaces.startPoint.placeholder');
   };
   const getDestinationLabel = (): string => {
     if (places.destinationPlace) {
@@ -82,7 +89,14 @@ export const SearchPlaces = ({ points, places, setPoints, setPlaces }: SearchPla
           <Button label="X" size="sm" onClick={() => handleRemovePlace('destination')} />
         </div>
       </div>
-      <div className="search-places-swap" onClick={handleSwapPlaces}>
+      <div
+        className={
+          points.locationPoint && points.destinationPoint
+            ? 'search-places-swap'
+            : 'search-places-swap-disabled'
+        }
+        onClick={points.locationPoint && points.destinationPoint ? handleSwapPlaces : () => {}}
+      >
         <SwapVert size="48" />
       </div>
     </div>
