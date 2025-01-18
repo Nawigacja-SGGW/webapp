@@ -28,7 +28,7 @@ export const GuidePage = () => {
   const [guideDestinationPlaces, setGuideDestinationPlaces] = useState<GuideDestinationPlace[]>([]);
   const [pathsInfos, setPathsInfo] = useState<PathInfo[]>([]);
   const [campusGuideLocations, setCampusGuideLocations] = useState<CampusGuideLocation[]>([]);
-  const includedLocationsIds = new Set([2, 5, 6, 48, 50, 11]);
+  const includedLocationsIds = new Set([2, 5, 6, 48, 50, 11, 15, 80]);
 
   const fetchAllLocations = async () => {
     const data = await getObjectsList();
