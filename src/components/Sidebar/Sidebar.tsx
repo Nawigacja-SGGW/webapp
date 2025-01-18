@@ -146,25 +146,25 @@ export const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
             </div>
           </Link>
         </div>
-        <button className="sidebar__container__logout" onClick={handleLogout}>
-          <LogOut size="40" fill="white" />
-          <div className="sidebar__container__logout__text">{t('sideBar.button.logOut')}</div>
-        </button>
-      </div>
-      <div className="sidebar__container__footer__buttons">
-        <button className="sidebar__container__button__link" onClick={handleNavigateToRanking}>
-          <Podium size={30} />
-        </button>
-        <button className="sidebar__container__button__link" onClick={handleNavigateToStats}>
-          <StackedLineChart size={30} />
-        </button>
-        <button className="sidebar__toggle" onClick={() => setSidebarOpen(!sidebarOpen)}>
-          {sidebarOpen ? (
-            <ChevronDoubleLeft size="30" fill="white" />
-          ) : (
-            <ChevronDoubleRight size="30" fill="white" />
-          )}
-        </button>
+        <div className="sidebar__container__footer__buttons">
+          <button className="sidebar__container__logout" onClick={handleLogout}>
+            <LogOut size="40" fill="white" />
+            {/*<div className="sidebar__container__logout__text">{t('sideBar.button.logOut')}</div>*/}
+          </button>
+          <button className="sidebar__container__button__link" onClick={handleNavigateToRanking}>
+            <Podium size={30} />
+          </button>
+          <button className="sidebar__container__button__link" onClick={handleNavigateToStats}>
+            <StackedLineChart size={30} />
+          </button>
+          <button className="sidebar__toggle" onClick={() => setSidebarOpen(!sidebarOpen)}>
+            {sidebarOpen ? (
+              <ChevronDoubleLeft size="30" fill="white" />
+            ) : (
+              <ChevronDoubleRight size="30" fill="white" />
+            )}
+          </button>
+        </div>
       </div>
     </div>
   );
