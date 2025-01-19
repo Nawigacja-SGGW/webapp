@@ -66,7 +66,7 @@ export const StatsPage = () => {
             const topVisitedPlacesByUser = objects
               .filter((object) =>
                 (data as unknown as UserStatsResponse).statistics.topFiveVisitedPlaces
-                  .map((obj) => obj.object_id)
+                  .map((obj) => Number(obj.objectId))
                   .includes(object.id)
               )
               .map((obj) => obj.guide);
