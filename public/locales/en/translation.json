@@ -71,7 +71,8 @@
       "street.prefix": "st.",
       "button.navigate": "Navigate",
       "button.details": "Details",
-      "button.cancel": "Cancel"
+      "button.cancel": "Cancel",
+      "button.toggleRoute": "Toggle to"
     },
     "navigationPanel": {
       "mode.walk": "Walk",

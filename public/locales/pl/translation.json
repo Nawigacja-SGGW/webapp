@@ -71,7 +71,8 @@
       "street.prefix": "ul.",
       "button.navigate": "Nawiguj",
       "button.details": "Szczegóły",
-      "button.cancel": "Anuluj"
+      "button.cancel": "Anuluj",
+      "button.toggleRoute": "Zamień na"
     },
     "navigationPanel": {
       "mode.walk": "Idź",

@@ -10,14 +10,17 @@ import './InformationPanel.scss';
 import { Location } from '@styled-icons/evil';
 import { BuildingOffice } from '@styled-icons/heroicons-outline';
 import { EmailOutline } from '@styled-icons/evaicons-outline';
-// import { Telephone } from '@styled-icons/bootstrap';
 import { InfoOutline } from '@styled-icons/evaicons-outline';
+import { Walk } from '@styled-icons/boxicons-regular/Walk';
+import { useAppStore } from '../../store/index.ts';
+import { DirectionsBike } from 'styled-icons/material-outlined';
 
 interface InformationPanelProps {
   place: PlaceObject | null;
   pathDistance: number;
   pathTime: number;
   points: Points;
+  setPoints: Dispatch<SetStateAction<Points>>;
   warningInfo: WarningInfo;
   setMapState: Dispatch<SetStateAction<MapState>>;
 }
@@ -29,12 +32,25 @@ export const InformationPanel = ({
   pathDistance,
   pathTime,
   points,
+  setPoints,
   warningInfo,
   setMapState,
 }: InformationPanelProps) => {
   const { t } = useTranslation();
+  const { routePreference } = useAppStore((state) => state.preferences);
+  const setRoutePreference = useAppStore((state) => state.setRoutePreference);
+
+  const handleTogglingRoute = () => {
+    if (routePreference === 'bike') {
+      setRoutePreference('foot');
+    } else if (routePreference === 'foot') {
+      setRoutePreference('bike');
+    }
+    setPoints((prevPoints) => ({ ...prevPoints })); // to update the path
+  };
 
   const navigate = useNavigate();
+
   const handleNavigateToObject = () => {
     navigate(`/home/objects/${place?.id}`); // temporary, as there is no id for objects yet
   };
@@ -110,6 +126,17 @@ export const InformationPanel = ({
                 primary={!place}
                 disabled={!place}
               ></Button>
+
+              <Button
+                label={t('mapPage.detailsPanel.button.toggleRoute')}
+                className="change-route-button"
+                size="sm"
+                onClick={place ? handleTogglingRoute : () => {}}
+                primary={true}
+                disabled={!place}
+              >
+                {routePreference === 'foot' ? <DirectionsBike size={20} /> : <Walk size={20} />}
+              </Button>
             </>
           ) : (
             <>
