@@ -20,6 +20,7 @@ interface InformationPanelProps {
   pathDistance: number;
   pathTime: number;
   points: Points;
+  setPoints: Dispatch<SetStateAction<Points>>;
   warningInfo: WarningInfo;
   setMapState: Dispatch<SetStateAction<MapState>>;
 }
@@ -31,6 +32,7 @@ export const InformationPanel = ({
   pathDistance,
   pathTime,
   points,
+  setPoints,
   warningInfo,
   setMapState,
 }: InformationPanelProps) => {
@@ -44,6 +46,7 @@ export const InformationPanel = ({
     } else if (routePreference === 'foot') {
       setRoutePreference('bike');
     }
+    setPoints((prevPoints) => ({ ...prevPoints })); // to update the path
   };
 
   const navigate = useNavigate();

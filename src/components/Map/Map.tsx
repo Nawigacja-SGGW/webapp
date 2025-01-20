@@ -391,6 +391,7 @@ export const Map = () => {
           pathDistance={pathInfo.totalDistance}
           pathTime={pathInfo.totalTime}
           points={points}
+          setPoints={setPoints}
           warningInfo={warningInfo}
           setMapState={setMapState}
         />
@@ -402,6 +403,7 @@ export const Map = () => {
           pathDistance={pathInfo.totalDistance}
           pathTime={pathInfo.totalTime}
           points={points}
+          setPoints={setPoints}
           warningInfo={warningInfo}
           setMapState={setMapState}
         />
