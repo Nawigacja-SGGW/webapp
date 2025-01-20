@@ -1,0 +1,75 @@
+.container {
+  position: absolute;
+  bottom: calc(var(--information-panel-margin) / 2);
+  left: var(--information-panel-margin);
+  width: calc(100% - 2 * var(--information-panel-margin));
+  z-index: 499;
+
+  background-color: var(--dark-green);
+  color: white;
+  padding: 20px;
+  border-radius: 20px;
+
+  display: flex;
+  gap: 40px;
+}
+
+.photo {
+  height: 180px;
+  width: 200px;
+  background-color: var(--white);
+  border-radius: 20px;
+  overflow: hidden;
+
+  flex-grow: 1;
+}
+.photo img {
+  height: 100%;
+  width: 100%;
+  object-fit: fill;
+}
+.photo-marker {
+  @extend .photo;
+  text-align: center;
+}
+.photo-marker img {
+  height: 26%;
+  width: 6%;
+  margin-top: 60px;
+}
+
+.column-container {
+  flex-grow: 2;
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: space-between;
+}
+
+.title {
+  font-weight: bold;
+}
+
+.information-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.buttons-container {
+  display: flex;
+  gap: 30px;
+}
+
+button {
+  flex-grow: 1;
+}
+
+button:disabled {
+  background-color: green;
+}
+
+.change-route-button {
+  margin-left: auto;
+}

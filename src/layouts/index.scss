@@ -1,0 +1,11 @@
+.auth-layout {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+
+  &__container {
+    display: flex;
+    position: relative;
+    height: 100%;
+  }
+}

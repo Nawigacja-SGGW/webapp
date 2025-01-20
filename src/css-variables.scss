@@ -1,0 +1,91 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+:root {
+  --green: rgb(110, 200, 80);
+  --light-green: rgb(200, 240, 180);
+  --light-gray: rgb(217, 217, 217);
+  --yellow: rgb(240, 220, 140);
+  --light-blue: rgb(190, 220, 240);
+  --white: rgb(255, 255, 255);
+  --dark-green: rgb(0, 50, 40);
+  --dark-green-2: rgb(23, 91, 74);
+  --red: rgb(240, 30, 50);
+  --purple: rgb(100, 0, 70);
+  --blue: rgb(80, 120, 150);
+  --black: rgb(0, 0, 0);
+  --gray: #dfdfdf;
+  --dark-gray: #949494;
+
+  --input-border-radius: 8px;
+  --input-border-width: 2px;
+  --button-border-radius: var(--input-border-radius);
+  --section-border-radius: 15px;
+
+  --main-font: 'Inter', sans-serif;
+  --font-color: rgb(0, 0, 0);
+  --header-font-size: 40px;
+  --header-2-font-size: 22px;
+  --menu-font-size: 32px;
+  --menu-font-size-sm: 20px;
+  --main-font-size: 16px;
+  --small-font-size: 12px;
+  --forms-label-font-size: 15px;
+  --normal-font-weight: 400;
+  --bold-font-weight: 700;
+
+  //button
+  --button-small-min-width: 110px;
+  --button-medium-min-width: 130px;
+  --button-large-min-width: 150px;
+
+  --button-small-min-height: 35px;
+  --button-medium-min-height: 40px;
+  --button-large-min-height: 45px;
+
+  --button-small-font-size: 14px;
+  --button-medium-font-size: 16px;
+  --button-large-font-size: 18px;
+
+  --button-border__primary: 1px solid var(--dark-green);
+  --button-background__primary: var(--dark-green);
+  --button-background__primary--hover: var(--dark-green-2);
+  --button-background__primary--disabled: var(--gray);
+  --button-color-font__primary: var(--white);
+  --button-color-font__primary--disabled: var(--dark-gray);
+
+  --button-border__secondary: 1px solid var(--dark-green);
+  --button-background__secondary: var(--white);
+  --button-color-font__secondary: var(--dark-green);
+
+  //object item
+
+  --object-wrapper-height: 180px;
+  --object-wrapper-image-size: 140px;
+  --object-wrapper-footer-height: 60px;
+  --object-wrapper-name-height: 100px;
+  --object-wrapper-description-height: 70px;
+
+  --search-places-margin: 60px;
+  --information-panel-margin: 60px;
+
+  //  spacing
+  --spacing-xs: 5px;
+  --spacing-s: 10px;
+  --spacing-m: 20px;
+  --spacing-l: 30px;
+  --spacing-xl: 40px;
+
+  //  card
+  --card-border-radius: 8px;
+
+  //margins
+  --main-content-margin: 60px 0px 0px 120px;
+
+  //index marker
+  --index-marker-size: 50px;
+  --index-marker-font-size: 24px;
+  --index-marker-font-weight: 800;
+  --index-marker-color: grey;
+  --index-marker-border: 5px solid;
+  --index-marker-fill-color: rgb(255, 255, 255, 0.5);
+}

@@ -1,0 +1,161 @@
+{
+  "component.loading": "Ładowanie...",
+  "exampleTranslation": "Przykład translacji",
+  "exampleTranslationStructure": {
+    "example": "Przykład"
+  },
+  "errorPage": {
+    "header": "O nie!",
+    "subheader": "Nie odnaleziono strony (kod błędu: 404)",
+    "button.label": "Strona główna"
+  },
+  "sideBar": {
+    "link.map": "Mapa",
+    "link.objects": "Obiekty",
+    "link.profile": "Profil",
+    "link.settings": "Ustawienia",
+    "link.guide": "Przewodnik",
+    "button.logOut": "Wyloguj się"
+  },
+  "authPage": {
+    "title.signup": "Utwórz konto",
+    "title.signin": "Zaloguj się",
+    "button.signup": "Zarejestruj się",
+    "button.signin": "Zaloguj się",
+    "labels": {
+      "email": "E-mail",
+      "username": "Nazwa użytkownika",
+      "usernameOrEmail": "Nazwa użytkownika lub e-mail",
+      "password": "Hasło",
+      "confirmPassword": "Potwierdź hasło"
+    },
+    "validation": {
+      "required": "Pole jest wymagane",
+      "passwordNotMatch": "Hasła nie są identyczne",
+      "invalidEmail": "Email jest niepoprawny",
+      "emailTaken": "Konto na podanym adresie e-mail już istnieje",
+      "invalidCredentials": "Podano niepoprawny adres email lub hasło"
+    },
+    "forgotPassword": "Zapomniałeś hasła?",
+    "continueWith": "Lub kontynuuj z",
+    "noAccount": "Nie masz jeszcze konta?",
+    "failed": "Wystapil bład, spróbuj ponownie"
+  },
+  "forgotPasswordPage1": {
+    "title": "Zmiana hasła",
+    "E-mail": "E-mail",
+    "button.sendEmail": "Wyślij e-mail",
+    "success": "E-mail został wysłany",
+    "failed": "Wprowadzono niepoprawny e-mail"
+  },
+  "forgotPasswordPage2": {
+    "title": "Zmiana hasła",
+    "newPassword": "Nowe hasło",
+    "repeatNewPassword": "Powtórz nowe hasło",
+    "button.changePassword": "Zmień hasło"
+  },
+  "mapPage": {
+    "title": "Mapa",
+    "searchbar.placeholder": "Szukaj obiektów",
+    "route": {
+      "yourLocation": "Twoja lokalizacja",
+      "destination": "Cel podróży"
+    },
+    "errors": {
+      "reconnecting": "Ponowne łączenie...",
+      "locationNotFound": "Lokalizacja nieznaleziona"
+    },
+    "detailsPanel": {
+      "title.point": "Wybrany punkt na mapie",
+      "nonApplicable": "Nie dotyczy",
+      "street.prefix": "ul.",
+      "button.navigate": "Nawiguj",
+      "button.details": "Szczegóły",
+      "button.cancel": "Anuluj",
+      "button.toggleRoute": "Zamień na"
+    },
+    "navigationPanel": {
+      "mode.walk": "Idź",
+      "mode.cycle": "Jedź",
+      "maneuver.then": "Potem",
+      "maneuver.depart": "wystartuj",
+      "maneuver.continue": "kontynuuj",
+      "maneuver.turn": "skręć",
+      "maneuver.fork": "widły",
+      "maneuver.endOfRoad": "koniec drogi",
+      "maneuver.arrive": "dotarł(e/a)ś",
+      "maneuverModifier.left": "w lewo",
+      "maneuverModifier.slightleft": "lekko w lewo",
+      "maneuverModifier.sharpleft": "ostro w lewo",
+      "maneuverModifier.right": "w prawo",
+      "maneuverModifier.slightright": "lekko w prawo",
+      "maneuverModifier.sharpright": "ostro w prawo",
+      "maneuverModifier.straight": "prosto",
+      "maneuverModifier.uturn": "zawróć",
+      "button.cancel": "Zakończ"
+    }
+  },
+  "objectsOverviewPage": {
+    "title": "Lista obiektów",
+    "button.choose": "Wybierz",
+    "search.placeholder": "Wyszukaj",
+    "button.navigate": "Szczegóły",
+    "sortBy": "Sortuj według:",
+    "sort.az": "Nazwa: od A do Z",
+    "sort.za": "Nazwa: od Z do A",
+    "sort.num": "Numer"
+  },
+  "objectDetailsPage": {
+    "button.navigate": "Nawiguj"
+  },
+  "settingsPage": {
+    "header": "Ustawienia",
+    "yourData": "Twoje dane",
+    "title": "Lista obiektów",
+    "search.placeholder": "Szukaj",
+    "button.navigate": "Szczegóły",
+    "section.routePreferences": "Preferencje tras",
+    "section.routePreferences.option.walk": "Pieszo",
+    "section.routePreferences.option.bike": "Rower",
+    "section.appLanguage": "Domyślny język aplikacji",
+    "section.appLanguage.option.polish": "Polski",
+    "section.appLanguage.option.english": "Angielski",
+    "section.changeYourPassword": "Zmień hasło",
+    "input.placeholder.newPassword": "Nowe hasło",
+    "input.placeholder.confirmPassword": "powtórz hasło",
+    "button.save": "Zapisz",
+    "input.error.passwordsNotMatch": "Podane hasła nie pasują!"
+  },
+  "profilePage": {
+    "title": "Twój profil",
+    "username": "Nazwa użytkownika",
+    "e-mail": "E-mail",
+    "button.navigate": "Szczegóły",
+    "search.placeholder": "Wyszukaj obiekty"
+  },
+  "homePage": {
+    "searchPlaces.startPoint.placeholder": "Nie udostępniono lokalizacji",
+    "searchPlaces.startPoint.location": "Twoja lokalizacja",
+    "searchPlaces.destination.placeholder": "Wybierz kierunek"
+  },
+  "rankingPage": {
+    "component.mostVisitsInOnePlace": "Najwięcej odwiedzin w jednym miejscu",
+    "component.withTheHighestNumberOfVisitedPlaces": "Z największą ilością odwiedzonych miejsc",
+    "component.longestDistanceCovered": "Największy pokonany dystans",
+    "component.placeInTheRanking": "Miejsce w rankingu"
+  },
+  "statisticsPage": {
+    "top5": "Top 5",
+    "numberOfVisitedLocations": "Liczba odwiedzonych miejsc",
+    "distanceCovered": "Przebyty dystans",
+    "emptyRanking": "Nie udało się wczytać rankingu"
+  },
+  "objectHistoryModal": {
+    "noHistory": "Brak historii wyszukiwania"
+  },
+  "CampusGuide": {
+    "title": "Przewodnik po kampusie SGGW",
+    "info": "Nawigacja dostępna na wersji moblinej!",
+    "estimatedTime": "Szacowany czas spaceru:"
+  }
+}

@@ -1,0 +1,158 @@
+{
+  "component.loading": "Loading...",
+  "exampleTranslation": "Translation example",
+  "exampleTranslationStructure": {
+    "example": "Example"
+  },
+  "errorPage": {
+    "header": "Aww snap!",
+    "subheader": "Page not found (error 404)",
+    "button.label": "Home page"
+  },
+  "sideBar": {
+    "link.map": "Map",
+    "link.objects": "Objects",
+    "link.profile": "Profile",
+    "link.settings": "Settings",
+    "link.guide": "Guide",
+    "button.logOut": "Log out"
+  },
+  "authPage": {
+    "title.signup": "Create account",
+    "title.signin": "Login",
+    "button.signup": "Sign up",
+    "button.signin": "Sign in",
+    "labels": {
+      "email": "E-mail",
+      "username": "Username",
+      "usernameOrEmail": "Username or e-mail",
+      "password": "Password",
+      "confirmPassword": "Confirm password"
+    },
+    "validation": {
+      "required": "This field is required",
+      "passwordNotMatch": "Password do not match",
+      "invalidEmail": "Invalid Email",
+      "emailTaken": "Email is already taken",
+      "invalidCredentials": "Invalid email or password"
+    },
+    "forgotPassword": "Forgot password?",
+    "continueWith": "Or continue with",
+    "noAccount": "Don't have account yet?",
+    "failed": "Something went wrong, try again"
+  },
+  "forgotPasswordPage1": {
+    "title": "Change your password",
+    "E-mail": "E-mail",
+    "button.sendEmail": "Send e-mail",
+    "success": "Email sent successfully",
+    "failed": "Wrong e-mail"
+  },
+  "forgotPasswordPage2": {
+    "title": "Change your password",
+    "newPassword": "New password",
+    "repeatNewPassword": "Repeat new password",
+    "button.changePassword": "Change password"
+  },
+  "mapPage": {
+    "title": "Map",
+    "searchbar.placeholder": "Search for objects",
+    "route": {
+      "yourLocation": "Your location",
+      "destination": "Destination"
+    },
+    "errors": {
+      "reconnecting": "Reconnecting...",
+      "locationNotFound": "Location not found"
+    },
+    "detailsPanel": {
+      "title.point": "Selected point on the map",
+      "nonApplicable": "Non Applicable",
+      "street.prefix": "st.",
+      "button.navigate": "Navigate",
+      "button.details": "Details",
+      "button.cancel": "Cancel",
+      "button.toggleRoute": "Toggle to"
+    },
+    "navigationPanel": {
+      "mode.walk": "Walk",
+      "mode.cycle": "Cycle",
+      "maneuver.then": "Then",
+      "maneuver.depart": "depart",
+      "maneuver.continue": "continue",
+      "maneuver.turn": "turn",
+      "maneuver.fork": "fork",
+      "maneuver.endOfRoad": "end of road",
+      "maneuver.arrive": "arrive",
+      "maneuverModifier.left": "left",
+      "maneuverModifier.slightleft": "slightly left",
+      "maneuverModifier.sharpleft": "sharp left",
+      "maneuverModifier.right": "right",
+      "maneuverModifier.slightright": "slight right",
+      "maneuverModifier.sharpright": "sharp right",
+      "maneuverModifier.straight": "straight",
+      "maneuverModifier.uturn": "uturn",
+      "button.cancel": "Cancel"
+    }
+  },
+  "objectsOverviewPage": {
+    "title": "Objects list",
+    "search.placeholder": "Search",
+    "button.choose": "Choose",
+    "button.navigate": "Details",
+    "sortBy": "Sort by:",
+    "sort.az": "Name: from A to Z",
+    "sort.za": "Name: from Z to A",
+    "sort.num": "Number"
+  },
+  "objectDetailsPage": {
+    "button.navigate": "Navigate"
+  },
+  "settingsPage": {
+    "header": "Settings",
+    "yourData": "Your Data",
+    "section.routePreferences": "Route preferences",
+    "section.routePreferences.option.walk": "Walk",
+    "section.routePreferences.option.bike": "Bike",
+    "section.appLanguage": "App language",
+    "section.appLanguage.option.polish": "Polish",
+    "section.appLanguage.option.english": "English",
+    "section.changeYourPassword": "Change your password",
+    "input.placeholder.newPassword": "New password",
+    "input.placeholder.confirmPassword": "Confirm password",
+    "button.save": "Save",
+    "input.error.passwordsNotMatch": "Password do not match!"
+  },
+  "profilePage": {
+    "title": "Your profile",
+    "username": "Username",
+    "e-mail": "E-mail",
+    "button.navigate": "Details",
+    "search.placeholder": "Search objects"
+  },
+  "homePage": {
+    "searchPlaces.startPoint.placeholder": "No location",
+    "searchPlaces.startPoint.location": "Your location",
+    "searchPlaces.destination.placeholder": "Choose Destination"
+  },
+  "rankingPage": {
+    "component.mostVisitsInOnePlace": "Most visits in one place",
+    "component.withTheHighestNumberOfVisitedPlaces": "Highest number of visited places",
+    "component.longestDistanceCovered": "Longest distance covered",
+    "component.placeInTheRanking": "Your place in the ranking"
+  },
+  "statisticsPage": {
+    "top5": "Top 5",
+    "numberOfVisitedLocations": "Number of visited locations",
+    "distanceCovered": "Your distance covered",
+    "emptyRanking": "Ranking load failed"
+  },
+  "objectHistoryModal": {
+    "noHistory": "No search history"
+  },
+  "CampusGuide": {
+    "title": "SGGW Campus Guide",
+    "info": "Navigation available on mobile version!",
+    "estimatedTime": "Estimated walking time:"
+  }
+}

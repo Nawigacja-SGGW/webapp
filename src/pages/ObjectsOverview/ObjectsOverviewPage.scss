@@ -1,0 +1,69 @@
+.objects-overview-heading {
+  padding: var(--spacing-l);
+  display: flex;
+  justify-content: center;
+  background-color: var(--white);
+  width: 100%;
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  position: relative;
+}
+
+.search-container input {
+  width: 100%;
+}
+
+.search-icons {
+  position: absolute;
+  right: 9px;
+  display: flex;
+  gap: var(--spacing-s);
+}
+.search-icon {
+  color: var(--gray-dark);
+}
+.set-section {
+  width: 100%;
+  padding: 0 var(--spacing-l);
+  position: absolute;
+}
+
+.sort-section {
+  width: 100%;
+  padding: var(--spacing-xl);
+  background-color: var(--dark-green);
+  color: var(--white);
+  border-radius: 8px;
+  padding-left: var(--spacing-xl);
+}
+
+.sort-title {
+  font-size: var(--header-2-font-size);
+  font-weight: var(--bold-font-weight);
+  padding-bottom: var(--spacing-s);
+}
+
+.sort-options {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-s);
+}
+
+.sort-options label {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-s);
+  font-size: var(--main-font-size);
+}
+
+.sort-options label {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-s);
+  font-size: var(--font-size-s);
+  cursor: pointer;
+}

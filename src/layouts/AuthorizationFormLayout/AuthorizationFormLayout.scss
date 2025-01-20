@@ -1,0 +1,84 @@
+.form-layout {
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  margin: 5% 20% 0 20%;
+  text-align: left;
+
+  &__title {
+    margin-bottom: 20px;
+  }
+
+  &__content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    /*align-items: center;*/
+  }
+}
+
+.form-layout input {
+  font-size: var(--main-font-size);
+  width: 100%;
+  border: 2px solid var(--dark-green);
+  padding: var(--spacing-s);
+}
+
+.form-layout button {
+  width: 100%;
+  margin: var(--spacing-m) 0 var(--spacing-m) 0;
+}
+
+.input-label {
+  margin-top: var(--spacing-m);
+  font-size: var(--main-font-size);
+  padding-bottom: var(--spacing-xs);
+}
+
+.forgot-password {
+  text-align: right;
+  font-size: 15px;
+  color: var(--dark-green);
+  font-weight: 700;
+  text-decoration: underline;
+  margin-bottom: var(--spacing-s);
+  cursor: pointer;
+}
+
+.dont-have-account-yet {
+  text-align: center;
+  color: var(--dark-green);
+  font-size: var(--spacing-m);
+  font-weight: 700;
+}
+
+.green-button {
+  color: white;
+  background: var(--dark-green);
+}
+
+.green-button:hover {
+  color: white;
+  background: var(--dark-green);
+}
+
+.black-button {
+  color: white;
+  background: black;
+}
+
+.black-button:hover {
+  background: black;
+}
+
+.login-line {
+  color: black;
+  width: 20%;
+  margin: auto;
+}
+
+@media only screen and (max-width: 768px) {
+  .form-layout {
+    margin-top: 25%;
+  }
+}
